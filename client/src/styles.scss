@@ -1,7 +1,7 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+@use "sass:map";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -9,25 +9,203 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the theme object.
-$client-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
+$_palettes: (
+  primary: (
+    0: #000000,
+    10: #171e00,
+    20: #293500,
+    25: #344006,
+    30: #3f4c12,
+    35: #4a581d,
+    40: #566428,
+    50: #6e7d3e,
+    60: #889755,
+    70: #a2b26d,
+    80: #bdce86,
+    90: #d9ea9f,
+    95: #e7f9ac,
+    98: #f4ffc9,
+    99: #fbffe1,
+    100: #ffffff,
   ),
-  density: (
-    scale: 0,
+  secondary: (
+    0: #000000,
+    10: #1a1d0f,
+    20: #2f3222,
+    25: #3a3d2d,
+    30: #454837,
+    35: #515442,
+    40: #5d604e,
+    50: #767965,
+    60: #8f937e,
+    70: #aaad98,
+    80: #c6c8b2,
+    90: #e2e4cd,
+    95: #f0f3db,
+    98: #f9fbe3,
+    99: #fcfee6,
+    100: #ffffff,
+  ),
+  tertiary: (
+    0: #000000,
+    10: #04201b,
+    20: #1b3530,
+    25: #26403b,
+    30: #314c46,
+    35: #3d5852,
+    40: #49645e,
+    50: #617d76,
+    60: #7a9690,
+    70: #95b1aa,
+    80: #b0cdc5,
+    90: #cbe9e1,
+    95: #d9f7ef,
+    98: #e5fff8,
+    99: #f3fffb,
+    100: #ffffff,
+  ),
+  neutral: (
+    0: #000000,
+    10: #1c1c19,
+    20: #31312d,
+    25: #3c3c38,
+    30: #474743,
+    35: #53524e,
+    40: #5f5e5a,
+    50: #787772,
+    60: #92918c,
+    70: #adaba6,
+    80: #c8c6c1,
+    90: #e5e2dd,
+    95: #f3f0eb,
+    98: #fcf9f3,
+    99: #fffcf6,
+    100: #ffffff,
+  ),
+  neutral-variant: (
+    0: #000000,
+    10: #1b1c15,
+    20: #303129,
+    25: #3b3c34,
+    30: #46473f,
+    35: #52534b,
+    40: #5e5f56,
+    50: #77786e,
+    60: #919187,
+    70: #acaca1,
+    80: #c7c7bc,
+    90: #e4e3d8,
+    95: #f2f1e6,
+    98: #fbfaee,
+    99: #fefdf1,
+    100: #ffffff,
+  ),
+  error: (
+    0: #000000,
+    10: #410002,
+    20: #690005,
+    25: #7e0007,
+    30: #930009,
+    35: #a80710,
+    40: #b91a1a,
+    50: #de3730,
+    60: #ff5449,
+    70: #ff897d,
+    80: #ffb4ab,
+    90: #ffdbd6,
+    95: #ffedea,
+    98: #fff8f7,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+);
+
+$_rest: (
+  secondary: map.get($_palettes, secondary),
+  neutral: map.get($_palettes, neutral),
+  neutral-variant: map.get($_palettes, neutral-variant),
+  error: map.get($_palettes, error),
+);
+
+$_primary: map.merge(map.get($_palettes, primary), $_rest);
+$_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+
+// Define the theme object.
+$client-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: $_primary,
+      tertiary: $_tertiary,
+    ),
+    typography: (
+      brand-family: "Noto Sans Mono",
+      plain-family: "Noto Sans Mono",
+    ),
+    density: (
+      scale: 0,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
   @include mat.all-component-themes($client-theme);
+  --md-sys-color-primary: rgb(85 100 35);
+  --md-sys-color-surface-tint: rgb(85 100 35);
+  --md-sys-color-on-primary: rgb(255 255 255);
+  --md-sys-color-primary-container: rgb(216 235 154);
+  --md-sys-color-on-primary-container: rgb(23 30 0);
+  --md-sys-color-secondary: rgb(91 97 70);
+  --md-sys-color-on-secondary: rgb(255 255 255);
+  --md-sys-color-secondary-container: rgb(224 230 196);
+  --md-sys-color-on-secondary-container: rgb(25 30 8);
+  --md-sys-color-tertiary: rgb(58 102 94);
+  --md-sys-color-on-tertiary: rgb(255 255 255);
+  --md-sys-color-tertiary-container: rgb(188 236 225);
+  --md-sys-color-on-tertiary-container: rgb(0 32 27);
+  --md-sys-color-error: rgb(186 26 26);
+  --md-sys-color-on-error: rgb(255 255 255);
+  --md-sys-color-error-container: rgb(255 218 214);
+  --md-sys-color-on-error-container: rgb(65 0 2);
+  --md-sys-color-background: rgb(251 250 237);
+  --md-sys-color-on-background: rgb(27 28 21);
+  --md-sys-color-surface: rgb(251 250 237);
+  --md-sys-color-on-surface: rgb(27 28 21);
+  --md-sys-color-surface-variant: rgb(227 228 211);
+  --md-sys-color-on-surface-variant: rgb(70 72 60);
+  --md-sys-color-outline: rgb(118 120 107);
+  --md-sys-color-outline-variant: rgb(199 200 184);
+  --md-sys-color-shadow: rgb(0 0 0);
+  --md-sys-color-scrim: rgb(0 0 0);
+  --md-sys-color-inverse-surface: rgb(48 49 41);
+  --md-sys-color-inverse-on-surface: rgb(242 241 229);
+  --md-sys-color-inverse-primary: rgb(188 206 129);
+  --md-sys-color-primary-fixed: rgb(216 235 154);
+  --md-sys-color-on-primary-fixed: rgb(23 30 0);
+  --md-sys-color-primary-fixed-dim: rgb(188 206 129);
+  --md-sys-color-on-primary-fixed-variant: rgb(62 76 12);
+  --md-sys-color-secondary-fixed: rgb(224 230 196);
+  --md-sys-color-on-secondary-fixed: rgb(25 30 8);
+  --md-sys-color-secondary-fixed-dim: rgb(196 202 169);
+  --md-sys-color-on-secondary-fixed-variant: rgb(68 73 48);
+  --md-sys-color-tertiary-fixed: rgb(188 236 225);
+  --md-sys-color-on-tertiary-fixed: rgb(0 32 27);
+  --md-sys-color-tertiary-fixed-dim: rgb(161 208 197);
+  --md-sys-color-on-tertiary-fixed-variant: rgb(33 78 70);
+  --md-sys-color-surface-dim: rgb(219 219 207);
+  --md-sys-color-surface-bright: rgb(251 250 237);
+  --md-sys-color-surface-container-lowest: rgb(255 255 255);
+  --md-sys-color-surface-container-low: rgb(245 244 232);
+  --md-sys-color-surface-container: rgb(239 238 226);
+  --md-sys-color-surface-container-high: rgb(233 233 220);
+  --md-sys-color-surface-container-highest: rgb(228 227 215);
 }
 
+@include mat.color-variants-backwards-compatibility($client-theme);
+@include mat.typography-hierarchy($client-theme);
 // Comment out the line below if you want to use the pre-defined typography utility classes.
 // For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
 // @include mat.typography-hierarchy($client-theme);
@@ -36,5 +214,31 @@ $client-theme: mat.define-theme((
 // @include mat.color-variants-backwards-compatibility($client-theme);
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--md-sys-color-surface);
+}
+
+.mat-toolbar {
+  background: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+
+  .mat-mdc-icon-button {
+    color: var(--md-sys-color-on-primary) !important;
+  }
+
+  .mat-mdc-button-base.mat-mdc-button-base.mat-unthemed {
+    --mdc-text-button-label-text-color: var(
+      --md-sys-color-on-primary
+    ) !important;
+    --mdc-outlined-button-label-text-color: var(
+      --md-sys-color-on-primary
+    ) !important;
+  }
+}
