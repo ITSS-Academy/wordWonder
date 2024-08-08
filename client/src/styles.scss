@@ -12,102 +12,104 @@
 $_palettes: (
   primary: (
     0: #000000,
-    10: #171e00,
-    20: #293500,
-    25: #344006,
-    30: #3f4c12,
-    35: #4a581d,
-    40: #566428,
-    50: #6e7d3e,
-    60: #889755,
-    70: #a2b26d,
-    80: #bdce86,
-    90: #d9ea9f,
-    95: #e7f9ac,
-    98: #f4ffc9,
-    99: #fbffe1,
+    10: #22005d,
+    20: #381e72,
+    25: #432b7e,
+    30: #4f378a,
+    35: #5b4397,
+    40: #6750a4,
+    50: #8069bf,
+    60: #9a83db,
+    70: #b69df7,
+    80: #cfbcff,
+    90: #e9ddff,
+    95: #f6eeff,
+    98: #fdf7ff,
+    99: #fffbff,
     100: #ffffff,
   ),
   secondary: (
     0: #000000,
-    10: #1a1d0f,
-    20: #2f3222,
-    25: #3a3d2d,
-    30: #454837,
-    35: #515442,
-    40: #5d604e,
-    50: #767965,
-    60: #8f937e,
-    70: #aaad98,
-    80: #c6c8b2,
-    90: #e2e4cd,
-    95: #f0f3db,
-    98: #f9fbe3,
-    99: #fcfee6,
+    10: #1e192b,
+    20: #332d41,
+    25: #3e384d,
+    30: #4a4459,
+    35: #564f65,
+    40: #625b71,
+    50: #7b738b,
+    60: #958da5,
+    70: #b0a7c0,
+    80: #ccc2dc,
+    90: #e8def9,
+    95: #f6eeff,
+    98: #fdf7ff,
+    99: #fffbff,
     100: #ffffff,
   ),
   tertiary: (
     0: #000000,
-    10: #04201b,
-    20: #1b3530,
-    25: #26403b,
-    30: #314c46,
-    35: #3d5852,
-    40: #49645e,
-    50: #617d76,
-    60: #7a9690,
-    70: #95b1aa,
-    80: #b0cdc5,
-    90: #cbe9e1,
-    95: #d9f7ef,
-    98: #e5fff8,
-    99: #f3fffb,
+    10: #31101d,
+    20: #4a2532,
+    25: #56303d,
+    30: #633b48,
+    35: #704654,
+    40: #7e5260,
+    50: #996a78,
+    60: #b58392,
+    70: #d29dac,
+    80: #efb8c8,
+    90: #ffd9e3,
+    95: #ffecf0,
+    98: #fff8f8,
+    99: #fffbff,
     100: #ffffff,
   ),
   neutral: (
     0: #000000,
-    4: #0a0a08,
-    6: #10100d,
-    10: #1c1c19,
-    12: #242421,
-    17: #363632,
-    20: #31312d,
-    22: #3b3b37,
-    24: #44443f,
-    25: #3c3c38,
-    30: #474743,
-    35: #53524e,
-    40: #5f5e5a,
-    50: #787772,
-    60: #92918c,
-    70: #adaba6,
-    80: #c8c6c1,
-    87: #d9d7d1,
-    90: #e5e2dd,
-    92: #ebe8e2,
-    94: #f1ede8,
-    95: #f3f0eb,
-    96: #f7f4ef,
-    98: #fcf9f3,
-    99: #fffcf6,
+    4: #0a0a0a,
+    5: #111111,
+    6: #171717,
+    10: #1c1b1c,
+    12: #212121,
+    15: #262526,
+    17: #2b2a2b,
+    20: #313030,
+    22: #363535,
+    24: #3a3939,
+    25: #3c3b3b,
+    30: #484646,
+    35: #545252,
+    40: #605e5e,
+    50: #797676,
+    60: #939090,
+    70: #adaaaa,
+    80: #c9c6c5,
+    87: #d6d3d2,
+    90: #e5e1e1,
+    92: #eae6e6,
+    94: #efecec,
+    95: #f4f0ef,
+    96: #f8f4f3,
+    98: #fdf8f8,
+    99: #fffbff,
     100: #ffffff,
   ),
   neutral-variant: (
     0: #000000,
-    10: #1b1c15,
-    20: #303129,
-    25: #3b3c34,
-    30: #46473f,
-    35: #52534b,
-    40: #5e5f56,
-    50: #77786e,
-    60: #919187,
-    70: #acaca1,
-    80: #c7c7bc,
-    90: #e4e3d8,
-    95: #f2f1e6,
-    98: #fbfaee,
-    99: #fefdf1,
+    10: #1c1b1c,
+    20: #313031,
+    25: #3c3b3c,
+    30: #484647,
+    35: #545253,
+    40: #605e5f,
+    50: #797677,
+    60: #939091,
+    70: #aeaaab,
+    80: #c9c5c6,
+    90: #e6e1e2,
+    95: #f4f0f0,
+    98: #fdf8f9,
+    99: #fffbff,
     100: #ffffff,
   ),
   error: (
@@ -163,55 +165,55 @@ $client-theme: mat.define-theme(
 // that you are using.
 :root {
   @include mat.all-component-themes($client-theme);
-  --md-sys-color-primary: rgb(85 100 35);
-  --md-sys-color-surface-tint: rgb(85 100 35);
-  --md-sys-color-on-primary: rgb(255 255 255);
-  --md-sys-color-primary-container: rgb(216 235 154);
-  --md-sys-color-on-primary-container: rgb(23 30 0);
-  --md-sys-color-secondary: rgb(91 97 70);
-  --md-sys-color-on-secondary: rgb(255 255 255);
-  --md-sys-color-secondary-container: rgb(224 230 196);
-  --md-sys-color-on-secondary-container: rgb(25 30 8);
-  --md-sys-color-tertiary: rgb(58 102 94);
-  --md-sys-color-on-tertiary: rgb(255 255 255);
-  --md-sys-color-tertiary-container: rgb(188 236 225);
-  --md-sys-color-on-tertiary-container: rgb(0 32 27);
-  --md-sys-color-error: rgb(186 26 26);
-  --md-sys-color-on-error: rgb(255 255 255);
-  --md-sys-color-error-container: rgb(255 218 214);
-  --md-sys-color-on-error-container: rgb(65 0 2);
-  --md-sys-color-background: rgb(251 250 237);
-  --md-sys-color-on-background: rgb(27 28 21);
-  --md-sys-color-surface: rgb(251 250 237);
-  --md-sys-color-on-surface: rgb(27 28 21);
-  --md-sys-color-surface-variant: rgb(227 228 211);
-  --md-sys-color-on-surface-variant: rgb(70 72 60);
-  --md-sys-color-outline: rgb(118 120 107);
-  --md-sys-color-outline-variant: rgb(199 200 184);
-  --md-sys-color-shadow: rgb(0 0 0);
-  --md-sys-color-scrim: rgb(0 0 0);
-  --md-sys-color-inverse-surface: rgb(48 49 41);
-  --md-sys-color-inverse-on-surface: rgb(242 241 229);
-  --md-sys-color-inverse-primary: rgb(188 206 129);
-  --md-sys-color-primary-fixed: rgb(216 235 154);
-  --md-sys-color-on-primary-fixed: rgb(23 30 0);
-  --md-sys-color-primary-fixed-dim: rgb(188 206 129);
-  --md-sys-color-on-primary-fixed-variant: rgb(62 76 12);
-  --md-sys-color-secondary-fixed: rgb(224 230 196);
-  --md-sys-color-on-secondary-fixed: rgb(25 30 8);
-  --md-sys-color-secondary-fixed-dim: rgb(196 202 169);
-  --md-sys-color-on-secondary-fixed-variant: rgb(68 73 48);
-  --md-sys-color-tertiary-fixed: rgb(188 236 225);
-  --md-sys-color-on-tertiary-fixed: rgb(0 32 27);
-  --md-sys-color-tertiary-fixed-dim: rgb(161 208 197);
-  --md-sys-color-on-tertiary-fixed-variant: rgb(33 78 70);
-  --md-sys-color-surface-dim: rgb(219 219 207);
-  --md-sys-color-surface-bright: rgb(251 250 237);
-  --md-sys-color-surface-container-lowest: rgb(255 255 255);
-  --md-sys-color-surface-container-low: rgb(245 244 232);
-  --md-sys-color-surface-container: rgb(239 238 226);
-  --md-sys-color-surface-container-high: rgb(233 233 220);
-  --md-sys-color-surface-container-highest: rgb(228 227 215);
+  --primary: #65558f;
+  --surfaceTint: #6750a4;
+  --onPrimary: #ffffff;
+  --primaryContainer: #eaddff;
+  --onPrimaryContainer: #21005d;
+  --secondary: #625b71;
+  --onSecondary: #ffffff;
+  --secondaryContainer: #e8def8;
+  --onSecondaryContainer: #1d192b;
+  --tertiary: #7d5260;
+  --onTertiary: #ffffff;
+  --tertiaryContainer: #ffd8e4;
+  --onTertiaryContainer: #31111d;
+  --error: #b3261e;
+  --onError: #ffffff;
+  --errorContainer: #f9dedc;
+  --onErrorContainer: #410e0b;
+  --background: #fef7ff;
+  --onBackground: #1d1b20;
+  --surface: #fef7ff;
+  --onSurface: #1d1b20;
+  --surfaceVariant: #e7e0ec;
+  --onSurfaceVariant: #49454f;
+  --outline: #79747e;
+  --outlineVariant: #cac4d0;
+  --shadow: #000000;
+  --scrim: #000000;
+  --inverseSurface: #322f35;
+  --inverseOnSurface: #f5eff7;
+  --inversePrimary: #d0bcff;
+  --primaryFixed: #eaddff;
+  --onPrimaryFixed: #21005d;
+  --primaryFixedDim: #d0bcff;
+  --onPrimaryFixedVariant: #4f378b;
+  --secondaryFixed: #e8def8;
+  --onSecondaryFixed: #1d192b;
+  --secondaryFixedDim: #ccc2dc;
+  --onSecondaryFixedVariant: #4a4458;
+  --tertiaryFixed: #ffd8e4;
+  --onTertiaryFixed: #31111d;
+  --tertiaryFixedDim: #efb8c8;
+  --onTertiaryFixedVariant: #633b48;
+  --surfaceDim: #ded8e1;
+  --surfaceBright: #fef7ff;
+  --surfaceContainerLowest: #ffffff;
+  --surfaceContainerLow: #f7f2fa;
+  --surfaceContainer: #f3edf7;
+  --surfaceContainerHigh: #ece6f0;
+  --surfaceContainerHighest: #e6e0e9;
 }
 
 @include mat.color-variants-backwards-compatibility($client-theme);
@@ -232,23 +234,19 @@ body {
 
 body {
   margin: 0;
-  background-color: var(--md-sys-color-surface);
+  background-color: var(--surface);
 }
 
 .mat-toolbar {
-  background: var(--md-sys-color-primary) !important;
-  color: var(--md-sys-color-on-primary) !important;
+  background: var(--primary) !important;
+  color: var(--onPrimary) !important;
 
   .mat-mdc-icon-button {
-    color: var(--md-sys-color-on-primary) !important;
+    color: var(--onPrimary) !important;
   }
 
   .mat-mdc-button-base.mat-mdc-button-base.mat-unthemed {
-    --mdc-text-button-label-text-color: var(
-      --md-sys-color-on-primary
-    ) !important;
-    --mdc-outlined-button-label-text-color: var(
-      --md-sys-color-on-primary
-    ) !important;
+    --mdc-text-button-label-text-color: var(--onPrimary) !important;
+    --mdc-outlined-button-label-text-color: var(--onPrimary) !important;
   }
 }

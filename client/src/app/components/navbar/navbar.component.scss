@@ -46,4 +46,17 @@
       display: none;
     }
   }
+
+  ::ng-deep .mat-mdc-form-field-flex,
+  .mat-mdc-form-field-infix {
+    height: 100%;
+  }
+
+  ::ng-deep .mdc-text-field--no-label .mat-mdc-form-field-infix {
+    padding: 14px 0;
+  }
+
+  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background: var(--background);
+  }
 }
