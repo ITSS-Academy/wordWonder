@@ -4,6 +4,7 @@ import { ProfileComponent } from './sub-pages/profile/profile.component';
 import { AdminComponent } from './sub-pages/admin/admin.component';
 import { BookInfoComponent } from './sub-pages/book-info/book-info.component';
 import { ReadingComponent } from './sub-pages/reading/reading.component';
+import { CategoriesComponent } from './sub-pages/categories/categories.component';
 
 export const LAYOUT_ROUTES: Routes = [
   {
@@ -30,6 +31,10 @@ export const LAYOUT_ROUTES: Routes = [
       {
         path: 'reading',
         component: ReadingComponent,
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent,
       },
     ],
   },
