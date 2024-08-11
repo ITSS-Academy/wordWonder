@@ -214,6 +214,7 @@ $client-theme: mat.define-theme(
   --surfaceContainer: #f3edf7;
   --surfaceContainerHigh: #ece6f0;
   --surfaceContainerHighest: #e6e0e9;
+  --myBackground: #faf3f0;
 }
 
 @include mat.color-variants-backwards-compatibility($client-theme);
@@ -234,19 +235,20 @@ body {
 
 body {
   margin: 0;
-  background-color: var(--surface);
+  background-color: var(--background);
 }
 
 .mat-toolbar {
-  background: var(--primary) !important;
-  color: var(--onPrimary) !important;
+  font-weight: bold !important;
+  background: var(--secondaryContainer) !important;
+  color: var(--primary) !important;
 
   .mat-mdc-icon-button {
-    color: var(--onPrimary) !important;
+    color: var(--primary) !important;
   }
 
   .mat-mdc-button-base.mat-mdc-button-base.mat-unthemed {
-    --mdc-text-button-label-text-color: var(--onPrimary) !important;
-    --mdc-outlined-button-label-text-color: var(--onPrimary) !important;
+    --mdc-text-button-label-text-color: var(--primary) !important;
+    --mdc-outlined-button-label-text-color: var(--primary) !important;
   }
 }
