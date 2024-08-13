@@ -1,1 +1,60 @@
-<div id="home-container"></div>
+<!--<div id="home-container">-->
+<!--  @for (category of categories; track $index){-->
+<!--    <div id="content">-->
+<!--      <div class="category-header">-->
+<!--        <h1>{{category}}</h1>-->
+<!--        <a class="see-more">Xem thêm</a>-->
+<!--      </div>-->
+<!--      <div id="list-book">-->
+<!--        <app-ebook-card [ebooks]="ebooksByCategory[category]"></app-ebook-card>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  }-->
+<!--</div>-->
+
+<div id="home-container">
+  <div class="content">
+    <div class="category-header">
+      <h1>Lịch sử</h1>
+      <a class="see-more" routerLink="/home/categories">Xem thêm</a>
+    </div>
+    <div class="list-book">
+        <app-ebook-card></app-ebook-card>
+    </div>
+  </div>
+  <hr>
+  <div class="content">
+    <div class="category-header">
+      <h1>Thịnh hành</h1>
+      <a class="see-more" routerLink="/home/categories">Xem thêm</a>
+    </div>
+    <div class="list-book">
+      <app-ebook-card></app-ebook-card>
+    </div>
+  </div>
+  <hr>
+  <div class="content">
+    <div class="category-header">
+      <h1>Đề xuất</h1>
+      <a class="see-more" routerLink="/home/categories">Xem thêm</a>
+    </div>
+    <div class="list-book">
+      <app-ebook-card></app-ebook-card>
+    </div>
+  </div>
+  <hr>
+  <div class="content">
+    <div class="category-header">
+      <h1>Bảng xếp hạng</h1>
+      <a class="see-more" routerLink="/home/categories">Xem thêm</a>
+    </div>
+    <div class="list-book">
+      <app-ebook-card></app-ebook-card>
+    </div>
+  </div>
+</div>
+
+
+
+
+
