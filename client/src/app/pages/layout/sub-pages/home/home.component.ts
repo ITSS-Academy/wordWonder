@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { EbookCardComponent } from '../../../../components/ebook-card/ebook-card.component';
@@ -13,20 +13,17 @@ import { EbookService } from '../../../../../services/ebook.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   ebooks: EBookModel[] = [];
 
   constructor(private ebookService: EbookService) {}
 
-  trackByEbookId(index: number, ebook: EBookModel): number {
+  trackByEbookId(index: number, ebook: EBookModel): string {
     return ebook.id;
   }
 
   ngOnInit(): void {
     this.ebooks = this.ebookService.getEbooks();
   }
-
-
 }
 
 

@@ -4,34 +4,52 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 10px;
-}
-
-.content {
-  margin-bottom: 60px;
 }
 
 .category-header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-top: 10px;
+}
+
+.arrow-icon {
+  font-size: 32px;
+  align-items: center;
+}
+
+mat-icon {
+  font-size: 32px;
+  color: var(--button, #65558f);
+  display: inline-block;
+  height: 36px;
+  width: 36px;
 }
 
 h1 {
-  color: var(--button, #65558F);
+  color: var(--button, #65558f);
   font-size: 30px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-left: 15px;
+  margin-left: 30px;
   margin-bottom: 8px;
+}
+
+.genre {
+  display: flex;
+  margin-bottom: 60px;
+  justify-content: center;
+  width: 1280px;
+  height: 32px;
+}
+
+.list-genre {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 7px;
 }
 
 .list-book {
   margin-bottom: 60px;
 }
-
-.list-genre {
-  max-width: 200px;
-}
-
