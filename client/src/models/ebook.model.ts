@@ -9,4 +9,5 @@ export interface EBookModel {
   dateCreated: string;
   like: number;
   view: number;
+  content: string;
 }
