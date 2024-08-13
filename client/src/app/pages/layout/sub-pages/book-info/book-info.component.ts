@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
-import {NgStyle} from "@angular/common";
+import { NgStyle } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-info',
@@ -10,8 +12,21 @@ import {NgStyle} from "@angular/common";
   templateUrl: './book-info.component.html',
   styleUrl: './book-info.component.scss',
 })
-export class BookInfoComponent {
+export class BookInfoComponent implements OnInit, OnDestroy {
+  constructor(
+    private _snackBar: MatSnackBar,
+    private router: Router,
+  ) {}
 
-  url=`../public/assets/harry_potter_va_hon_da_phu_thuy__j_k_rowling%203.png`;
-  style = 'background-image: url(' + this.url + ')';
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {}
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
+  read() {
+    this.router.navigate(['/main/reading']).then();
+  }
 }
