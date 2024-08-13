@@ -1,7 +1,7 @@
 #reading-container{
-  margin-top: 20px;
+  padding-top: 20px;
   width: 100%;
-  height: 100%;
+  height:calc( 100% - 20px);
   display: flex;
   justify-content: space-between;
 }
@@ -38,7 +38,7 @@
   border: none;
   background-color: white;
   width: 100%;
-  height: 660px;
+  height: 100%;
   border-top-left-radius: 28px;
   border-top-right-radius: 28px;
   overflow: hidden; /* Ẩn phần nội dung tràn ra ngoài khung reading-box */
@@ -62,7 +62,7 @@
 }
 .content {
   text-align: justify;
-  height: 540px; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
+  height: 80%; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
   overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao */
   padding-right: 10px; /* Thêm khoảng cách để tránh thanh cuộn chồng lên chữ */
   font-size: 18px;
