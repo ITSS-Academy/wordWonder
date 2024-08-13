@@ -34,7 +34,10 @@ export const LAYOUT_ROUTES: Routes = [
       },
       {
         path: 'categories',
-        component: CategoriesComponent,
+        loadChildren: () =>
+          import('./sub-pages/categories/categories.route').then(
+            (m) => m.CATEGORIES_ROUTES,
+          ),
       },
     ],
   },
