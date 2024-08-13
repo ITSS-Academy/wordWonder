@@ -9,4 +9,6 @@ import { MaterialModule } from '../../../../../shared/modules/material.module';
   templateUrl: './book-info.component.html',
   styleUrl: './book-info.component.scss',
 })
-export class BookInfoComponent {}
+export class BookInfoComponent {
+
+}
