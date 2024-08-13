@@ -1,0 +1,40 @@
+<div class="dialog-table">
+  <h2 mat-dialog-title>Nhập thông tin sách</h2>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Tên sách</mat-label>
+      <input matInput [(ngModel)]="bookName" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Tên tác giả</mat-label>
+      <input matInput [(ngModel)]="authorName" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mô tả</mat-label>
+      <input matInput [(ngModel)]="description" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Năm xuất bản</mat-label>
+      <input matInput [(ngModel)]="publishYear" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-icon matPrefix>upload</mat-icon>
+      <mat-label>Đăng tải ảnh sách bìa</mat-label>
+      <input matInput [(ngModel)]="bookCoverImage" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-icon matPrefix>upload</mat-icon>
+      <mat-label>Đăng tải file sách</mat-label>
+      <input matInput [(ngModel)]="bookFile" />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button class="huyButton" mat-button mat-dialog-close>Hủy</button>
+    <button class="xacNhanButton" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial>Xác nhận</button>
+  </mat-dialog-actions>
+</div>
