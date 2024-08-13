@@ -10,15 +10,14 @@ import {MatSort, MatSortModule} from "@angular/material/sort";
 export interface UserData {
   name: string;
   author: string;
-  postingDate: string;
-  view: string;
+  dateCreated: string;
+  view: number;
   describe: string;
   status: string;
 }
 
 const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth',
-];
+  'Harry Potter', 'The Hobbit', 'The Lord of the Rings', 'The Great Gatsby', 'To Kill a Mockingbird', 'The Catcher in the Rye', 'The Da Vinci Code', 'The Alchemist', 'The Kite Runner', 'The Book Thief', 'The Hunger Games',];
 
 const author: string[] = [
   'Maia',
@@ -43,26 +42,28 @@ const author: string[] = [
 ];
 
 const postingDate: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
+  '2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04', '2021-01-05', '2021-01-06', '2021-01-07', '2021-01-08', '2021-01-09', '2021-01-10', '2021-01-11', '2021-01-12', '2021-01-13', '2021-01-14', '2021-01-15', '2021-01-16', '2021-01-17', '2021-01-18', '2021-01-19', '2021-01-20'
 ];
+
+const view: number[] = [
+  100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
+];
+
+const describe: string[] = [
+  'Harry Potter is a series of seven fantasy novels ....',
+  'The Hobbit, or There and Back Again is a childrens ...',
+  'The Lord of the Rings is an epic high-fantasy novel ...',
+  'The Great Gatsby is a 1925 novel by American writer...',
+  'To Kill a Mockingbird is a novel by the American author...',
+  'The Catcher in the Rye is a novel by J. D. Salinger, ...',
+  'The Da Vinci Code is a 2003 mystery thriller novel by ...',
+  'The Alchemist is a novel by Brazilian author ...',
+  ];
+
+const status: string[] = [
+  'Available', 'Unavailable'
+];
+
 
 
 @Component({
@@ -73,7 +74,7 @@ const postingDate: string[] = [
   styleUrl: './table.component.scss'
 })
 export class TableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['name', 'author', 'dateCreated', 'view', 'describe', 'status'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -111,7 +112,10 @@ function createNewUser(id: number): UserData {
 
   return {
     name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+    author: author[Math.round(Math.random() * (author.length - 1))],
+    dateCreated: postingDate[Math.round(Math.random() * (postingDate.length - 1))],
+    view: view[Math.round(Math.random() * (view.length - 1))],
+    describe: describe[Math.round(Math.random() * (describe.length - 1))],
+    status: status[Math.round(Math.random() * (status.length - 1))]
   };
 }
