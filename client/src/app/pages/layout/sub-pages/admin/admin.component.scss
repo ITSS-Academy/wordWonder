@@ -1,0 +1,81 @@
+.admin-bar {
+  width: 100%;
+}
+
+.bar-information {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.bar-information input {
+  width: 98.64%;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+.app-table th, .app-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.app-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.app-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.app-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.admin-table {
+  width: 80%;
+  margin: 20px auto;
+  font-size: 18px;
+  text-align: left;
+  border-radius: 8px;
+  background-color: var(--myBackground);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.admin-table th, .admin-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.admin-table th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.admin-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.admin-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.search-bar-table{
+  width: 100%;
+  justify-content: space-between;
+}
