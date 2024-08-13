@@ -1,1 +1,68 @@
-<p>profile works!</p>
+<div id="profile-container">
+  <mat-card class="card-container1">
+    <div id="left-card1">
+      <mat-label class="nicknameIF">Nickname</mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Enter your nickname" />
+      </mat-form-field>
+
+      <mat-label class="nicknameIF">Email</mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Enter your email" />
+      </mat-form-field>
+
+      <mat-label class="nicknameIF">Số điện thoại</mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Enter your phone number" />
+      </mat-form-field>
+
+      <mat-label class="nicknameIF">Ngày sinh</mat-label>
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-label class="nicknameIF1"
+        ><input type="file" accept="image/*" class="nicknameIF-input"
+      /></mat-label>
+    </div>
+    <div id="right-card">
+      <div class="top-right">
+        <img
+          src="../public/assets/29.png"
+          alt="Profile Image"
+          class="profile-image"
+        />
+        <div id="right-cardTL">
+          <p><b>PhamHoangLong</b></p>
+          <p>mm/dd/yyyy</p>
+          <p>xxxxxxxxxxxxxxxx</p>
+        </div>
+      </div>
+      <div class="bot-right">
+        <h1><b>My email Address</b></h1>
+        <div id="gmailcontainer">
+          <button mat-icon-button class="gmail-button">
+            <mat-icon svgIcon="gmail">
+              <img src="../public/assets/icon11.png" />
+            </mat-icon>
+          </button>
+          <div id="gmailcontainer1">
+            <h1><b>phamhoanglong1910</b></h1>
+            <p>1 month ago</p>
+          </div>
+        </div>
+        <section>
+          <div class="example-button-row">
+            <button mat-flat-button color="primary" class="bt-setting">
+              Chỉnh Sửa
+            </button>
+            <button mat-flat-button class="bt-admin">Admin</button>
+            <button mat-flat-button class="bt-logout">Đăng Xuất</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </mat-card>
+</div>

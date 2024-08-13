@@ -1,0 +1,85 @@
+#reading-container{
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+.example-button-container button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color:#e8def9; /* Màu background */
+  color:  #8069bf; /* Màu của biểu tượng */
+  border: none;
+  display: flex;
+  box-shadow: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.example-button-container button:hover {
+  background-color: #ccc2dc; /* Màu tím đậm hơn khi hover */
+}
+
+.reading-box {
+  border: none;
+  background-color: white;
+  width: 100%;
+  height: 660px;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  overflow: hidden; /* Ẩn phần nội dung tràn ra ngoài khung reading-box */
+}
+.title{
+  padding: 20px;
+  margin: 0;
+}
+.title h4{
+  margin: 0;
+  color:  #6750a4;
+  font-weight: bold;
+  font-size: 28px;
+  word-spacing: -6px;
+}
+.title p{
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  word-spacing: -4px;
+}
+.content {
+  text-align: justify;
+  height: 540px; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
+  overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao */
+  padding-right: 10px; /* Thêm khoảng cách để tránh thanh cuộn chồng lên chữ */
+  font-size: 18px;
+  line-height: 1.6;
+  color: #555;
+}
+.content h4{
+  font-size: 18px;
+  font-weight: 600;
+  color: red;
+  padding-left: 20px;
+  word-spacing: -6px;
+}
+.content p {
+  justify-content: center;
+  padding-left: 20px;
+  text-indent: 2em;
+  font-weight: 450;
+}
+
