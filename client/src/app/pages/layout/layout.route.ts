@@ -12,7 +12,7 @@ export const LAYOUT_ROUTES: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         loadChildren: () =>
           import('./sub-pages/home/home.route').then((m) => m.HOME_ROUTES),
       },
@@ -38,6 +38,11 @@ export const LAYOUT_ROUTES: Routes = [
           import('./sub-pages/categories/categories.route').then(
             (m) => m.CATEGORIES_ROUTES,
           ),
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
       },
     ],
   },

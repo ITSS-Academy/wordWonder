@@ -1,10 +1,9 @@
 #profile-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1em;
 }
 
 .card-container1 {
@@ -13,17 +12,19 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 50%;
-  height: fit-content;
+  height: max-content;
+  min-width: 800px;
+  max-width: 1000px;
   padding: 1.5em;
-  border-radius: 25px;
+  border-radius: 28px;
   background-color: #fff;
 }
 
 #left-card1 {
   display: flex;
   flex-direction: column;
-  gap: 0em; /* Giảm khoảng cách giữa các phần tử */
-  width: 50%; /* Giảm chiều rộng để card nhỏ hơn */
+  gap: 0; /* Giảm khoảng cách giữa các phần tử */
+  width: 45%; /* Giảm chiều rộng để card nhỏ hơn */
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -44,12 +45,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%; /* Điều chỉnh chiều rộng để cân bằng với thẻ bên trái */
+  width: 55%; /* Điều chỉnh chiều rộng để cân bằng với thẻ bên trái */
   padding: 1em;
   box-sizing: border-box;
 }
 
 .top-right {
+  width: 100%;
+  height: 150px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -60,10 +63,8 @@
 
 .profile-image {
   width: 150px; /* Set width to 100% of the parent container */
-  max-width: 150%; /* Increase the maximum width */
-  max-height: 150px; /* Giảm chiều cao tối đa của hình ảnh */
+  height: 100%; /* Giảm chiều cao tối đa của hình ảnh */
   object-fit: cover;
-  margin-bottom: -0.9em;
 }
 
 #right-cardTL {
@@ -79,6 +80,7 @@
 }
 
 .bot-right {
+  width: calc(100% - 40px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -129,12 +131,13 @@
 }
 
 #gmailcontainer1 p {
-  margin-top: 0em;
+  margin-top: 0;
 }
 
 .example-button-row {
   display: flex;
-  gap: 8px; /* Giảm khoảng cách giữa các nút */
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .example-button-row button {
@@ -144,33 +147,6 @@
   transition:
     background-color 0.3s,
     color 0.3s;
-}
-
-.example-button-row .bt-setting {
-  background-color: #6750a4;
-  color: #ffffff;
-}
-
-.example-button-row .bt-setting:hover {
-  background-color: #4f378a;
-}
-
-.example-button-row .bt-admin {
-  background-color: #8069bf;
-  color: #ffffff;
-}
-
-.example-button-row .bt-admin:hover {
-  background-color: #4f378a;
-}
-
-.example-button-row .bt-logout {
-  background-color: #acaaaa;
-  color: #4f378a;
-}
-
-.example-button-row .bt-logout:hover {
-  background-color: rgba(0, 0, 0, 0.16);
 }
 
 .nicknameIF1 {

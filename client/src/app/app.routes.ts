@@ -10,7 +10,7 @@ export const routes: Routes = [
       import('./pages/login/login.route').then((m) => m.LOGIN_ROUTES),
   },
   {
-    path: 'home',
+    path: 'main',
     loadChildren: () =>
       import('./pages/layout/layout.route').then((m) => m.LAYOUT_ROUTES),
   },
