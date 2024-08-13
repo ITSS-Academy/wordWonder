@@ -1,34 +1,29 @@
-<!--<div id="category-container">-->
-<!--  <div class="category-header">-->
-<!--    <h1>{{ category }}</h1>-->
-<!--  </div>-->
-<!--  <div id="list-book">-->
-<!--    <app-ebook-card [ebooks]="ebooks"></app-ebook-card>-->
-<!--  </div>-->
-<!--</div>-->
-
-<mat-chip-listbox class="list-genre" aria-label="">
-  @for (type of genre; track $index) {
-    <mat-chip-option selected>{{type}}</mat-chip-option>
-  }
-</mat-chip-listbox>
-
 <div id="categories-container">
-    <div id="content">
-      <div class="category-header">
-        <h1>LỊCH SỬ</h1>
-      </div>
-      <div class="list-book">
-        <app-ebook-card [ebooks]="ebooks"></app-ebook-card>
-      </div>
-      <div class="list-book">
-        <app-ebook-card [ebooks]="ebooks"></app-ebook-card>
-      </div>
-      <div class="list-book">
-        <app-ebook-card [ebooks]="ebooks"></app-ebook-card>
-      </div>
+  <div id="content">
+    <div class="category-header">
+      <span class="arrow-icon">
+        <mat-icon>arrow_back</mat-icon>
+      </span>
+      <h1>LỊCH SỬ</h1>
     </div>
+
+    <div class="genre">
+      <p>Thể loại:</p>
+      <mat-chip-listbox class="list-genre" aria-label="">
+        @for (type of genre; track $index) {
+          <mat-chip-option>{{ type }}</mat-chip-option>
+        }
+      </mat-chip-listbox>
+    </div>
+
+    <div class="list-book">
+      <app-ebook-card [ebooks]="ebooks"></app-ebook-card>
+    </div>
+    <div class="list-book">
+      <app-ebook-card [ebooks]="ebooks"></app-ebook-card>
+    </div>
+    <div class="list-book">
+      <app-ebook-card [ebooks]="ebooks"></app-ebook-card>
+    </div>
+  </div>
 </div>
-
-
-

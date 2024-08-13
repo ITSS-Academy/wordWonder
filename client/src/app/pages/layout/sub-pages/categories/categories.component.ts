@@ -5,7 +5,7 @@ import { EBookModel } from '../../../../../models/ebook.model';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { EbookCardComponent } from '../../../../components/ebook-card/ebook-card.component';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-category',
@@ -15,24 +15,45 @@ import {MatChipsModule} from '@angular/material/chips';
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
-  category: string = '';
+  category: string[] = [];
   ebooks: EBookModel[] = [];
 
-  constructor (private route: ActivatedRoute, private ebookService: EbookService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private ebookService: EbookService,
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.category = params['category'];
       this.ebooks = this.ebookService.getEbooksByCategory(this.category);
     });
   }
 
-  trackByEbookId(index: number, ebook: EBookModel): number {
+  trackByEbookId(index: number, ebook: EBookModel): string {
     return ebook.id;
   }
 
-
-
-  readonly genre: string[] = ['Hành động', 'Viễn tưởng', 'Bí ẩn', 'Khoa học', 'Tâm lý', 'Kinh dị', 'Hài hước', 'Tình cảm', 'Thể thao', 'Lịch sử', 'Học đường', 'Trinh thám', 'Phiêu lưu', 'Thần thoại', 'Cổ tích', 'Thiếu nhi', 'Ngôn tình', 'Truyện tranh', 'Light Novel', 'Tiểu thuyết'];
-
+  readonly genre: string[] = [
+    'Hành động',
+    'Viễn tưởng',
+    'Bí ẩn',
+    'Khoa học',
+    'Tâm lý',
+    'Kinh dị',
+    'Hài hước',
+    'Tình cảm',
+    'Thể thao',
+    'Lịch sử',
+    'Học đường',
+    'Cổ tích',
+    'Phiêu lưu',
+    'Thần thoại',
+    'Trinh thám',
+    'Thiếu nhi',
+    'Ngôn tình',
+    'Truyện tranh',
+    'Light Novel',
+    'Tiểu thuyết',
+  ];
 }
