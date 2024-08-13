@@ -1,14 +1,18 @@
 <div class="admin-bar">
+  <div class="admin-table">
+    <div class="buton-admin-table">
+      <button mat-icon-button (click)="onBackButtonClick()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-button (click)="openDialog()">+</button>
 
-<div class="admin-table">
-    <div class="bar-information">
-      <input class="inbarble"  placeholder="Dang sách Ebook" >
 
-      <app-table  ></app-table>
+
 
     </div>
+    <div class="bar-information">
 
+      <app-table></app-table>
+    </div>
+  </div>
 </div>
-
-</div>
-
