@@ -4,13 +4,37 @@
     alt="logo"
     height="42"
     width="303"
+    id="logo"
+    [routerLink]="'/home'"
   />
 
   <span class="example-spacer"></span>
-  <mat-form-field appearance="fill" id="search-input">
+  <mat-form-field
+    appearance="fill"
+    id="search-input"
+    [matMenuTriggerFor]="menu"
+  >
     <mat-icon matPrefix>search</mat-icon>
     <input matInput placeholder="Search your book..." />
   </mat-form-field>
+  <mat-menu #menu="matMenu">
+    <mat-list>
+      @for (ebook of ebooks; track ebook) {
+        <div mat-menu-item>
+          <mat-list-item>
+            <img matListItemAvatar [src]="ebook.imageUrl" alt="ebook cover" />
+            <h3 matListItemTitle>{{ ebook.name }}</h3>
+            <p matListItemLine>
+              <span>{{ ebook.author }}</span>
+              <span class="demo-2">
+                -- {{ ebook.dateCreated | date: "medium" }}</span
+              >
+            </p>
+          </mat-list-item>
+        </div>
+      }
+    </mat-list>
+  </mat-menu>
 
   <div id="avatar">
     <mat-icon>account_circle</mat-icon>
