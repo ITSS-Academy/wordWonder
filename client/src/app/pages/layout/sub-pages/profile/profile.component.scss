@@ -1,0 +1,200 @@
+#profile-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.card-container1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 50%;
+  height: fit-content;
+  padding: 1.5em;
+  border-radius: 25px;
+  background-color: #fff;
+}
+
+#left-card1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0em; /* Giảm khoảng cách giữa các phần tử */
+  width: 50%; /* Giảm chiều rộng để card nhỏ hơn */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#left-card1 .mat-button,
+#left-card1 .mat-raised-button,
+#left-card1 .mat-flat-button,
+#left-card1 .mat-stroked-button {
+  width: 100%;
+  height: 2.3em; /* Tăng chiều cao của nút */
+  padding: 0.3em; /* Tăng padding để nút lớn hơn */
+  font-size: 0.875rem; /* Tăng kích thước font một chút */
+  box-sizing: border-box;
+}
+
+#right-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%; /* Điều chỉnh chiều rộng để cân bằng với thẻ bên trái */
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.top-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.1em; /* Điều chỉnh khoảng cách giữa các phần tử */
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.profile-image {
+  width: 150px; /* Set width to 100% of the parent container */
+  max-width: 150%; /* Increase the maximum width */
+  max-height: 150px; /* Giảm chiều cao tối đa của hình ảnh */
+  object-fit: cover;
+  margin-bottom: -0.9em;
+}
+
+#right-cardTL {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1em; /* Giảm khoảng cách giữa các phần tử */
+}
+
+#right-cardTL p {
+  margin: 0;
+  font-size: 0.95em; /* Điều chỉnh kích thước font */
+}
+
+.bot-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+.bot-right h1 {
+  font-size: 1.25em; /* Giảm kích thước tiêu đề */
+  text-align: center;
+  margin: 0 0 0.25em 0; /* Giảm margin dưới */
+}
+
+.gmail-button {
+  width: 50px; /* Giảm kích thước nút Gmail */
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e6f9ff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gmail-button mat-icon {
+  width: 20px;
+  height: 20px;
+}
+
+#gmailcontainer1 {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: flex-start;
+  font-size: 0.8em;
+  margin: 8px; /* Giảm khoảng cách bên ngoài */
+}
+
+#gmailcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+#gmailcontainer1 h1 {
+  margin-bottom: 0.1em;
+}
+
+#gmailcontainer1 p {
+  margin-top: 0em;
+}
+
+.example-button-row {
+  display: flex;
+  gap: 8px; /* Giảm khoảng cách giữa các nút */
+}
+
+.example-button-row button {
+  padding: 10px 20px; /* Điều chỉnh padding cho các nút */
+  font-size: 0.875rem; /* Giảm kích thước font */
+  border-radius: 20px; /* Giảm độ bo tròn của các nút */
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.example-button-row .bt-setting {
+  background-color: #6750a4;
+  color: #ffffff;
+}
+
+.example-button-row .bt-setting:hover {
+  background-color: #4f378a;
+}
+
+.example-button-row .bt-admin {
+  background-color: #8069bf;
+  color: #ffffff;
+}
+
+.example-button-row .bt-admin:hover {
+  background-color: #4f378a;
+}
+
+.example-button-row .bt-logout {
+  background-color: #acaaaa;
+  color: #4f378a;
+}
+
+.example-button-row .bt-logout:hover {
+  background-color: rgba(0, 0, 0, 0.16);
+}
+
+.nicknameIF1 {
+  display: block;
+  width: 100%;
+  height: 3.5em;
+  padding: 1em;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.nicknameIF1:hover {
+  border-color: rgba(0, 0, 0, 0.87); /* Đậm hơn khi hover */
+}
+
+.nicknameIF1:focus {
+  border-color: #6750a4; /* Màu viền khi focus */
+  outline: none; /* Bỏ outline mặc định */
+  box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.3); /* Thêm bóng đổ màu primary */
+}
