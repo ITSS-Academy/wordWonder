@@ -37,6 +37,16 @@
   </mat-menu>
 
   <div id="avatar">
-    <mat-icon>account_circle</mat-icon>
+    <mat-icon [matMenuTriggerFor]="avaMenu">account_circle</mat-icon>
+    <mat-menu #avaMenu="matMenu">
+      <button mat-menu-item (click)="navigateToProfile()">
+        <mat-icon>person</mat-icon>
+        Profile
+      </button>
+      <button mat-menu-item (click)="openConfirmLogoutDialog()">
+        <mat-icon>logout</mat-icon>
+        Sign out
+      </button>
+    </mat-menu>
   </div>
 </mat-toolbar>
