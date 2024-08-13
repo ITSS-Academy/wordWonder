@@ -21,11 +21,13 @@
       @for (ebook of ebooks; track ebook) {
         <div mat-menu-item>
           <mat-list-item>
-            <img matListItemAvatar src="..." alt="..." />
-            <h3 matListItemTitle>{{ message.from }}</h3>
+            <img matListItemAvatar [src]="ebook.imageUrl" alt="ebook cover" />
+            <h3 matListItemTitle>{{ ebook.name }}</h3>
             <p matListItemLine>
-              <span>{{ message.subject }}</span>
-              <span class="demo-2"> -- {{ message.content }}</span>
+              <span>{{ ebook.author }}</span>
+              <span class="demo-2">
+                -- {{ ebook.dateCreated | date: "medium" }}</span
+              >
             </p>
           </mat-list-item>
         </div>

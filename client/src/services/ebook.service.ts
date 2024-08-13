@@ -18,6 +18,7 @@ export class EbookService {
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
+      content: '',
     },
     {
       id: '2',
@@ -30,6 +31,7 @@ export class EbookService {
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
+      content: '',
     },
     {
       id: '3',
@@ -43,6 +45,7 @@ export class EbookService {
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
+      content: '',
     },
     {
       id: '4',
@@ -56,6 +59,7 @@ export class EbookService {
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
+      content: '',
     },
     {
       id: '5',
@@ -69,6 +73,7 @@ export class EbookService {
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
+      content: '',
     },
     {
       id: '6',
@@ -82,6 +87,7 @@ export class EbookService {
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
+      content: '',
     },
     {
       id: '7',
@@ -95,6 +101,7 @@ export class EbookService {
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
+      content: '',
     },
   ];
 

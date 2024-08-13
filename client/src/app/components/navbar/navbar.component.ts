@@ -244,7 +244,7 @@ const AUTHORS: string[] = [
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  ebooks = Array.from({ length: 100 }, (_, k) => createNewEbook(k + 1));
+  ebooks = Array.from({ length: 10 }, (_, k) => createNewEbook(k + 1));
 
   constructor() {}
 
@@ -262,22 +262,23 @@ function createNewEbook(id: number): EBookModel {
     '.';
 
   //random genre and number of genre from GENRES
-  const genre = [];
+  const category = [];
   const num = Math.round(Math.random() * 5);
   for (let i = 0; i < num; i++) {
-    genre.push(GENRES[Math.round(Math.random() * (GENRES.length - 1))]);
+    category.push(GENRES[Math.round(Math.random() * (GENRES.length - 1))]);
   }
 
   return {
     id: id.toString(),
-    title: name,
+    name: name,
     author: AUTHORS[Math.round(Math.random() * (AUTHORS.length - 1))],
-    detail: 'This is a detail of ' + name,
-    image: 'public/assets/Emma-Jane-Austen.jpg',
-    date: new Date().toDateString(),
+    description: 'This is a detail of ' + name,
+    imageUrl: 'public/assets/poster.jpg',
+    translator: 'Translator of ' + name,
+    dateCreated: new Date().toDateString(),
     view: Math.round(Math.random() * 1000),
     like: Math.round(Math.random() * 100),
-    pdf: 'public/assets/pdfs/Bootstrap-vs-Material-Design-vs-Prime-vs-Tailwind.pdf',
-    genre: genre,
+    content: 'This is content of ' + name,
+    category: category,
   };
 }
