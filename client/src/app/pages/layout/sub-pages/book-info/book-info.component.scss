@@ -84,20 +84,6 @@
   gap: 5px;
 }
 
-.description {
-  height: calc(100% - 510px);
-  position: absolute;
-  z-index: 1;
-  margin: 20px;
-  padding: 20px;
-}
-
-#introduce {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #info {
   height: 100%;
   display: flex;
@@ -126,4 +112,48 @@
     .mdc-evolution-chip__text-label {
     color: var(--onPrimary);
   }
+}
+
+.description {
+  margin-top: 20px;
+  position: relative;
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.description::before {
+  box-sizing: border-box;
+}
+
+#introduce h6 {
+  font-size: 26px;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+}
+#introduce h6::after {
+  content: "";
+  margin: auto;
+  flex: 1 1;
+  border-bottom: 1px solid;
+  border-color: var(--border-color);
+  margin-left: 10px;
+  color: #d7c3bb;
+}
+
+#description-container {
+  font-size: 16px;
+  font-style: normal;
+  max-height: 300px;
+  overflow-y: scroll;
+  padding: 13px;
+  margin-bottom: 13px;
+  border: 1px #d7c3bb solid;
+  border-radius: 6px;
+  background-color: var(--bg-color-2);
+  background-color: var(--bg-color-2);
+  width: 100%; /* Match the width of #header-content */
+  max-width: 800px; /* Ensure it does not exceed the width of #header-content */
+  margin: 0 auto; /* Center the container */
 }
