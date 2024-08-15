@@ -1,25 +1,27 @@
 <div id="categories-container">
-  <div id="content">
-    <div class="category-header">
-      <span class="arrow-icon" [routerLink]="'../home'">
-        <mat-icon>arrow_back</mat-icon>
-      </span>
-      <h1>LỊCH SỬ</h1>
-    </div>
+  <div class="categories-header">
+    <button
+      mat-icon-button
+      aria-label="Example icon button with a arrow_back icon"
+      [routerLink]="'/main'"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h6 id="categories-header-name">{{ headerName }}</h6>
+  </div>
 
-    <div class="genre">
-      <p>Thể loại:</p>
-      <mat-chip-listbox class="list-genre" aria-label="">
-        @for (type of genre; track $index) {
-          <mat-chip-option>{{ type }}</mat-chip-option>
-        }
-      </mat-chip-listbox>
-    </div>
-
-    <div class="book">
-      @for (ebook of ebooks; track $index) {
-        <app-ebook-card [ebook]="ebook"></app-ebook-card>
+  <div class="genre">
+    <p>Thể loại:</p>
+    <mat-chip-listbox aria-label="category list">
+      @for (type of genre; track type) {
+        <mat-chip-option>{{ type }}</mat-chip-option>
       }
-    </div>
+    </mat-chip-listbox>
+  </div>
+
+  <div class="book">
+    @for (ebook of ebooks; track ebook) {
+      <app-ebook-card [ebook]="ebook"></app-ebook-card>
+    }
   </div>
 </div>

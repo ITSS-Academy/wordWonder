@@ -2,97 +2,82 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
-}
-
-.category-header {
-  position: relative;
-  display: flex;
   align-items: center;
-  width: 100%;
-  margin-top: 10px;
+  justify-content: flex-start; /* Changed from space-evenly to flex-start */
+
+  .categories-header {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: fit-content;
+
+    h6 {
+      color: var(--primary);
+      margin: 0;
+    }
+  }
+
+  .genre {
+    max-height: 108px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    width: calc(90% - 20px);
+    padding: 10px;
+
+    p {
+      width: 180px;
+    }
+  }
+
+  .book {
+    width: 90%;
+    display: grid;
+    padding: 20px;
+    overflow-y: auto;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    align-content: start; /* Changed from center to start */
+    flex-grow: 1; /* Added to allow the book section to take remaining space */
+
+    app-ebook-card {
+      width: 150px;
+      height: 200px;
+      margin-bottom: 60px;
+      align-self: center;
+      justify-self: center;
+    }
+  }
 }
 
-.arrow-icon {
-  font-size: 32px;
-  align-items: center;
+@media (max-width: 768px) {
+  #categories-container {
+    .categories-header {
+      align-items: center;
+    }
+
+    .genre {
+      flex-direction: column;
+      align-items: flex-start;
+      max-height: 102px;
+      padding: 70px 0 0 0;
+
+      p {
+        display: none;
+      }
+    }
+
+    .book {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+  }
 }
 
-.arrow-icon:hover {
-  cursor: pointer;
+@media (min-width: 2560px) {
+  #categories-container {
+    .book {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
 }
-
-mat-icon {
-  font-size: 36px;
-  color: var(--primary);
-  display: inline-block;
-  height: 36px;
-  width: 36px;
-  border-radius: 50%;
-}
-
-.mat-icon:hover {
-  color: var(--onPrimary);
-  background-color: var(--primary);
-}
-
-
-h1 {
-  color: var(--primary);
-  font-size: 30px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-left: 30px;
-  margin-bottom: 8px;
-}
-
-.genre {
-  display: flex;
-  margin-bottom: 60px;
-  justify-content: center;
-  width: 1280px;
-  height: 32px;
-}
-
-.list-genre {
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 7px;
-}
-
-.book {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 20px;
-  padding: 20px;
-}
-
-.book app-ebook-card {
-  width: 145px;
-  height: 196px;
-  margin-bottom: 60px;
-}
-
-//:host {
-//  ::ng-deep .cdk-virtual-scroll-data-source-example .example-viewport {
-//    height: 308px;
-//    width: 100%;
-//  }
-//
-//  ::ng-deep
-//    .cdk-virtual-scroll-data-source-example
-//    .example-viewport
-//    .cdk-virtual-scroll-content-wrapper {
-//    display: flex;
-//    flex-direction: row;
-//    justify-content: space-evenly;
-//    //padding: 0 10px;
-//  }
-//
-//  ::ng-deep .cdk-virtual-scroll-data-source-example .example-item {
-//    width: 145px;
-//    height: 100%;
-//    margin: 0 10px;
-//  }
-//}
