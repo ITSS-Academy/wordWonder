@@ -4,6 +4,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
+  ViewChild,
   viewChild,
 } from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
@@ -264,7 +265,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ebooks = Array.from({ length: 10 }, (_, k) => createNewEbook(k + 1));
 
-  readonly menuTrigger = viewChild.required(MatMenuTrigger);
+  @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
 
   readonly dialog = inject(MatDialog);
 
@@ -283,8 +284,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
           console.log('User confirmed logout');
         });
       }
-      return this.menuTrigger().focus();
     });
+  }
+
+  openMenu() {
+    this.trigger.openMenu();
   }
 
   navigateToProfile() {

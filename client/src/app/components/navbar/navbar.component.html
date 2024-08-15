@@ -25,23 +25,29 @@
     <mat-icon matPrefix>search</mat-icon>
     <input matInput placeholder="Search your book..." />
   </mat-form-field>
-  <mat-menu #menu="matMenu">
-    <mat-list>
+  <mat-menu #menu xPosition="before">
+    <ng-template matMenuContent>
       @for (ebook of ebooks; track ebook) {
-        <div mat-menu-item>
-          <mat-list-item>
-            <img matListItemAvatar [src]="ebook.imageUrl" alt="ebook cover" />
-            <h3 matListItemTitle>{{ ebook.name }}</h3>
-            <p matListItemLine>
-              <span>{{ ebook.author }}</span>
-              <span class="demo-2">
-                -- {{ ebook.dateCreated | date: "medium" }}</span
-              >
-            </p>
-          </mat-list-item>
-        </div>
+        <button mat-menu-item>
+          <div class="result-item">
+            <img
+              width="40"
+              height="40"
+              [src]="ebook.imageUrl"
+              alt="ebook cover"
+            />
+            <div class="name-author">
+              <span>
+                <b>{{ ebook.name }}</b>
+              </span>
+              <span>
+                {{ ebook.author }}
+              </span>
+            </div>
+          </div>
+        </button>
       }
-    </mat-list>
+    </ng-template>
   </mat-menu>
 
   <div id="avatar">
