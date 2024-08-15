@@ -9,12 +9,38 @@
         <h5 class="login-title">Thế giới truyện diệu kỳ.</h5>
         <h5 class="login-title">Chỉ với một chạm là sẽ mở ra!</h5>
       </div>
+      <form [formGroup]="loginForm" id="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Email" />
+          @if (loginForm.get("email")?.invalid) {
+            <mat-error>Email không hợp lệ</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Mật khẩu</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            placeholder="Password"
+            type="password"
+          />
+          @if (loginForm.get("password")?.invalid) {
+            <mat-error>Mật khẩu không hợp lệ</mat-error>
+          }
+        </mat-form-field>
+      </form>
       <div class="btn-grp">
         <button mat-stroked-button color="primary" class="login">
           <img src="/public/assets/logo/google_logo.png" id="google-logo" />
           Đăng Nhập với Google
         </button>
-        <button mat-flat-button color="primary" class="login">
+        <button
+          mat-flat-button
+          color="primary"
+          class="login"
+          (click)="changeLoginMethod()"
+        >
           Đăng Nhập với Admin
         </button>
       </div>

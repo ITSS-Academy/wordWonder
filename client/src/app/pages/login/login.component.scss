@@ -14,6 +14,7 @@
     border-radius: 28px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding: 20px;
 
     #left,
@@ -39,9 +40,10 @@
 
       .text-grp,
       .btn-grp,
-      #logo {
-        width: calc(100% - 40px);
-        padding: 20px;
+      #logo,
+      #form {
+        width: calc(100% - 20px);
+        padding: 10px;
         display: flex;
       }
 
@@ -52,6 +54,14 @@
 
       #logo {
         height: auto;
+      }
+
+      #form {
+        justify-content: space-between;
+
+        mat-form-field {
+          width: 48%;
+        }
       }
 
       .btn-grp {
@@ -74,34 +84,29 @@
   }
 }
 
-@media (max-width: 1224px) {
+@media (max-width: 1325px) {
   #login-container {
-    flex-direction: column;
-    padding: 10px;
-
     #login-box {
-      width: 100%;
+      width: 50%;
+      min-width: 440px;
       height: auto;
       flex-direction: column;
       padding: 10px;
 
-      #left,
       #right {
         width: 100%;
         height: auto;
       }
 
       #left {
-        img {
-          border-radius: 20px;
-        }
+        display: none;
       }
 
       #right {
         .text-grp,
         .btn-grp,
         #logo {
-          width: 100%;
+          width: calc(100% - 20px);
           padding: 10px;
         }
 
@@ -118,3 +123,45 @@
     }
   }
 }
+
+//@media (max-width: 1325px) and (min-width: 320px) {
+//  #login-container {
+//    #login-box {
+//      border-radius: 0;
+//      width: 100%;
+//      height: 100%;
+//      min-height: 520px;
+//      align-items: center;
+//      justify-content: center;
+//
+//      #right {
+//        width: calc(100% - 40px);
+//        height: 100%;
+//        padding: 20px;
+//      }
+//
+//      #left {
+//        display: none;
+//      }
+//
+//      #right {
+//        .text-grp,
+//        .btn-grp,
+//        #logo {
+//          width: calc(100% - 20px);
+//          padding: 10px;
+//        }
+//
+//        .btn-grp {
+//          flex-direction: column;
+//          align-items: center;
+//
+//          button {
+//            width: 100%;
+//            margin-bottom: 10px;
+//          }
+//        }
+//      }
+//    }
+//  }
+//}
