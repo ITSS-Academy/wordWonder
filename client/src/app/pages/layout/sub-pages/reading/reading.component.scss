@@ -1,10 +1,11 @@
-#reading-container{
+#reading-container {
   padding-top: 20px;
   width: 100%;
-  height:calc( 100% - 20px);
+  height: calc(100% - 20px);
   display: flex;
   justify-content: space-between;
 }
+
 .example-flex-container {
   display: flex;
   justify-content: space-between;
@@ -16,12 +17,13 @@
   justify-content: center;
   width: 120px;
 }
+
 .example-button-container button {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color:#e8def9; /* Màu background */
-  color:  #8069bf; /* Màu của biểu tượng */
+  background-color: #e8def9; /* Màu background */
+  color: #8069bf; /* Màu của biểu tượng */
   border: none;
   display: flex;
   box-shadow: none;
@@ -43,25 +45,29 @@
   border-top-right-radius: 28px;
   overflow: hidden; /* Ẩn phần nội dung tràn ra ngoài khung reading-box */
 }
-.title{
+
+.title {
   padding: 10px;
   margin: 0;
   flex-grow: 1;
 }
-.title h4{
+
+.title h4 {
   margin-left: 10px;
-  color:  #6750a4;
+  color: #6750a4;
   font-weight: bold;
   font-size: 28px;
   word-spacing: -6px;
 }
-.title p{
+
+.title p {
   margin-left: 10px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: bold;
   word-spacing: -4px;
 }
+
 .content {
   text-align: justify;
   height: 80%; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
@@ -71,19 +77,22 @@
   line-height: 1.5;
   color: #555;
 }
-.content h4{
+
+.content h4 {
   font-size: 18px;
   font-weight: 600;
   color: red;
   padding-left: 20px;
   word-spacing: -6px;
 }
+
 .content p {
   justify-content: center;
   padding-left: 20px;
   text-indent: 2em;
   font-weight: 450;
 }
+
 .reading-box.vertical .content {
   overflow-y: auto;
   overflow-x: hidden;
@@ -95,92 +104,88 @@
   overflow-y: hidden;
   white-space: nowrap;
 }
-.reading-box .horizontal .content > p{
 
+.reading-box .horizontal .content > p {
   flex: 0 0 auto;
   width: 100%;
 }
 
+// Mobile S (320px)
+@media only screen and (max-width: 320px) {
+  .example-button-container {
+    width: 100px;
 
+    //button {
+    //  width: 20px;
+    //  height: 20px;
+    //}
+  }
+  .example-button-container button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #e8def9; /* Màu background */
+    color: #8069bf; /* Màu của biểu tượng */
+    border: none;
+    display: flex;
+    box-shadow: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .reading-box {
+    width: 100%;
+    height: 100%;
+  }
+  .title h4 {
+    font-size: 24px;
+  }
 
-//// Mobile S (320px)
-//@media only screen and (max-width: 320px) {
-//  .example-button-container {
-//    width: 100px;
-//
-//    //button {
-//    //  width: 20px;
-//    //  height: 20px;
-//    //}
-//  }
-//  .example-button-container button {
-//    width: 25px;
-//    height: 25px;
-//    border-radius: 50%;
-//    background-color:#e8def9; /* Màu background */
-//    color:  #8069bf; /* Màu của biểu tượng */
-//    border: none;
-//    display: flex;
-//    box-shadow: none;
-//    align-items: center;
-//    justify-content: center;
-//    cursor: pointer;
-//  }
-//  .reading-box{
-//    width: 100%;
-//    height: 100%;
-//  }
-//  .title h4 {
-//    font-size: 24px;
-//  }
-//
-//  .content {
-//    font-size: 16px;
-//  }
-//}
+  .content {
+    font-size: 16px;
+  }
+}
 
-//// Mobile M (375px)
-//@media only screen and (max-width: 375px) {
-//  .example-button-container {
-//    width: 110px;
-//
-//    button {
-//      width: 42px;
-//      height: 42px;
-//    }
-//  }
-//
-//  .title h4 {
-//    font-size: 26px;
-//  }
-//
-//  .content {
-//    font-size: 17px;
-//  }
-//}
-//
-//// Mobile L (425px)
-//@media only screen and (max-width: 425px) {
-//  .example-button-container {
-//    width: 115px;
-//
-//    button {
-//      width: 5px;
-//      height: 5px;
-//    }
-//  }
-//  .reading-box{
-//    width: 100%;
-//    height: 100%;
-//  }
-//
-//  .title h4 {
-//    font-size: 25px;
-//  }
-//
-//  .content {
-//    font-size: 17.5px;
-//  }
-//}
+// Mobile M (375px)
+@media only screen and (max-width: 375px) and (min-width: 320px) {
+  .example-button-container {
+    width: 110px;
 
+    button {
+      width: 42px;
+      height: 42px;
+    }
+  }
 
+  .title h4 {
+    font-size: 26px;
+  }
+
+  .content {
+    font-size: 17px;
+  }
+}
+
+// Mobile L (425px)
+@media only screen and (max-width: 425px) and (min-width: 375px) {
+  .example-button-container {
+    width: 115px;
+
+    button {
+      width: 5px;
+      height: 5px;
+    }
+  }
+  .reading-box {
+    width: 100%;
+    height: 100%;
+  }
+
+  .title h4 {
+    font-size: 25px;
+  }
+
+  .content {
+    font-size: 17.5px;
+  }
+}
