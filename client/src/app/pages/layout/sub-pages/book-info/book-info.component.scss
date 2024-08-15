@@ -6,9 +6,9 @@
   position: relative; /* Ensure container is positioned */
 }
 
-#book-info-container{
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+#book-info-container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 #book-info-container::-webkit-scrollbar {
@@ -18,7 +18,6 @@
 #header-content {
   height: 488px;
   position: relative; /* Ensure child elements are positioned relative to this */
-
 }
 
 #image-background {
@@ -68,7 +67,6 @@
 #book-info::before {
   box-sizing: border-box;
 }
-
 
 #fix-img {
   height: 100%;
@@ -131,7 +129,7 @@
   }
 }
 
-#novel-body-container{
+#novel-body-container {
   margin: 0 auto;
   padding: 13px;
   display: flex;
@@ -140,12 +138,10 @@
   max-width: 800px;
 }
 
-.description ::before{
+.description ::before {
   box-sizing: border-box;
   display: table;
   content: " ";
-
-
 }
 
 .description {
@@ -153,9 +149,7 @@
   position: relative;
   display: block;
   unicode-bidi: isolate;
-
 }
-
 
 #introduce h6 {
   font-size: 26px;
@@ -164,9 +158,9 @@
   display: flex;
   flex-direction: row;
 }
+
 #introduce h6::after {
   content: "";
-  margin: auto;
   flex: 1 1;
   border-bottom: 1px solid;
   border-color: var(--border-color);
@@ -182,7 +176,6 @@
   max-height: 300px;
   overflow-y: scroll;
   padding: 13px;
-  margin-bottom: 13px;
   border: 1px #d7c3bb solid;
   border-radius: 6px;
   background-color: var(--bg-color-2);
@@ -191,9 +184,9 @@
   margin: 0 auto; /* Center the container */
 }
 
-#description-container{
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+#description-container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 #book-info-container::-webkit-scrollbar {
