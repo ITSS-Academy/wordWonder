@@ -1,15 +1,6 @@
-<div class="group">
-  @for (ebook of ebooks; track $index){
-    <div class="card">
-      <img src="{{ebook.imageUrl}}" alt="">
-      <div class="title">
-        <p>{{ebook.name}}</p>
-      </div>
-    </div>
-  }
+<div class="card-container">
+  <img [src]="ebook.imageUrl" alt="card cover" />
+  <div class="title">
+    <p>{{ ebook.name }}</p>
+  </div>
 </div>
-
-
-
-
-

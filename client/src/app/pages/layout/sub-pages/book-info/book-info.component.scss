@@ -1,18 +1,162 @@
-#book-info-container{
+#book-info-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative; /* Ensure container is positioned */
+}
+
+#header-content {
+  height: 488px;
+  position: relative; /* Ensure child elements are positioned relative to this */
+}
+
+#image-background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute; /* Position image background absolutely */
+  top: 0;
+  left: 0;
+  z-index: 0; /* Lower z-index */
+}
+
+#image-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: -100px 0;
+  filter: blur(30px);
+  position: relative;
+  z-index: -1;
+}
+
+#image-shade {
+  position: absolute;
+  width: 100%;
+  height: 488px;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền với độ mờ */
+  opacity: 0.8; /* Độ mờ */
+}
+
+#book-info {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  position: absolute; /* Position book-info absolutely */
+  top: 0; /* Position at the top */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, 0); /* Center horizontally */
+  z-index: 1; /* Higher z-index */
+}
+
+#fix-img {
+  height: 100%;
+}
+
+#cover {
   width: 100%;
   height: 100%;
 }
 
-#header-content{
-  width: 100%;
-  height: 510px ;
-  background-image: url("../../../../../../public/assets/harry_potter_va_hon_da_phu_thuy__j_k_rowling 3.png");
-  background-size: cover;
-  opacity: 0.8;
+#fix-img img {
+  -webkit-mask-image: none;
+  border-radius: 6px;
 }
 
-#image-background{
-  width: 100%;
-  height: 510px;
-  margin: 0;
+.book-info::before {
+  box-sizing: border-box;
+}
+
+#cover img {
+  width: 314px;
+  height: 450px;
+  border-radius: 28px;
+}
+
+.rating,
+.view {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+#info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: auto 0;
+  color: var(--onPrimary);
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+:host {
+  ::ng-deep
+    .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+    .mdc-evolution-chip__action--primary::before {
+    border-color: var(--onPrimary);
+  }
+
+  ::ng-deep
+    .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled)
+    .mdc-evolution-chip__text-label {
+    color: var(--onPrimary);
+  }
+}
+
+.description {
+  margin-top: 20px;
+  position: relative;
+  display: block;
+  unicode-bidi: isolate;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.description::before {
+  box-sizing: border-box;
+}
+
+#introduce h6 {
+  font-size: 26px;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+}
+#introduce h6::after {
+  content: "";
+  margin: auto;
+  flex: 1 1;
+  border-bottom: 1px solid;
+  border-color: var(--border-color);
+  margin-left: 10px;
+  color: #d7c3bb;
+}
+
+#description-container {
+  font-size: 16px;
+  font-style: normal;
+  max-height: 300px;
+  overflow-y: scroll;
+  padding: 13px;
+  margin-bottom: 13px;
+  border: 1px #d7c3bb solid;
+  border-radius: 6px;
+  background-color: var(--bg-color-2);
+  background-color: var(--bg-color-2);
+  width: 100%; /* Match the width of #header-content */
+  max-width: 800px; /* Ensure it does not exceed the width of #header-content */
+  margin: 0 auto; /* Center the container */
 }

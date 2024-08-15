@@ -1,49 +1,68 @@
 #home-container {
   width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  height: calc(100% - 10px);
   padding-top: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .content {
+    width: 100%;
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      h4 {
+        color: var(--button, #65558f);
+        margin-left: 15px;
+        margin-bottom: 8px;
+      }
+
+      .see-more {
+        color: var(--button, #65558f);
+        font-size: 20px;
+        font-weight: 500;
+        margin-right: 15px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .see-more:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  hr {
+    width: 100%;
+    height: 1px;
+    opacity: var(--sds-size-stroke-border);
+    background: #d7c3bb;
+    align-items: center;
+  }
 }
 
-.content {
-  margin-bottom: 60px;
-}
+:host {
+  ::ng-deep .cdk-virtual-scroll-data-source-example .example-viewport {
+    height: 308px;
+    width: 100%;
+  }
 
-.category-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
+  ::ng-deep
+    .cdk-virtual-scroll-data-source-example
+    .example-viewport
+    .cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0 10px;
+  }
 
-h1 {
-  color: var(--button, #65558F);
-  font-size: 30px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-left: 15px;
-  margin-bottom: 8px;
-}
-
-.see-more {
-  color: var(--button, #65558F);
-  font-size: 20px;
-  font-weight: 500;
-  margin-right: 15px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.see-more:hover {
-  text-decoration: underline;
-}
-
-hr {
-  width: 1272px;
-  height: 1px;
-  opacity: var(--sds-size-stroke-border);
-  background: #D7C3BB;
-  align-items: center;
+  ::ng-deep .cdk-virtual-scroll-data-source-example .example-item {
+    width: 145px;
+    height: 100%;
+    margin: 0 10px;
+  }
 }

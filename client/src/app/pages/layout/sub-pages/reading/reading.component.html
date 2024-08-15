@@ -3,8 +3,9 @@
   <div class="example-button-row">
     <div class="example-flex-container">
       <div class="example-button-container">
-        <button id="back-button" mat-mini-fab aria-label="Example icon button with a back icon">
+        <button [routerLink]="'../book-info'" id="back-button" mat-mini-fab aria-label="back icon">
           <mat-icon>arrow_back</mat-icon>
+
         </button>
       </div>
     </div>
@@ -192,10 +193,20 @@
   <div class="example-button-row">
     <div class="example-flex-container">
       <div class="example-button-container">
-        <button id="menu-button" mat-mini-fab aria-label="Example icon button with a menu icon">
+        <button id="menu-button" mat-mini-fab aria-label="menu icon" [matMenuTriggerFor]="menu" >
           <mat-icon>menu</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+          <button [routerLink]="'../../home'"  style=" border-radius:4px; color: #6750a4" mat-menu-item><mat-icon style="color:#6750a4">home</mat-icon> Home</button>
+          <button style=" border-radius:4px; word-spacing:-6px; color: #6750a4" mat-menu-item><mat-icon style="color: #6750a4">chrome_reader_mode</mat-icon> Kiểu đọc</button>
+        </mat-menu>
       </div>
     </div>
   </div>
+<!--  <button mat-button [matMenuTriggerFor]="menu">Menu</button>-->
+<!--  <mat-menu #menu="matMenu">-->
+<!--    <button mat-menu-item>Item 1</button>-->
+<!--    <button mat-menu-item>Item 2</button>-->
+<!--  </mat-menu>-->
+
 </div>

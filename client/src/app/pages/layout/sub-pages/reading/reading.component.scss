@@ -1,7 +1,7 @@
 #reading-container{
-  margin-top: 20px;
+  padding-top: 20px;
   width: 100%;
-  height: 100%;
+  height:calc( 100% - 20px);
   display: flex;
   justify-content: space-between;
 }
@@ -34,13 +34,14 @@
   background-color: #ccc2dc; /* Màu tím đậm hơn khi hover */
 }
 
-.reading-box{
-  //border: 1px solid #000;
+.reading-box {
   border: none;
-  background-color: #ffffff;
+  background-color: white;
   width: 100%;
-  border-top-left-radius: 28px ;
-  border-top-right-radius: 28px ;
+  height: 100%;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  overflow: hidden; /* Ẩn phần nội dung tràn ra ngoài khung reading-box */
 }
 .title{
   padding: 20px;
@@ -59,9 +60,9 @@
   font-weight: bold;
   word-spacing: -4px;
 }
-.content{
+.content {
   text-align: justify;
-  max-height: 82vh; /* Giới hạn chiều cao của khung nội dung */
+  height: 80%; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
   overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao */
   padding-right: 10px; /* Thêm khoảng cách để tránh thanh cuộn chồng lên chữ */
   font-size: 18px;
