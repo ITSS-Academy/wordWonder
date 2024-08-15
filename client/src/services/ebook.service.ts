@@ -5,6 +5,14 @@ import { EBookModel } from '../models/ebook.model';
   providedIn: 'root',
 })
 export class EbookService {
+  getEbooks(): EBookModel[] {
+    return this.ebooks;
+  }
+
+  getEbooksByCategory(category: string[]): EBookModel[] {
+    return this.ebooks.filter((ebook) => ebook.category === category);
+  }
+
   private ebooks: EBookModel[] = [
     {
       id: '1',
@@ -22,8 +30,9 @@ export class EbookService {
     },
     {
       id: '2',
-      name: 'Gintama: The final',
-      imageUrl: 'https://i.ebayimg.com/images/g/VLYAAOSwgVphVFqF/s-l1200.jpg',
+      name: 'Harry Potter và Hội phượng hoàng',
+      imageUrl:
+        'https://www.nxbtre.com.vn/Images/Book/nxbtre_full_08082017_090848.jpg',
       description: '',
       author: 'J.K.Rowling',
       category: ['Lịch sử'],
@@ -41,7 +50,7 @@ export class EbookService {
       description: '',
       author: '',
       category: ['Lịch sử'],
-      translator: 'Lý Lan',
+      translator: '',
       like: 5,
       view: 2024,
       dateCreated: Date.now().toString(),
@@ -77,11 +86,11 @@ export class EbookService {
     },
     {
       id: '6',
-      name: 'Nobita và Lịch sử khai phá vũ trụ',
+      name: 'Tớ sẽ tìm cậu vào đêm trăng rằm',
       imageUrl:
-        'https://upload.wikimedia.org/wikipedia/vi/b/b1/Eiga_Doraemon_Shin_Nobita_No_Uchu_Kaitaku_Shi.jpg',
+        'https://salt.tikicdn.com/cache/w1200/ts/product/65/dd/e5/f29c67ac78577e5ab95a23db495ca171.jpg',
       description: '',
-      author: 'Fujiko F. Fujio',
+      author: 'Yozora Fuyuno',
       category: ['Lịch sử'],
       translator: '',
       like: 5,
@@ -91,11 +100,53 @@ export class EbookService {
     },
     {
       id: '7',
-      name: 'Nobita và Bản giao hưởng địa cầu',
+      name: 'Yêu em từ cái nhìn đầu tiên',
       imageUrl:
-        'https://product.hstatic.net/200000343865/product/doraemon-tieu-thuyet_nobita-va-ban-giao-huong-dia-cau_bia_62e39c436bdc4343afb79847062df2f2.jpg',
+        'https://salt.tikicdn.com/cache/w1200/media/catalog/product/y/e/yeu-em-tu-cai-nhin-dau-tien_1_1.jpg',
       description: '',
-      author: 'Fujiko F. Fujio',
+      author: 'Cố Mạn',
+      category: ['Lịch sử'],
+      translator: '',
+      like: 5,
+      view: 2024,
+      dateCreated: Date.now().toString(),
+      content: '',
+    },
+    {
+      id: '8',
+      name: 'Bên nhau trọn đời',
+      imageUrl:
+        'https://cdn0.fahasa.com/media/catalog/product/b/e/ben-nhau-tron-doi.jpeg',
+      description: '',
+      author: 'Cố mạn',
+      category: ['Lịch sử'],
+      translator: '',
+      like: 5,
+      view: 2024,
+      dateCreated: Date.now().toString(),
+      content: '',
+    },
+    {
+      id: '9',
+      name: 'Bên kia mây trời là nơi hẹn ước',
+      imageUrl:
+        'https://product.hstatic.net/200000287623/product/ben-kia-may-troi_26358d5f0d1947049ccae46bbd6f03b4.jpg',
+      description: '',
+      author: 'Shinkai Makoto',
+      category: ['Lịch sử'],
+      translator: '',
+      like: 5,
+      view: 2024,
+      dateCreated: Date.now().toString(),
+      content: '',
+    },
+    {
+      id: '10',
+      name: 'Những đứa trẻ đuổi theo tinh tú',
+      imageUrl:
+        'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1581396823i/51168375.jpg',
+      description: '',
+      author: 'Shinkai Makoto',
       category: ['Lịch sử'],
       translator: '',
       like: 5,
@@ -104,12 +155,4 @@ export class EbookService {
       content: '',
     },
   ];
-
-  getEbooks(): EBookModel[] {
-    return this.ebooks;
-  }
-
-  getEbooksByCategory(category: string[]): EBookModel[] {
-    return this.ebooks.filter((ebook) => ebook.category === category);
-  }
 }
