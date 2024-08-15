@@ -119,6 +119,9 @@
   position: relative;
   display: block;
   unicode-bidi: isolate;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .description::before {
