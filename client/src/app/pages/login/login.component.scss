@@ -1,50 +1,75 @@
 #login-container {
-  width: 100%;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-}
-
-#login-Img {
-  width: 50%;
-  height: 100%;
-  display: flex;
-}
-#login-TL {
-  width: 50%;
-  height: 100%;
-  display: flex;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
+
+  #login-box {
+    height: 400px;
+    width: 80%;
+    max-width: 1080px;
+    background: var(--surfaceContainerLowest);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+
+    #left,
+    #right {
+      width: 50%;
+      height: 100%;
+      display: flex;
+    }
+
+    #left {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 28px;
+        background-color: white;
+      }
+    }
+
+    #right {
+      flex-direction: column;
+      justify-content: center;
+
+      .text-grp,
+      .btn-grp,
+      #logo {
+        width: calc(100% - 40px);
+        padding: 20px;
+        display: flex;
+      }
+
+      .text-grp {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #logo {
+        height: auto;
+      }
+
+      .btn-grp {
+        justify-content: space-between;
+
+        #google-logo {
+          height: 24px;
+          width: 24px;
+        }
+      }
+    }
+  }
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
-.login-title {
-  font-family: "Roboto", sans-serif;
-  color: rgba(0, 0, 0, 0.99);
-  font-size: 2em;
-  margin-bottom: 0em;
-}
-
-.login-image {
-  width: 100%;
-  height: 100%;
-  border-bottom-right-radius: 60px;
-  border-top-right-radius: 60px;
-}
-
-.example-button-row {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  width: 100%;
-}
-
-.example-button-row button {
-  padding: 25px 25px;
-  font-size: 1.2rem;
-  border-radius: 30px;
+:host {
+  ::ng-deep .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 }
