@@ -23,9 +23,18 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-label class="nickname-IF1"
-        ><input type="file" accept="image/*" class="nicknameIF-input"
-      /></mat-label>
+      <label class="nickname-IF">Cập Nhật Hình Ảnh</label>
+      <div class="custom-file-input">
+        <input
+          type="file"
+          accept="image/*"
+          id="fileInput"
+          (change)="onFileSelected($event)"
+        />
+        <label for="fileInput" class="file-input-label"
+          >Choose your file Img</label
+        >
+      </div>
     </div>
     <div id="right-card">
       <div class="top-right">
@@ -54,9 +63,7 @@
           </div>
         </div>
         <div class="example-button-row">
-          <button mat-flat-button color="primary" class="btn-setting">
-            Chỉnh Sửa
-          </button>
+          <button mat-flat-button class="btn-setting">Chỉnh Sửa</button>
           <button mat-flat-button class="btn-admin">Admin</button>
           <button mat-flat-button class="btn-logout">Đăng Xuất</button>
         </div>
