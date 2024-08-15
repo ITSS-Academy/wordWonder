@@ -7,9 +7,9 @@
         "
         alt="harry potter"
       />
-      <div id="image-shade"></div>
+      <div class="image-shade"></div>
     </div>
-    <div id="book-info">
+    <div class="book-info">
       <div id="fix-img">
         <figure id="cover">
           <img
@@ -22,29 +22,26 @@
       </div>
 
       <div id="info">
-        <div id="main-head">
-          <h6>Harry Potter và Hòn Đá Phù Thủy</h6>
-        </div>
-        <div id="author">
-          <p>Tác giả: J.K. ROWLING</p>
-        </div>
+        <h6 class="title">Harry Potter và Hòn Đá Phù Thủy</h6>
+        <p class="author">Tác giả: J.K. ROWLING</p>
         <div class="rating">
           <p>Lượt yêu thích: 5</p>
         </div>
-
         <div class="view">
           <p>Lượt xem: 2024</p>
         </div>
         <div class="tags">
-          <mat-chip-set aria-label="Fish selection">
-            <mat-chip>Viễn tưởng</mat-chip>
-            <mat-chip>Bí ẩn</mat-chip>
-            <mat-chip>Tâm lý</mat-chip>
+          <mat-chip-set aria-label="Category selection">
+            @for (genre of genres; track $index) {
+              @if ($index < 10) {
+                <mat-chip>{{ genre }}</mat-chip>
+              }
+            }
           </mat-chip-set>
         </div>
         <div class="button-row">
           <button mat-flat-button (click)="read()">Đọc</button>
-          <button mat-flat-button (click)="read()">Đọc tiếp</button>
+          <!--          <button mat-flat-button (click)="read()">Đọc tiếp</button>-->
         </div>
         <div class="button-row">
           <button
@@ -59,42 +56,76 @@
     </div>
   </div>
 
+  <!--  mobile-->
+  <div id="header-content-mobile">
+    <div class="image-shade">
+      <figure class="cover">
+        <img
+          [src]="
+            '../public/assets/harry_potter_va_hon_da_phu_thuy__j_k_rowling%203.png'
+          "
+          alt="harry potter"
+        />
+      </figure>
+    </div>
+    <div class="book-info-mobile">
+      <h6>Harry Potter và Hòn Đá Phù Thủy</h6>
+      <p>Tác giả: J.K. ROWLING</p>
+      <p>Lượt yêu thích: 5</p>
+      <p>Lượt xem: 2024</p>
+    </div>
+  </div>
+  <button mat-stroked-button class="btn-mobile">
+    <mat-icon>favorite</mat-icon>
+    Yêu thích
+  </button>
+  <button mat-flat-button class="btn-mobile">
+    <mat-icon>book_2</mat-icon>
+    Đọc
+  </button>
+
+  <p class="type-mobile">Thể loại</p>
+  <div class="tags-mobile">
+    <mat-chip-set aria-label="Category selection">
+      @for (genre of genres; track $index) {
+        <mat-chip class="secondary-chips">{{ genre }}</mat-chip>
+      }
+    </mat-chip-set>
+  </div>
+  <!--  mobile-->
+
   <div id="novel-body-container">
     <div class="description">
       <div id="introduce">
-        <h6>
-          Giới Thiệu
-          <hr />
-        </h6>
+        <h6>Giới Thiệu</h6>
       </div>
 
       <div id="description-container">
         <p>
-          Câu chuyện bắt đầu bằng những biến cố kỳ lạ khi Harry vừa đúng mười một
-          tuổi, được gọi là nhập học trường chuyên đào tạo phù thủy và pháp sư.
-          Năng lực siêu phàm của Harry bộc phát, lại được học hỏi thêm nhiều pháp
-          thuật cao cường ờ nhà trường Hogwarts, Harry trải qua những cuộc thử
-          thách và phiêu lưu kỳ lạ, phát triển dần tài năng và tính cách, vượt qua
-          những sai lầm và khuyết điểm, đạt dược những thành tích vang dội cho đội
-          và trường của mình.
+          Câu chuyện bắt đầu bằng những biến cố kỳ lạ khi Harry vừa đúng mười
+          một tuổi, được gọi là nhập học trường chuyên đào tạo phù thủy và pháp
+          sư. Năng lực siêu phàm của Harry bộc phát, lại được học hỏi thêm nhiều
+          pháp thuật cao cường ờ nhà trường Hogwarts, Harry trải qua những cuộc
+          thử thách và phiêu lưu kỳ lạ, phát triển dần tài năng và tính cách,
+          vượt qua những sai lầm và khuyết điểm, đạt dược những thành tích vang
+          dội cho đội và trường của mình.
         </p>
 
         <p>
           Nhưng lão phù thủy Voldemort, kẻ đã giết cha mẹ Harry Potter và toan
-          giết cả cậu bé, lại tái xuất hiện. Những thế lực hắc ám dựa hơi lão lại
-          trổi lên đe doạ thế giới lương thiện, hồn nhiên. Harry Potter trở thành
-          người anh hùng nhỏ tuổi dũng cảm và tài giỏi, được những người hiền
-          lương tin cậy, ủng hộ trong cuộc chiến dằn dai chống lại thế lực hắc
-          ám.Cũng như cậu bé bay Peter Pan, hay Alice ở xứ sở thần tiên, hay siêu
-          nhân, Harry Potter giúp chúng ta mở rộng trí tưởng tượng, thỏa mãn lịng
-          mong muốn sáng tạo, bay nhảy hành hiệp, khẳng định những giá trị nhân
-          bản và và bảo vệ chân lý. Harry Potter là một Tơn Ngộ Khơng kiểu Anh của
-          thế giới cơng nghiệp hiện đại. Cũng như Ngộ Khơng, Harry Potter hào
-          hiệp, khẳng khái, thơng minh đến tinh quái, hiếu kỳ, hiếu học, kính
-          thầy, yêu bạn, căm ghét thế lực hắc ám.
+          giết cả cậu bé, lại tái xuất hiện. Những thế lực hắc ám dựa hơi lão
+          lại trổi lên đe doạ thế giới lương thiện, hồn nhiên. Harry Potter trở
+          thành người anh hùng nhỏ tuổi dũng cảm và tài giỏi, được những người
+          hiền lương tin cậy, ủng hộ trong cuộc chiến dằn dai chống lại thế lực
+          hắc ám.Cũng như cậu bé bay Peter Pan, hay Alice ở xứ sở thần tiên, hay
+          siêu nhân, Harry Potter giúp chúng ta mở rộng trí tưởng tượng, thỏa
+          mãn lịng mong muốn sáng tạo, bay nhảy hành hiệp, khẳng định những giá
+          trị nhân bản và và bảo vệ chân lý. Harry Potter là một Tơn Ngộ Khơng
+          kiểu Anh của thế giới cơng nghiệp hiện đại. Cũng như Ngộ Khơng, Harry
+          Potter hào hiệp, khẳng khái, thơng minh đến tinh quái, hiếu kỳ, hiếu
+          học, kính thầy, yêu bạn, căm ghét thế lực hắc ám.
         </p>
       </div>
     </div>
   </div>
-
 </div>
