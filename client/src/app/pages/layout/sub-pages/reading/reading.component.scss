@@ -35,41 +35,52 @@
 }
 
 .reading-box {
+  padding-top: 1.5%;
   border: none;
   background-color: white;
   width: 100%;
+  max-width: 1200px;
   height: 100%;
   border-top-left-radius: 28px;
   border-top-right-radius: 28px;
   overflow: hidden; /* Ẩn phần nội dung tràn ra ngoài khung reading-box */
 }
-.title{
+.content.title{
   padding: 10px;
   margin: 0;
   flex-grow: 1;
 }
-.title h4{
-  margin-left: 10px;
+.content .title h4{
+  margin-top: 10px;
+  //margin-left: 10px;
   color:  #6750a4;
   font-weight: bold;
   font-size: 28px;
   word-spacing: -6px;
 }
-.title p{
-  margin-left: 10px;
-  margin-bottom: 0;
+.content .title p{
+  padding: 0;
+  text-align: left;
+  //margin-left: 10px;
+  margin-bottom: 10px;
   font-size: 14px;
   font-weight: bold;
   word-spacing: -4px;
 }
 .content {
   text-align: justify;
-  height: 80%; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
-  overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao */
-  padding-right: 10px; /* Thêm khoảng cách để tránh thanh cuộn chồng lên chữ */
+  height: 100%; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
+  overflow-y: scroll; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao */
+  padding-right: 20px; /* Thêm khoảng cách để tránh thanh cuộn chồng lên chữ */
   font-size: 18px;
   line-height: 1.5;
   color: #555;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.content::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
 }
 .content h4{
   font-size: 18px;
@@ -79,108 +90,128 @@
   word-spacing: -6px;
 }
 .content p {
+  color: #0d1300;
   justify-content: center;
   padding-left: 20px;
   text-indent: 2em;
   font-weight: 450;
 }
-.reading-box.vertical .content {
-  overflow-y: auto;
-  overflow-x: hidden;
-  white-space: normal;
+
+
+
+// Mobile S (320px)
+@media only screen  and (max-width: 320px) {
+  #reading-container{
+    width: 100%;
+    max-width: 320px;
+    height: calc(100% - 20px);
+  }
+  .example-button-container {
+    width: 50px;
+  }
+  .example-button-container button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color:#e8def9; /* Màu background */
+    color:  #8069bf; /* Màu của biểu tượng */
+    border: none;
+    display: flex;
+    box-shadow: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .reading-box{
+    width: 100%;
+    height: 100%;
+  }
+  .content .title h4 {
+    font-size: 20px;
+    padding-right: 0 ;
+  }
+  .content .title p {
+    font-size: 10px;
+  }
+  .content h4{
+    font-size: 14px;
+    padding-left: 10px;
+  }
+
+  .content {
+    font-size: 10px;
+  }
 }
 
-.reading-box.horizontal .content {
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
+// Mobile M (375px)
+@media only screen and (max-width: 376px) and (min-width: 321px) {
+  #reading-container{
+    width: 100%;
+    max-width: 376px;
+    height: 100%;
+  }
+  .example-button-container {
+    width: 60px;
+
+    button {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .reading-box{
+    width: 100%;
+    height: 100%;
+  }
+
+  .content .title h4 {
+    font-size: 24px;
+  }
+  .content .title p {
+    font-size: 12px;
+  }
+  .content h4{
+    font-size: 16px;
+    padding-left: 15px;
+  }
+
+  .content {
+    font-size: 14px;
+  }
 }
-.reading-box .horizontal .content > p{
 
-  flex: 0 0 auto;
-  width: 100%;
+// Mobile L (425px)
+@media only screen and (max-width: 426px) and (min-width: 376px) {
+  #reading-container{
+    width: 100%;
+    max-width: 425px;
+    height: 100%;
+  }
+  .example-button-container {
+    width: 60px;
+
+    button {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .reading-box{
+    width: 100%;
+    height: 100%;
+  }
+
+  .content .title h4 {
+    font-size: 25px;
+    word-spacing: -10px;
+  }
+  .content .title p {
+    font-size: 13px;
+  }
+  .content h4{
+    font-size: 17px;
+  }
+  .content {
+    font-size: 15px;
+  }
 }
-
-
-
-//// Mobile S (320px)
-//@media only screen and (max-width: 320px) {
-//  .example-button-container {
-//    width: 100px;
-//
-//    //button {
-//    //  width: 20px;
-//    //  height: 20px;
-//    //}
-//  }
-//  .example-button-container button {
-//    width: 25px;
-//    height: 25px;
-//    border-radius: 50%;
-//    background-color:#e8def9; /* Màu background */
-//    color:  #8069bf; /* Màu của biểu tượng */
-//    border: none;
-//    display: flex;
-//    box-shadow: none;
-//    align-items: center;
-//    justify-content: center;
-//    cursor: pointer;
-//  }
-//  .reading-box{
-//    width: 100%;
-//    height: 100%;
-//  }
-//  .title h4 {
-//    font-size: 24px;
-//  }
-//
-//  .content {
-//    font-size: 16px;
-//  }
-//}
-
-//// Mobile M (375px)
-//@media only screen and (max-width: 375px) {
-//  .example-button-container {
-//    width: 110px;
-//
-//    button {
-//      width: 42px;
-//      height: 42px;
-//    }
-//  }
-//
-//  .title h4 {
-//    font-size: 26px;
-//  }
-//
-//  .content {
-//    font-size: 17px;
-//  }
-//}
-//
-//// Mobile L (425px)
-//@media only screen and (max-width: 425px) {
-//  .example-button-container {
-//    width: 115px;
-//
-//    button {
-//      width: 5px;
-//      height: 5px;
-//    }
-//  }
-//  .reading-box{
-//    width: 100%;
-//    height: 100%;
-//  }
-//
-//  .title h4 {
-//    font-size: 25px;
-//  }
-//
-//  .content {
-//    font-size: 17.5px;
-//  }
-//}
 
 

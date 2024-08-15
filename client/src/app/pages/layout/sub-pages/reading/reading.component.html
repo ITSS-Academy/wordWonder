@@ -9,13 +9,14 @@
       </div>
     </div>
   </div>
-  <div class=" reading-box" [class]="scrollDirection">
-    <div class="title">
-      <h4>Harry Potter và Hòn Đá Phù Thủy</h4>
-      <p>Tác giả: J.K.ROWLING</p>
-      <p>Nhóm dịch: Lý Lan</p>
-    </div>
+  <div class=" reading-box" >
+
     <div class="content">
+      <div class="title">
+        <h4>Harry Potter và Hòn Đá Phù Thủy</h4>
+        <p>Tác giả: J.K.ROWLING</p>
+        <p>Nhóm dịch: Lý Lan</p>
+      </div>
       <h4> Chương 1 - ĐỨA BÉ VẪN SỐNG </h4>
       <p>Ông bà Dursley, nhà số 4 đường Privet Drive, tự hào mà nói họ hoàn toàn bình thường, cám ơn bà con quan tâm.
         Bà con đừng trông mong gì họ tin vào những chuyện kỳ lạ hay bí ẩn, đơn giản là vì họ chẳng hơi đâu bận tâm đến mấy trò vớ vẩn đó.
@@ -197,11 +198,9 @@
         </button>
         <mat-menu #menu="matMenu">
           <button [routerLink]="'../../main/home'"  style=" border-radius:8px; color: #6750a4" mat-menu-item><mat-icon style="color:#6750a4">home</mat-icon> Home</button>
-          <button style=" border-radius:8px; word-spacing:-6px; color: #6750a4" mat-menu-item [matMenuTriggerFor]="icon"><mat-icon style="color: #6750a4"  >chrome_reader_mode</mat-icon> Kiểu đọc</button>
-          <mat-menu #icon="matMenu">
-            <button style=" border-radius:8px; color: #6750a4;text-align: center" mat-menu-item (click)="setScrollDirection('vertical')">Từ trên xuống</button>
-            <button style=" border-radius:8px; color: #6750a4" mat-menu-item (click)="setScrollDirection('horizontal')">Từ trái sang phải</button>
-          </mat-menu>
+          <button style=" border-radius:8px; word-spacing:-6px; color: #6750a4" mat-button ><mat-icon style="color: #6750a4"  >chrome_reader_mode</mat-icon>Cấu hình</button>
+<!--          <button mat-button (click)="openDialog()">Open dialog</button>-->
+
         </mat-menu>
       </div>
     </div>
