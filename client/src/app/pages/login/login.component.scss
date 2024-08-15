@@ -39,11 +39,16 @@
       justify-content: center;
 
       .text-grp,
-      .btn-grp,
       #logo,
       #form {
         width: calc(100% - 20px);
         padding: 10px;
+        display: flex;
+      }
+
+      .btn-grp {
+        width: calc(100% - 10px);
+        padding: 5px;
         display: flex;
       }
 
@@ -104,7 +109,7 @@
 
       #right {
         .text-grp,
-        .btn-grp,
+          //.btn-grp,
         #logo {
           width: calc(100% - 20px);
           padding: 10px;
