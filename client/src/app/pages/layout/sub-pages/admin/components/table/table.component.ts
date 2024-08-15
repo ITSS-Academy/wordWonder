@@ -57,7 +57,7 @@ const describe: string[] = [
   'To Kill a Mockingbird is a novel by the American author...',
   'The Catcher in the Rye is a novel by J. D. Salinger, ...',
   'The Da Vinci Code is a 2003 mystery thriller novel by ...',
-  'The Alchemist is a novel by Brazilian author ...',
+  'The Alchemist is a novel by Brazilian author ..git     .',
   ];
 
 const status: string[] = [
