@@ -18,6 +18,7 @@
 #header-content {
   height: 488px;
   position: relative; /* Ensure child elements are positioned relative to this */
+
 }
 
 #image-background {
@@ -60,7 +61,14 @@
   left: 50%; /* Center horizontally */
   transform: translate(-50%, 0); /* Center horizontally */
   z-index: 1; /* Higher z-index */
+  width: 80%;
+  max-width: 800px;
 }
+
+#book-info::before {
+  box-sizing: border-box;
+}
+
 
 #fix-img {
   height: 100%;
@@ -126,16 +134,18 @@
 #novel-body-container{
   margin: 0 auto;
   padding: 13px;
-  width: 650px;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-color-lighter);
+  max-width: 800px;
 }
 
-#novel-body-container ::before{
+.description ::before{
   box-sizing: border-box;
   display: table;
   content: " ";
+
+
 }
 
 .description {
@@ -165,8 +175,10 @@
 }
 
 #description-container {
+  height: calc(100% - 488px);
   font-size: 16px;
   font-style: normal;
+  max-width: 800px;
   max-height: 300px;
   overflow-y: scroll;
   padding: 13px;
@@ -174,9 +186,8 @@
   border: 1px #d7c3bb solid;
   border-radius: 6px;
   background-color: var(--bg-color-2);
-  background-color: var(--bg-color-2);
   width: 100%; /* Match the width of #header-content */
-  max-width: 800px; /* Ensure it does not exceed the width of #header-content */
+  //max-width: 800px; /* Ensure it does not exceed the width of #header-content */
   margin: 0 auto; /* Center the container */
 }
 
@@ -189,3 +200,33 @@
   display: none; /* Safari and Chrome */
 }
 
+@media only screen and (max-width: 425px) {
+  #book-info {
+    flex-direction: column; /* Stack the image and info vertically */
+    width: 100%; /* Take full width */
+    left: 50%;
+    transform: translate(-50%, 0); /* Center horizontally */
+  }
+
+  #cover img {
+    display: none; /* Hide the cover image */
+  }
+
+  #info {
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center text */
+    padding: 10px; /* Add padding for better spacing */
+    width: 100%; /* Ensure it takes full width */
+  }
+
+  #header-content {
+    height: auto; /* Make header content flexible in height */
+    padding-top: 20px; /* Add top padding for spacing */
+  }
+
+  #description-container {
+    max-height: 200px; /* Limit the height to avoid overflowing the screen */
+    overflow-y: auto; /* Allow scrolling within the description if necessary */
+    font-size: 14px; /* Slightly smaller font size for readability */
+  }
+}
