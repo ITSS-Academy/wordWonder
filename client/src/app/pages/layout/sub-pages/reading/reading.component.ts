@@ -10,4 +10,10 @@ import {MatMenuModule} from "@angular/material/menu";
   templateUrl: './reading.component.html',
   styleUrl: './reading.component.scss',
 })
-export class ReadingComponent {}
+export class ReadingComponent {
+  scrollDirection: 'vertical' | 'horizontal' = 'vertical';
+
+  setScrollDirection(direction: 'vertical' | 'horizontal') {
+    this.scrollDirection = direction;
+  }
+}
