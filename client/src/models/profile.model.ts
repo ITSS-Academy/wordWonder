@@ -1,4 +1,4 @@
-export interface profileModel {
+export interface ProfileModel {
   nickname: string;
   email: string;
   phoneNumber: string;

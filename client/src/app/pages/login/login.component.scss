@@ -10,6 +10,7 @@
 #login-Img {
   width: 50%;
   height: 100%;
+  display: flex;
 }
 #login-TL {
   width: 50%;
@@ -19,8 +20,6 @@
   flex-direction: column;
   align-items: center;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 .login-title {
   font-family: "Roboto", sans-serif;
@@ -47,7 +46,4 @@
   padding: 25px 25px;
   font-size: 1.2rem;
   border-radius: 30px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
 }
