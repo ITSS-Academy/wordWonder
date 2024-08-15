@@ -2,8 +2,13 @@
   flex: 1 1 auto;
 }
 
+#logo-with-text,
 #logo {
   cursor: pointer;
+}
+
+#logo {
+  display: none;
 }
 
 #search-input {
@@ -62,5 +67,14 @@
 
   ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background: var(--background);
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  #logo-with-text {
+    display: none;
+  }
+  #logo {
+    display: block;
   }
 }
