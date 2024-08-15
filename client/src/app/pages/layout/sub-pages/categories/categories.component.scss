@@ -19,16 +19,27 @@
   align-items: center;
 }
 
+.arrow-icon:hover {
+  cursor: pointer;
+}
+
 mat-icon {
-  font-size: 32px;
-  color: var(--button, #65558f);
+  font-size: 36px;
+  color: var(--primary);
   display: inline-block;
   height: 36px;
   width: 36px;
+  border-radius: 50%;
 }
 
+.mat-icon:hover {
+  color: var(--onPrimary);
+  background-color: var(--primary);
+}
+
+
 h1 {
-  color: var(--button, #65558f);
+  color: var(--primary);
   font-size: 30px;
   font-weight: 700;
   text-transform: uppercase;
@@ -50,6 +61,38 @@ h1 {
   gap: 7px;
 }
 
-.list-book {
+.book {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.book app-ebook-card {
+  width: 145px;
+  height: 196px;
   margin-bottom: 60px;
 }
+
+//:host {
+//  ::ng-deep .cdk-virtual-scroll-data-source-example .example-viewport {
+//    height: 308px;
+//    width: 100%;
+//  }
+//
+//  ::ng-deep
+//    .cdk-virtual-scroll-data-source-example
+//    .example-viewport
+//    .cdk-virtual-scroll-content-wrapper {
+//    display: flex;
+//    flex-direction: row;
+//    justify-content: space-evenly;
+//    //padding: 0 10px;
+//  }
+//
+//  ::ng-deep .cdk-virtual-scroll-data-source-example .example-item {
+//    width: 145px;
+//    height: 100%;
+//    margin: 0 10px;
+//  }
+//}

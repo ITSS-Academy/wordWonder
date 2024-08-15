@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { EbookService } from '../../../../../services/ebook.service';
 import { EBookModel } from '../../../../../models/ebook.model';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
@@ -13,25 +12,15 @@ import { MatChipsModule } from '@angular/material/chips';
   imports: [MaterialModule, SharedModule, EbookCardComponent, MatChipsModule],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriesComponent implements OnInit {
-  category: string[] = [];
   ebooks: EBookModel[] = [];
 
-  constructor(
-    private route: ActivatedRoute,
-    private ebookService: EbookService,
-  ) {}
+  constructor(private ebookService: EbookService) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.category = params['category'];
-      this.ebooks = this.ebookService.getEbooksByCategory(this.category);
-    });
-  }
-
-  trackByEbookId(index: number, ebook: EBookModel): string {
-    return ebook.id;
+    this.ebooks = this.ebookService.getEbooks();
   }
 
   readonly genre: string[] = [
@@ -39,6 +28,7 @@ export class CategoriesComponent implements OnInit {
     'Viễn tưởng',
     'Bí ẩn',
     'Khoa học',
+    'Phép thuật',
     'Tâm lý',
     'Kinh dị',
     'Hài hước',
