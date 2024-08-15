@@ -23,7 +23,9 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 
   read() {

@@ -32,7 +32,7 @@ export const LAYOUT_ROUTES: Routes = [
         component: ReadingComponent,
       },
       {
-        path: 'categories/:history',
+        path: 'categories/:type',
         loadChildren: () =>
           import('./sub-pages/categories/categories.route').then(
             (m) => m.CATEGORIES_ROUTES,
