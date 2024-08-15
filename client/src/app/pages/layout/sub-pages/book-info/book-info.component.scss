@@ -189,7 +189,7 @@
   border: 1px #d7c3bb solid;
   border-radius: 6px;
   background-color: var(--bg-color-2);
-  width: 100%; /* Match the width of #header-content */
+  width: calc(100% - 30px); /* Match the width of #header-content */
   margin: 0 auto; /* Center the container */
 }
 
