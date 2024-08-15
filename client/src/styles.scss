@@ -165,6 +165,7 @@ $client-theme: mat.define-theme(
 // that you are using.
 :root {
   @include mat.all-component-themes($client-theme);
+  --mdc-chip-elevated-container-color: transparent;
   --primary: #65558f;
   --surfaceTint: #6750a4;
   --onPrimary: #ffffff;
@@ -251,4 +252,9 @@ body {
     --mdc-text-button-label-text-color: var(--primary) !important;
     --mdc-outlined-button-label-text-color: var(--primary) !important;
   }
+}
+
+.mat-mdc-menu-panel {
+  background-color: var(--surfaceContainer) !important;
+  //color: var(--onS) !important;
 }

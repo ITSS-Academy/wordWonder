@@ -1,7 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  viewChild,
+} from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
 import { EBookModel } from '../../../models/ebook.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 /** Constants used to fill up our data base. */
 export const GENRES: string[] = [
@@ -242,15 +253,43 @@ const AUTHORS: string[] = [
   imports: [MaterialModule, SharedModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  ebooks = Array.from({ length: 10 }, (_, k) => createNewEbook(k + 1));
-
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnDestroy(): void {}
 
   ngOnInit(): void {}
+
+  ebooks = Array.from({ length: 10 }, (_, k) => createNewEbook(k + 1));
+
+  readonly menuTrigger = viewChild.required(MatMenuTrigger);
+
+  readonly dialog = inject(MatDialog);
+
+  openConfirmLogoutDialog() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Logout',
+        message: 'Are you sure you want to logout?',
+      },
+      restoreFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      if (result == true) {
+        this.router.navigate(['/login']).then(() => {
+          console.log('User confirmed logout');
+        });
+      }
+      return this.menuTrigger().focus();
+    });
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['/main/profile']).then(() => {});
+  }
 }
 
 /** Builds and returns a new User. */

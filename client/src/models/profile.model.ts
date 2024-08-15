@@ -3,5 +3,6 @@ export interface profileModel {
   email: string;
   phoneNumber: string;
   birthDate: Date;
-  profileImage: string; // URL or path to the profile image
+  profileImage: string;
+  gmail: string;
 }
