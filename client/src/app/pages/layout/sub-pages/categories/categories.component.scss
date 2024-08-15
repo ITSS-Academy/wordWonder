@@ -19,8 +19,11 @@
   }
 
   .genre {
-    max-height: 108px;
+    overflow-x: hidden;
     overflow-y: auto;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    max-height: 108px;
     display: flex;
     justify-content: center;
     width: calc(90% - 20px);
@@ -31,11 +34,18 @@
     }
   }
 
+  .genre::-webkit-scrollbar {
+    display: none;
+  }
+
   .book {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none;
     width: 90%;
     display: grid;
     padding: 20px;
-    overflow-y: auto;
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     align-content: start; /* Changed from center to start */
@@ -48,6 +58,10 @@
       align-self: center;
       justify-self: center;
     }
+  }
+
+  .book::-webkit-scrollbar {
+    display: none;
   }
 }
 
