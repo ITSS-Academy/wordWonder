@@ -16,6 +16,10 @@
       </mat-chip-listbox>
     </div>
 
-    <div class="list-book"></div>
+    <div class="book">
+      @for (ebook of ebooks; track $index) {
+        <app-ebook-card [ebook]="ebook"></app-ebook-card>
+      }
+    </div>
   </div>
 </div>

@@ -5,12 +5,11 @@
       <div class="example-button-container">
         <button [routerLink]="'../book-info'" id="back-button" mat-mini-fab aria-label="back icon">
           <mat-icon>arrow_back</mat-icon>
-
         </button>
       </div>
     </div>
   </div>
-  <div class=" reading-box">
+  <div class=" reading-box" [class]="scrollDirection">
     <div class="title">
       <h4>Harry Potter và Hòn Đá Phù Thủy</h4>
       <p>Tác giả: J.K.ROWLING</p>
@@ -197,16 +196,14 @@
           <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button [routerLink]="'../../home'"  style=" border-radius:4px; color: #6750a4" mat-menu-item><mat-icon style="color:#6750a4">home</mat-icon> Home</button>
-          <button style=" border-radius:4px; word-spacing:-6px; color: #6750a4" mat-menu-item><mat-icon style="color: #6750a4">chrome_reader_mode</mat-icon> Kiểu đọc</button>
+          <button [routerLink]="'../../main/home'"  style=" border-radius:8px; color: #6750a4" mat-menu-item><mat-icon style="color:#6750a4">home</mat-icon> Home</button>
+          <button style=" border-radius:8px; word-spacing:-6px; color: #6750a4" mat-menu-item [matMenuTriggerFor]="icon"><mat-icon style="color: #6750a4"  >chrome_reader_mode</mat-icon> Kiểu đọc</button>
+          <mat-menu #icon="matMenu">
+            <button style=" border-radius:8px; color: #6750a4;text-align: center" mat-menu-item (click)="setScrollDirection('vertical')">Từ trên xuống</button>
+            <button style=" border-radius:8px; color: #6750a4" mat-menu-item (click)="setScrollDirection('horizontal')">Từ trái sang phải</button>
+          </mat-menu>
         </mat-menu>
       </div>
     </div>
   </div>
-<!--  <button mat-button [matMenuTriggerFor]="menu">Menu</button>-->
-<!--  <mat-menu #menu="matMenu">-->
-<!--    <button mat-menu-item>Item 1</button>-->
-<!--    <button mat-menu-item>Item 2</button>-->
-<!--  </mat-menu>-->
-
 </div>

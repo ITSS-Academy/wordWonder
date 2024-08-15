@@ -6,6 +6,15 @@
   position: relative; /* Ensure container is positioned */
 }
 
+#book-info-container{
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#book-info-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 #header-content {
   height: 488px;
   position: relative; /* Ensure child elements are positioned relative to this */
@@ -114,19 +123,29 @@
   }
 }
 
+#novel-body-container{
+  margin: 0 auto;
+  padding: 13px;
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color-lighter);
+}
+
+#novel-body-container ::before{
+  box-sizing: border-box;
+  display: table;
+  content: " ";
+}
+
 .description {
   margin-top: 20px;
   position: relative;
   display: block;
   unicode-bidi: isolate;
-  justify-content: center;
-  align-items: center;
 
 }
 
-.description::before {
-  box-sizing: border-box;
-}
 
 #introduce h6 {
   font-size: 26px;
@@ -160,3 +179,13 @@
   max-width: 800px; /* Ensure it does not exceed the width of #header-content */
   margin: 0 auto; /* Center the container */
 }
+
+#description-container{
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#book-info-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
