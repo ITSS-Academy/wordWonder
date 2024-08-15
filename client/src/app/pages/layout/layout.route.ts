@@ -17,19 +17,29 @@ export const LAYOUT_ROUTES: Routes = [
       },
       {
         path: 'book-info',
-        component: BookInfoComponent,
+        loadChildren: () =>
+          import('./sub-pages/book-info/book-info.route').then(
+            (m) => m.BOOK_INFO_ROUTES,
+          ),
       },
       {
         path: 'profile',
-        component: ProfileComponent,
+        loadChildren: () =>
+          import('./sub-pages/profile/profile.route').then(
+            (m) => m.PROFILE_ROUTES,
+          ),
       },
       {
         path: 'admin',
-        component: AdminComponent,
+        loadChildren: () =>
+          import('./sub-pages/admin/admin.route').then((m) => m.ADMIN_ROUTES),
       },
       {
         path: 'reading',
-        component: ReadingComponent,
+        loadChildren: () =>
+          import('./sub-pages/reading/reading.route').then(
+            (m) => m.READING_ROUTES,
+          ),
       },
       {
         path: 'categories/:type',
