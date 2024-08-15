@@ -1,18 +1,49 @@
 <div id="login-container">
-  <div id="login-Img">
-    <img class="login-image" src="../public/assets/right.png" />
-  </div>
-  <div id="login-TL">
-    <h1 class="login-title">
-      Discover Endless Stories <br />Just a Click Away!
-    </h1>
-    <div class="example-button-row">
-      <button mat-flat-button color="primary" class="login">
-        Đăng Nhập với Google
-      </button>
-      <button mat-flat-button color="primary" class="login">
-        Đăng Nhập với Admin
-      </button>
+  <div id="login-box" class="mat-elevation-z4">
+    <div id="left">
+      <img src="/public/assets/login_image_2.jpg" alt="background" />
+    </div>
+    <div id="right">
+      <img id="logo" src="public/assets/logo/logo-with-text-original.png" />
+      <div class="text-grp">
+        <h5 class="login-title">Thế giới truyện diệu kỳ.</h5>
+        <h5 class="login-title">Chỉ với một chạm là sẽ mở ra!</h5>
+      </div>
+      <form [formGroup]="loginForm" id="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Email" />
+          @if (loginForm.get("email")?.invalid) {
+            <mat-error>Email không hợp lệ</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Mật khẩu</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            placeholder="Password"
+            type="password"
+          />
+          @if (loginForm.get("password")?.invalid) {
+            <mat-error>Mật khẩu không hợp lệ</mat-error>
+          }
+        </mat-form-field>
+      </form>
+      <div class="btn-grp">
+        <button mat-stroked-button color="primary" class="login">
+          <img src="/public/assets/logo/google_logo.png" id="google-logo" />
+          Đăng Nhập với Google
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          class="login"
+          (click)="changeLoginMethod()"
+        >
+          Đăng Nhập với Admin
+        </button>
+      </div>
     </div>
   </div>
 </div>

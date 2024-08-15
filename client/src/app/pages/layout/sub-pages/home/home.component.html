@@ -2,9 +2,10 @@
   <div class="content">
     <div class="category-header">
       <h4>Lịch sử</h4>
-      <a class="see-more" [routerLink]="['/main/home/categories']">Xem thêm</a>
+      <a class="see-more" [routerLink]="['/main/categories/history']"
+        >Xem thêm</a
+      >
     </div>
-
     <div class="cdk-virtual-scroll-data-source-example">
       <cdk-virtual-scroll-viewport
         orientation="horizontal"
@@ -21,7 +22,9 @@
   <div class="content">
     <div class="category-header">
       <h4>Thịnh hành</h4>
-      <a class="see-more" routerLink="">Xem thêm</a>
+      <a class="see-more" [routerLink]="['/main/categories/trends']"
+        >Xem thêm</a
+      >
     </div>
     <div class="cdk-virtual-scroll-data-source-example">
       <cdk-virtual-scroll-viewport
@@ -39,7 +42,9 @@
   <div class="content">
     <div class="category-header">
       <h4>Đề xuất</h4>
-      <a class="see-more" routerLink="">Xem thêm</a>
+      <a class="see-more" [routerLink]="['/main/categories/recommend']"
+        >Xem thêm</a
+      >
     </div>
     <div class="cdk-virtual-scroll-data-source-example">
       <cdk-virtual-scroll-viewport
@@ -57,7 +62,7 @@
   <div class="content">
     <div class="category-header">
       <h4>Bảng xếp hạng</h4>
-      <a class="see-more" routerLink="">Xem thêm</a>
+      <a class="see-more" [routerLink]="['/main/categories/rank']">Xem thêm</a>
     </div>
     <div class="cdk-virtual-scroll-data-source-example">
       <cdk-virtual-scroll-viewport
