@@ -16,6 +16,9 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthService } from '../../../services/auth.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 /** Constants used to fill up our data base. */
 export const GENRES: string[] = [
@@ -270,7 +273,10 @@ export class NavbarComponent implements AfterViewInit {
   readonly dialog = inject(MatDialog);
   private renderer = inject(Renderer2);
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {
     this.searchControl.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe((value) => {

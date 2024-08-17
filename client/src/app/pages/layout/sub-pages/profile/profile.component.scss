@@ -1,32 +1,39 @@
 #profile-container {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px); /* Adjust height to account for nav-bar height */
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  margin-top: 30px;
 }
 
 .card-container1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   width: 50%;
   height: max-content;
   min-width: 800px;
   max-width: 1000px;
-  padding: 1.5em;
+  padding: 0.5em;
   border-radius: 28px;
   background-color: #fff;
+  margin-top: 20px;
+  overflow: hidden;
 }
 
-#left-card1 {
+#left-card1,
+#right-card {
   display: flex;
-  flex-direction: column;
-  gap: 0; /* Giảm khoảng cách giữa các phần tử */
-  width: 45%; /* Giảm chiều rộng để card nhỏ hơn */
+  gap: 0;
+  width: 50%;
   box-sizing: border-box;
   overflow: hidden;
+  flex-direction: column;
+  align-items: stretch;
+  margin-left: 10px;
 }
 
 #left-card1 .mat-button,
@@ -52,12 +59,10 @@
 
 .top-right {
   width: 100%;
-  height: 150px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.1em; /* Điều chỉnh khoảng cách giữa các phần tử */
-  flex-wrap: nowrap;
   justify-content: center;
 }
 
@@ -71,7 +76,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.1em; /* Giảm khoảng cách giữa các phần tử */
+  gap: 0.5em; /* Giảm khoảng cách giữa các phần tử */
 }
 
 #right-cardTL p {
@@ -80,18 +85,17 @@
 }
 
 .bot-right {
-  width: calc(100% - 40px);
+  width: calc(100% - 20px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin: 10px;
+  align-items: baseline;
+  margin-left: 30px;
 }
 
 .bot-right p {
   font-size: 1em;
   text-align: center;
-  margin: 0 0 0.25em 0;
-  margin-left: 10px;
+  margin-top: 5px;
 }
 
 .gmail-button {
@@ -125,7 +129,6 @@
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
-  margin-left: 9px;
 }
 
 #gmail-container1 p {
@@ -138,12 +141,16 @@
 
 .example-button-row {
   display: flex;
-  justify-content: space-around;
   width: 100%;
+  margin-top: 1em;
+  flex-direction: column;
+  gap: 39px;
 }
 
 .example-button-row button {
   display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 10px 10px;
   font-size: 0.875rem;
   border-radius: 20px;
@@ -153,30 +160,53 @@
   flex-wrap: nowrap;
 }
 
-.nickname-IF1 {
-  display: block;
-  width: 100%;
-  height: 3.5em;
-  padding: 1em;
-  font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  border-radius: 5px;
-  box-sizing: border-box;
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
+.btn-admin {
+  background-color: #00a8fd; /* Change to desired color */
+  color: white;
 }
 
-.nickname-IF1:hover {
-  border-color: rgba(0, 0, 0, 0.87); /* Đậm hơn khi hover */
+#preview {
+  margin-top: 1em;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
 }
 
-.nickname-IF1:focus {
-  border-color: #6750a4; /* Màu viền khi focus */
-  outline: none; /* Bỏ outline mặc định */
-  box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.3); /* Thêm bóng đổ màu primary */
+@media (max-width: 810px) {
+  .card-container1 {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 50%; /* Adjusted width */
+    height: max-content;
+    min-width: 500px; /* Adjusted min-width */
+    max-width: 700px; /* Adjusted max-width */
+    padding: 0.5em;
+    border-radius: 28px;
+    background-color: #fff;
+    display: flex;
+  }
+
+  #left-card1,
+  #right-card {
+    max-width: 100%;
+  }
+
+  .top-right {
+    flex-direction: column;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+  .example-button-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1em;
+    gap: 20px;
+  }
 }
 
 .custom-file-input {
@@ -195,6 +225,7 @@
 
   .file-input-label {
     display: flex;
+    align-items: center;
     width: 100%;
     padding: 1em;
     font-size: 0.945rem;
@@ -207,6 +238,7 @@
       border-color 0.3s,
       box-shadow 0.3s;
     text-align: center;
+    justify-content: space-between;
   }
 
   .file-input-label:hover {
@@ -217,5 +249,10 @@
     border-color: #6750a4;
     outline: none;
     box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.3);
+  }
+
+  .file-input-logo {
+    display: flex;
+    max-width: 20px;
   }
 }

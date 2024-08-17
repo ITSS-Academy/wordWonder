@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EBookModel } from '../models/ebook.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,8 @@ export class EbookService {
   getEbooks(): EBookModel[] {
     return this.ebooks;
   }
+
+  constructor(private authService: AuthService) {}
 
   getEbooksByCategory(category: string[]): EBookModel[] {
     return this.ebooks.filter((ebook) => ebook.category === category);

@@ -25,15 +25,15 @@
 
       <label class="nickname-IF">Cập Nhật Hình Ảnh</label>
       <div class="custom-file-input">
-        <input
-          type="file"
-          accept="image/*"
-          id="fileInput"
-          (change)="onFileSelected($event)"
-        />
-        <label for="fileInput" class="file-input-label"
-          >Choose your file Img</label
-        >
+        <input type="file" accept="image/*" id="fileInput" />
+        <label for="fileInput" class="file-input-label">
+          Choose your file Img
+          <img
+            src="../public/assets/upploadImg.png"
+            alt="Logo"
+            class="file-input-logo"
+          />
+        </label>
       </div>
     </div>
     <div id="right-card">
@@ -53,9 +53,7 @@
         <p><b>My email Address</b></p>
         <div id="gmail-container">
           <button mat-icon-button class="gmail-button">
-            <mat-icon svgIcon="gmail">
-              <img src="../public/assets/icon11.png" alt="ava" />
-            </mat-icon>
+            <mat-icon>mail</mat-icon>
           </button>
           <div id="gmail-container1">
             <p><b>phamhoanglong1910</b></p>
@@ -63,9 +61,15 @@
           </div>
         </div>
         <div class="example-button-row">
-          <button mat-flat-button class="btn-setting">Chỉnh Sửa</button>
-          <button mat-flat-button class="btn-admin">Admin</button>
-          <button mat-flat-button class="btn-logout">Đăng Xuất</button>
+          <button mat-flat-button class="btn-setting">
+            <mat-icon>edit</mat-icon> Chỉnh Sửa
+          </button>
+          <button mat-flat-button class="btn-admin">
+            <mat-icon>admin_panel_settings</mat-icon> Admin
+          </button>
+          <button mat-stroked-button class="btn-logout">
+            <mat-icon>logout</mat-icon> Đăng Xuất
+          </button>
         </div>
       </div>
     </div>
