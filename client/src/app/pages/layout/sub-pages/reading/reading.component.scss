@@ -3,7 +3,10 @@
   width: 100%;
   height: calc(100% - 20px);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+.flex-container{
+  display: none;
 }
 
 .example-flex-container {
@@ -37,15 +40,13 @@
 }
 
 .reading-box {
-  //padding-top: 1.5%;
   border: none;
   background-color: white;
-  width: calc(100% - 40px);
   max-width: 1000px;
-  height: calc(100% - 40px);
+  height: calc(100% - 35px);
   border-top-left-radius: 28px;
   border-top-right-radius: 28px;
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   overflow: hidden; /* Ẩn phần nội dung tràn ra ngoài khung reading-box */
 }
 
@@ -111,4 +112,30 @@
   .example-button-container {
     display: none;
   }
+  #icon-menu{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 30px 0 30px;
+  }
+  .flex-container button{
+    border-radius: 28px;
+    width: 80px;
+    height: 30px;
+    box-shadow: none;
+    background-color: #e8def9;
+    color: #8069bf; /* Màu của biểu tượng */
+  }
+.reading-box{
+  height: calc(100% - 34px);
+}
+  #reading-container {
+    padding-top: 10px;
+    height: calc(100% - 16px);
+  }
+
 }
