@@ -1,0 +1,12 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+mat-progress-spinner {
+  margin-bottom: 20px;
+}

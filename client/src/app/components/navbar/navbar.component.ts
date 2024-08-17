@@ -5,58 +5,25 @@ import {
   ElementRef,
   HostListener,
   inject,
+  OnDestroy,
+  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
-import { EBookModel } from '../../../models/ebook.model';
+import { EBookModel, GENRES } from '../../../models/ebook.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../../ngrxs/auth/auth.state';
+import { Subscription } from 'rxjs';
+import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 
 /** Constants used to fill up our data base. */
-export const GENRES: string[] = [
-  'Adventure',
-  'Science Fiction',
-  'Fantasy',
-  'Mystery',
-  'Historical Fiction',
-  'Horror',
-  'Thriller',
-  'Romance',
-  'Westerns',
-  'Dystopian',
-  'Memoir',
-  'Biography',
-  'Self-help',
-  'Cookbooks',
-  'History',
-  'Travel',
-  'True Crime',
-  'Humor',
-  'Children’s',
-  'Young Adult',
-  'Poetry',
-  'Science',
-  'Nature',
-  'Math',
-  'Philosophy',
-  'Religion',
-  'Spirituality',
-  'New Age',
-  'Art',
-  'Photography',
-  'Architecture',
-  'Music',
-  'Film',
-  'Fashion',
-  'Performing Arts',
-  'Graphic Novels',
-  'Manga',
-];
 const NAMES: string[] = [
   'Around the World in Eighty Days',
   'The War of the Worlds',
@@ -258,9 +225,12 @@ const AUTHORS: string[] = [
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('dropdown') dropdown!: ElementRef;
+
+  subscriptions: Subscription[] = [];
+  isStaticUser = false;
 
   searchControl = new FormControl('');
   showDropdown = false;
@@ -270,7 +240,10 @@ export class NavbarComponent implements AfterViewInit {
   readonly dialog = inject(MatDialog);
   private renderer = inject(Renderer2);
 
-  constructor(private router: Router) {
+  constructor(
+    private store: Store<{ auth: AuthState }>,
+    private router: Router,
+  ) {
     this.searchControl.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe((value) => {
@@ -305,12 +278,24 @@ export class NavbarComponent implements AfterViewInit {
       });
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
+        this.isStaticUser = isStaticUser;
+      }),
+    );
+  }
+
   ngAfterViewInit() {
     this.setPosition();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     this.setPosition();
   }
 
@@ -346,9 +331,7 @@ export class NavbarComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result == true) {
-        this.router.navigate(['/login']).then(() => {
-          console.log('User confirmed logout');
-        });
+        this.logout();
       }
     });
   }
@@ -356,10 +339,20 @@ export class NavbarComponent implements AfterViewInit {
   navigateToProfile() {
     this.router.navigate(['/main/profile']).then(() => {});
   }
+
+  logout() {
+    if (this.isStaticUser) {
+      this.router.navigate(['/login']).then(() => {
+        this.store.dispatch(AuthActions.signOut());
+      });
+    } else {
+      this.store.dispatch(AuthActions.signOut());
+    }
+  }
 }
 
 /** Builds and returns a new User. */
-function createNewEbook(id: number): EBookModel {
+export function createNewEbook(id: number): EBookModel {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
     ' ' +
