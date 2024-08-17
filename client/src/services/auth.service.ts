@@ -6,7 +6,7 @@ import {
   signOut,
 } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
-import { from, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 
@@ -57,5 +57,17 @@ export class AuthService {
         return of(error);
       }),
     );
+  }
+
+  isSignedIn(): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      this.auth.onAuthStateChanged((user) => {
+        if (user) {
+          observer.next(true);
+        } else {
+          observer.next(false);
+        }
+      });
+    });
   }
 }
