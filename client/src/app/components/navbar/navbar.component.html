@@ -60,5 +60,8 @@
         Sign out
       </button>
     </mat-menu>
+    @if (authService.currentUser) {
+      <img [src]="authService.currentUser.photoURL" alt="" />
+    }
   </div>
 </mat-toolbar>
