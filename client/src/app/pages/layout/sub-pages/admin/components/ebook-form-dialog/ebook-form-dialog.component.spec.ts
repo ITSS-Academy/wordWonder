@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableComponent } from './table.component';
+import { EbookFormDialogComponent } from './ebook-form-dialog.component';
 
-describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+describe('EbookFormDialogComponent', () => {
+  let component: EbookFormDialogComponent;
+  let fixture: ComponentFixture<EbookFormDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableComponent]
+      imports: [EbookFormDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(EbookFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
-import { EBookModel } from '../../../models/ebook.model';
+import { EBookModel, GENRES } from '../../../models/ebook.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
@@ -24,45 +24,6 @@ import { Subscription } from 'rxjs';
 import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 
 /** Constants used to fill up our data base. */
-export const GENRES: string[] = [
-  'Adventure',
-  'Science Fiction',
-  'Fantasy',
-  'Mystery',
-  'Historical Fiction',
-  'Horror',
-  'Thriller',
-  'Romance',
-  'Westerns',
-  'Dystopian',
-  'Memoir',
-  'Biography',
-  'Self-help',
-  'Cookbooks',
-  'History',
-  'Travel',
-  'True Crime',
-  'Humor',
-  'Children’s',
-  'Young Adult',
-  'Poetry',
-  'Science',
-  'Nature',
-  'Math',
-  'Philosophy',
-  'Religion',
-  'Spirituality',
-  'New Age',
-  'Art',
-  'Photography',
-  'Architecture',
-  'Music',
-  'Film',
-  'Fashion',
-  'Performing Arts',
-  'Graphic Novels',
-  'Manga',
-];
 const NAMES: string[] = [
   'Around the World in Eighty Days',
   'The War of the Worlds',
@@ -391,7 +352,7 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
 }
 
 /** Builds and returns a new User. */
-function createNewEbook(id: number): EBookModel {
+export function createNewEbook(id: number): EBookModel {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
     ' ' +

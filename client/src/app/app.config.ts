@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { provideHttpClient } from '@angular/common/http';
 import { authReducer } from '../ngrxs/auth/auth.reducer';
 import { AuthEffects } from '../ngrxs/auth/auth.effects';
+import { fileUploadReducer } from '../ngrxs/file-upload/file-upload.reducer';
+import { FileUploadEffects } from '../ngrxs/file-upload/file-upload.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,8 +23,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideStore({
       auth: authReducer,
+      file_upload: fileUploadReducer,
     }),
-    provideEffects(AuthEffects),
+    provideEffects(AuthEffects, FileUploadEffects),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),

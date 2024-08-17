@@ -5,34 +5,73 @@
     <!--    Quay lại-->
   </button>
   <mat-card class="card-container1">
-    <div id="left-card1">
-      <mat-label class="nickname-IF">Nickname</mat-label>
+    <form [formGroup]="profileForm" id="left-card">
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Enter your nickname" />
+        <mat-label>Nickname</mat-label>
+        <input matInput placeholder="Tên người dùng" formControlName="name" />
+        @if (profileForm.get("name")?.hasError("required")) {
+          <mat-error> Tên người dùng không được để trống</mat-error>
+        }
       </mat-form-field>
 
-      <mat-label class="nickname-IF">Email</mat-label>
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Enter your email" />
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="Email người dùng"
+          formControlName="email"
+        />
+        @if (profileForm.get("email")?.hasError("required")) {
+          <mat-error> Email người dùng không được để trống</mat-error>
+        }
+        @if (profileForm.get("email")?.hasError("email")) {
+          <mat-error> Email người dùng không hợp lệ</mat-error>
+        }
       </mat-form-field>
 
-      <mat-label class="nickname-IF">Số điện thoại</mat-label>
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Enter your phone number" />
+        <mat-label>Số điện thoại</mat-label>
+        <input
+          matInput
+          placeholder="Số điện thoại người dùng"
+          formControlName="phone"
+          type="tel"
+        />
+        @if (profileForm.get("phone")?.hasError("required")) {
+          <mat-error> Sđt người dùng không được để trống</mat-error>
+        }
+        @if (profileForm.get("phone")?.hasError("pattern")) {
+          <mat-error> Sđt người dùng không hợp lệ</mat-error>
+        }
       </mat-form-field>
 
-      <mat-label class="nickname-IF">Ngày sinh</mat-label>
       <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-label>Ngày sinh</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dob" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          #picker
+          startView="year"
+          [startAt]="startDate"
+        ></mat-datepicker>
+        @if (profileForm.get("dob")?.hasError("required")) {
+          <mat-error> Ngày sinh người dùng không được để trống</mat-error>
+        }
       </mat-form-field>
 
-      <label class="nickname-IF">Cập Nhật Hình Ảnh</label>
       <div class="custom-file-input">
-        <input type="file" accept="image/*" id="fileInput" />
+        <input
+          type="file"
+          accept="image/*"
+          id="fileInput"
+          (change)="onFileSelected($event)"
+        />
         <label for="fileInput" class="file-input-label">
-          Choose your file Img
+          Đăng tải ảnh đại diện từ máy
           <img
             src="../public/assets/upploadImg.png"
             alt="Logo"
@@ -40,7 +79,7 @@
           />
         </label>
       </div>
-    </div>
+    </form>
     <div id="right-card">
       <div class="top-right">
         <img
@@ -48,27 +87,27 @@
           alt="Profile Image"
           class="profile-image"
         />
-        <div id="right-cardTL">
-          <p><b>PhamHoangLong</b></p>
-          <p>mm/dd/yyyy</p>
-          <p>xxxxxxxxxxxxxxxx</p>
-        </div>
       </div>
       <div class="bot-right">
-        <p><b>My email Address</b></p>
-        <div id="gmail-container">
-          <button mat-icon-button class="gmail-button">
-            <mat-icon>mail</mat-icon>
-          </button>
-          <div id="gmail-container1">
-            <p><b>phamhoanglong1910</b></p>
-            <p>1 month ago</p>
-          </div>
-        </div>
+        <p>
+          Tên: <b> {{ profileForm.get("name")?.value }}</b>
+        </p>
+        <p>
+          Email: <b>{{ profileForm.get("email")?.value }}</b>
+        </p>
+        <p>
+          Ngày sinh: {{ profileForm.get("dob")?.value | date: "shortDate" }}
+        </p>
+        <p>Số điện thoại: +{{ profileForm.get("phone")?.value }}</p>
+
         <div class="example-button-row">
-          <button mat-flat-button class="btn-setting">
+          <button
+            mat-flat-button
+            class="btn-setting"
+            [disabled]="profileForm.invalid"
+          >
             <mat-icon>edit</mat-icon>
-            Chỉnh Sửa
+            Cập nhật hồ sơ
           </button>
           <button
             mat-stroked-button

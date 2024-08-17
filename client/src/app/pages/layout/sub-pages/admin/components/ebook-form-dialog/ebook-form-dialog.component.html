@@ -1,0 +1,200 @@
+@if (isLoading) {
+  <div class="loading-overlay">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+}
+@if (!isEditMode) {
+  <h2 mat-dialog-title>Tạo mới Ebook</h2>
+} @else {
+  <h2 mat-dialog-title>Chỉnh sửa Ebook</h2>
+}
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="ebookFormGroup">
+    <!--   name form control   -->
+    <mat-form-field appearance="fill">
+      <mat-label>Tên</mat-label>
+      <input
+        matInput
+        placeholder="tên..."
+        formControlName="name"
+        (blur)="updateTitleErrorMessage()"
+        required
+      />
+      @if (ebookFormGroup.get("name")?.valid) {
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      } @else {
+        <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
+      }
+      @if (name.invalid) {
+        <mat-error>{{ nameErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!--   author form control   -->
+    <mat-form-field appearance="fill">
+      <mat-label>Tác giả</mat-label>
+      <input
+        matInput
+        placeholder="tác giả..."
+        formControlName="author"
+        (blur)="updateAuthorErrorMessage()"
+        required
+      />
+      @if (ebookFormGroup.get("author")?.valid) {
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      } @else {
+        <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
+      }
+      @if (author.invalid) {
+        <mat-error>{{ authorErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!--   translator form control   -->
+    <mat-form-field appearance="fill">
+      <mat-label>Dịch giả</mat-label>
+      <input
+        matInput
+        placeholder="dịch giả..."
+        formControlName="translator"
+        (blur)="updateTranslatorErrorMessage()"
+        required
+      />
+      @if (ebookFormGroup.get("translator")?.valid) {
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      } @else {
+        <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
+      }
+      @if (translator.invalid) {
+        <mat-error>{{ translatorErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!--   description form control   -->
+    <mat-form-field appearance="fill">
+      <mat-label>Mô tả</mat-label>
+      <textarea
+        matInput
+        placeholder="mô tả..."
+        formControlName="description"
+        (blur)="updateDescriptionErrorMessage()"
+        required
+        cdkTextareaAutosize
+      ></textarea>
+      @if (ebookFormGroup.get("description")?.valid) {
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      } @else {
+        <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
+      }
+      @if (description.invalid) {
+        <mat-error>{{ descriptionErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!--      categories form control-->
+    <mat-form-field>
+      <mat-label>Thể loại</mat-label>
+      <mat-select
+        placeholder="thể loại..."
+        formControlName="category"
+        multiple
+        required
+      >
+        <mat-select-trigger>
+          {{ ebookFormGroup.get("category")?.value?.[0] || "" }}
+          @if ((ebookFormGroup.get("category")?.value?.length || 0) > 1) {
+            <span class="additional-selection">
+              (+{{ (ebookFormGroup.get("category")?.value?.length || 0) - 1 }}
+              {{
+                ebookFormGroup.get("category")?.value?.length === 2
+                  ? "thể loại"
+                  : "thể loại"
+              }})
+            </span>
+          }
+        </mat-select-trigger>
+        @for (genre of genreList; track genre) {
+          <mat-option [value]="genre">{{ genre }}</mat-option>
+        }
+      </mat-select>
+      @if (category.hasError("required")) {
+        <mat-error>Bạn phải chọn ít nhất 1 thể loại</mat-error>
+      }
+    </mat-form-field>
+
+    <!--   image file form control   -->
+    <mat-form-field appearance="fill">
+      <mat-label>URL Ảnh</mat-label>
+      <input
+        matInput
+        placeholder="url ảnh..."
+        formControlName="imageUrl"
+        (blur)="updateImageUrlErrorMessage()"
+        required
+      />
+      @if (ebookFormGroup.get("imageUrl")?.valid) {
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      } @else {
+        <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
+      }
+      @if (imageUrl.invalid) {
+        <mat-error>{{ imageUrlErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <div class="mdc-text-field mdc-text-field--filled mdc-text-field--file">
+      <input
+        type="file"
+        class="mdc-text-field__input"
+        id="cover-file-input"
+        required
+        (blur)="updateImageUrlErrorMessage()"
+        (change)="onImagePicked($event)"
+      />
+      <label class="mdc-floating-label" for="cover-file-input">File ảnh</label>
+      <div class="mdc-line-ripple"></div>
+    </div>
+    <div class="mdc-text-field--error"></div>
+    <!--   file form control   -->
+    <mat-form-field appearance="fill">
+      <mat-label>Url Pdf</mat-label>
+      <input
+        matInput
+        placeholder="url nội dung..."
+        formControlName="content"
+        (blur)="updateContentErrorMessage()"
+        required
+      />
+      @if (ebookFormGroup.get("content")?.valid) {
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      } @else {
+        <mat-icon matSuffix>sentiment_very_dissatisfied</mat-icon>
+      }
+      @if (content.invalid) {
+        <mat-error>{{ contentErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <div class="mdc-text-field mdc-text-field--filled mdc-text-field--file">
+      <input
+        type="file"
+        class="mdc-text-field__input"
+        id="pdf-file-input"
+        required
+        (blur)="updateContentErrorMessage()"
+        (change)="onPdfPicked($event)"
+      />
+      <label class="mdc-floating-label" for="pdf-file-input">Pdf file</label>
+      <div class="mdc-line-ripple"></div>
+    </div>
+    <div class="mdc-text-field--error"></div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Hủy</button>
+  <button
+    mat-flat-button
+    [mat-dialog-close]="sendForm()"
+    [disabled]="ebookFormGroup.invalid"
+  >
+    Xác nhận
+  </button>
+</mat-dialog-actions>
