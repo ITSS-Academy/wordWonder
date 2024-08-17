@@ -67,13 +67,16 @@
         </div>
         <div class="example-button-row">
           <button mat-flat-button class="btn-setting">
-            <mat-icon>edit</mat-icon> Chỉnh Sửa
+            <mat-icon>edit</mat-icon>
+            Chỉnh Sửa
           </button>
-          <button mat-flat-button class="btn-admin">
-            <mat-icon>admin_panel_settings</mat-icon> Admin
-          </button>
-          <button mat-stroked-button class="btn-logout">
-            <mat-icon>logout</mat-icon> Đăng Xuất
+          <button
+            mat-stroked-button
+            class="btn-admin"
+            [routerLink]="['/main/admin']"
+          >
+            <mat-icon>admin_panel_settings</mat-icon>
+            Admin
           </button>
         </div>
       </div>

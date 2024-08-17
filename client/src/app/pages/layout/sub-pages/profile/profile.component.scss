@@ -1,12 +1,14 @@
 #profile-container {
   width: 100%;
-  height: calc(100% - 60px); /* Adjust height to account for nav-bar height */
+  height: 100%; /* Adjust height to account for nav-bar height */
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin-top: 30px;
   position: relative;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none;
 
   .back-button {
     position: absolute;
@@ -16,6 +18,10 @@
     background-color: var(--primary);
     color: var(--onPrimary);
   }
+}
+
+#profile-container::-webkit-scrollbar {
+  display: none;
 }
 
 .card-container1 {
@@ -30,7 +36,6 @@
   padding: 0.5em;
   border-radius: 28px;
   background-color: #fff;
-  margin-top: 20px;
   overflow: hidden;
 }
 
@@ -154,25 +159,7 @@
   width: 100%;
   margin-top: 1em;
   flex-direction: column;
-  gap: 39px;
-}
-
-.example-button-row button {
-  display: flex;
-  align-items: center;
   gap: 10px;
-  padding: 10px 10px;
-  font-size: 0.875rem;
-  border-radius: 20px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
-  flex-wrap: nowrap;
-}
-
-.btn-admin {
-  background-color: #00a8fd; /* Change to desired color */
-  color: white;
 }
 
 #preview {

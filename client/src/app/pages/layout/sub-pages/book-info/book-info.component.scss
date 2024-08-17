@@ -165,6 +165,7 @@
   background-color: var(--bg-color-lighter);
   max-width: 800px;
   height: calc(100% - 488px - 30px);
+  min-height: 200px;
 }
 
 .description {
