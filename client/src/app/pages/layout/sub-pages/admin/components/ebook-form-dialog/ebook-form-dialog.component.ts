@@ -187,12 +187,11 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
 
   sendForm() {
     if (this.isEditMode) {
-      let eBookForm = {
+      // console.log(eBookForm);
+      return {
         ...this.data,
         ...this.ebookFormGroup.value,
       };
-      console.log(eBookForm);
-      return eBookForm;
     } else {
       return {
         ...this.ebookFormGroup.value,
