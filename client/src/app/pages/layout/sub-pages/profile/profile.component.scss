@@ -107,36 +107,47 @@
   border-radius: 6px;
 }
 
-@media (max-width: 810px) {
+@media (max-width: 425px) {
   .card-container1 {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: calc(50% - 2em); /* Adjusted width */
-    height: max-content;
-    min-width: 500px; /* Adjusted min-width */
-    max-width: 700px; /* Adjusted max-width */
-    padding: 1em;
-    border-radius: 28px;
-    background-color: #fff;
-    display: flex;
-  }
-
-  .top-right {
-    flex-direction: column;
-  }
-
-  .profile-image {
-    width: 100px;
-    height: 100px;
-  }
-  .example-button-row {
-    display: flex;
-    flex-direction: column;
+    min-width: 320px;
     width: 100%;
-    margin-top: 1em;
-    gap: 20px;
+    //display: flex;
+    ///* flex-direction: row; */
+    ////justify-content: space-between;
+    //align-items: center;
+    //width: calc(50% - 3em);
+    //height: max-content;
+    //min-width: 800px;
+    //max-width: 1000px;
+    //padding: 0 1.5em;
+    //border-radius: 28px;
+    //background-color: #fff;
+    //overflow: hidden;
+
+    #right-card {
+      display: none;
+    }
+
+    #left-card {
+      width: 100%;
+    }
   }
+
+  //.top-right {
+  //  flex-direction: column;
+  //}
+  //
+  //.profile-image {
+  //  width: 100px;
+  //  height: 100px;
+  //}
+  //.example-button-row {
+  //  display: flex;
+  //  flex-direction: column;
+  //  width: 100%;
+  //  margin-top: 1em;
+  //  gap: 20px;
+  //}
 }
 
 .custom-file-input {
