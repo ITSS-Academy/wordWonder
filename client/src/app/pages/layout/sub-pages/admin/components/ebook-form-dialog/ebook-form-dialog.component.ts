@@ -97,6 +97,42 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       .subscribe(() => this.updateTranslatorErrorMessage());
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(UploadActions.clearUploadState());
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store.select('file_upload', 'downloadCoverURL').subscribe((url) => {
+        if (url != null) {
+          this.ebookFormGroup.patchValue({ imageUrl: url });
+          this._snackBar.open('File uploaded successfully', 'Close', {
+            duration: 5000,
+          });
+        }
+      }),
+      this.store.select('file_upload', 'downloadPdfURL').subscribe((url) => {
+        if (url != null) {
+          this.ebookFormGroup.patchValue({ content: url });
+          this._snackBar.open('File uploaded successfully', 'Close', {
+            duration: 5000,
+          });
+        }
+      }),
+      this.store.select('file_upload', 'isLoading').subscribe((isLoading) => {
+        this.isLoading = isLoading;
+      }),
+      this.store.select('file_upload', 'error').subscribe((error) => {
+        if (error) {
+          this._snackBar.open('Error uploading file', 'Close', {
+            duration: 5000,
+          });
+        }
+      }),
+    );
+  }
+
   updateTitleErrorMessage() {
     if (this.name.hasError('required')) {
       this.nameErrorMessage.set('Bạn phải nhập giá trị');
@@ -145,7 +181,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  onImagePicked(event: any) {
+  onImagePicked(event: Event) {
     const inputEvent = event as InputEvent;
     const file = (inputEvent.target as HTMLInputElement).files?.[0];
     this.store.dispatch(
@@ -156,7 +192,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     );
   }
 
-  onPdfPicked(event: any) {
+  onPdfPicked(event: Event) {
     const inputEvent = event as InputEvent;
     const file = (inputEvent.target as HTMLInputElement).files?.[0];
     this.store.dispatch(
@@ -180,41 +216,5 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
         // id: this.tempId,
       };
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-    this.store.dispatch(UploadActions.clearUploadState());
-  }
-
-  ngOnInit(): void {
-    this.subscriptions.push(
-      this.store.select('file_upload', 'downloadCoverURL').subscribe((url) => {
-        if (url != null) {
-          this.ebookFormGroup.patchValue({ imageUrl: url });
-          this._snackBar.open('File uploaded successfully', 'Close', {
-            duration: 5000,
-          });
-        }
-      }),
-      this.store.select('file_upload', 'downloadPdfURL').subscribe((url) => {
-        if (url != null) {
-          this.ebookFormGroup.patchValue({ content: url });
-          this._snackBar.open('File uploaded successfully', 'Close', {
-            duration: 5000,
-          });
-        }
-      }),
-      this.store.select('file_upload', 'isLoading').subscribe((isLoading) => {
-        this.isLoading = isLoading;
-      }),
-      this.store.select('file_upload', 'error').subscribe((error) => {
-        if (error) {
-          this._snackBar.open('Error uploading file', 'Close', {
-            duration: 5000,
-          });
-        }
-      }),
-    );
   }
 }
