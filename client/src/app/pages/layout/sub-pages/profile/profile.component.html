@@ -105,6 +105,7 @@
             mat-flat-button
             class="btn-setting"
             [disabled]="profileForm.invalid"
+            (click)="openConfirmUpdateDialog()"
           >
             <mat-icon>edit</mat-icon>
             Cập nhật hồ sơ
@@ -144,6 +145,7 @@
               mat-flat-button
               class="btn-setting"
               [disabled]="profileForm.invalid"
+              (click)="openConfirmUpdateDialog()"
             >
               <mat-icon>edit</mat-icon>
               Cập nhật hồ sơ

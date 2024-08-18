@@ -21,7 +21,7 @@
     <mat-icon matPrefix>search</mat-icon>
     <input
       matInput
-      placeholder="Search your book..."
+      placeholder="Tìm kiếm sách..."
       [formControl]="searchControl"
       #searchInput
     />
@@ -52,11 +52,11 @@
     <mat-menu #avaMenu="matMenu">
       <button mat-menu-item (click)="navigateToProfile()">
         <mat-icon>person</mat-icon>
-        Profile
+        Hồ sơ
       </button>
       <button mat-menu-item (click)="openConfirmLogoutDialog()">
         <mat-icon>logout</mat-icon>
-        Sign out
+        Đăng xuất
       </button>
     </mat-menu>
   </div>
