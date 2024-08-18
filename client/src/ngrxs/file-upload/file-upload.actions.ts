@@ -34,3 +34,7 @@ export const uploadFileProgress = createAction(
   '[File Upload] Upload File Progress',
   props<{ progress: number }>(),
 );
+
+export const clearUploadState = createAction(
+  '[File Upload] Clear Upload State',
+);
