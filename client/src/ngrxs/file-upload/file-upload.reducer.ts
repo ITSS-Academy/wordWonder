@@ -6,6 +6,7 @@ export const initialState: FileUploadState = {
   isLoading: false,
   downloadCoverURL: null,
   downloadPdfURL: null,
+  downloadAvatarURL: null,
   error: null,
 };
 
@@ -61,6 +62,32 @@ export const fileUploadReducer = createReducer(
       ...state,
       error: action.error,
       isLoading: false,
+    };
+  }),
+  on(UploadActions.uploadAvatarFile, (state, action) => {
+    console.log(action.type);
+    return <FileUploadState>{
+      ...state,
+      downloadAvatarURL: null,
+      isLoading: true,
+      error: null,
+    };
+  }),
+  on(UploadActions.uploadAvatarFileSuccess, (state, action) => {
+    console.log(action.type);
+    return <FileUploadState>{
+      ...state,
+      downloadAvatarURL: action.downloadURL,
+      isLoading: false,
+      error: null,
+    };
+  }),
+  on(UploadActions.uploadAvatarFileFailure, (state, action) => {
+    console.log(action.type);
+    return <FileUploadState>{
+      ...state,
+      isLoading: false,
+      error: action.error,
     };
   }),
   on(UploadActions.clearUploadState, (state) => {
