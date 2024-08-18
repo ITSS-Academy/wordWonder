@@ -95,24 +95,6 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     merge(this.translator.statusChanges, this.translator.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateTranslatorErrorMessage());
-
-    this.store
-      .select('file_upload', 'downloadPdfURL')
-      .pipe(takeUntilDestroyed())
-      .subscribe((downloadURL) => {
-        if (downloadURL != null && downloadURL != '') {
-          this.ebookFormGroup.patchValue({ pdf: downloadURL });
-        }
-      });
-
-    this.store
-      .select('file_upload', 'downloadCoverURL')
-      .pipe(takeUntilDestroyed())
-      .subscribe((downloadURL) => {
-        if (downloadURL != null && downloadURL != '') {
-          this.ebookFormGroup.patchValue({ image: downloadURL });
-        }
-      });
   }
 
   updateTitleErrorMessage() {
@@ -209,6 +191,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.store.select('file_upload', 'downloadCoverURL').subscribe((url) => {
         if (url != null) {
+          this.ebookFormGroup.patchValue({ imageUrl: url });
           this._snackBar.open('File uploaded successfully', 'Close', {
             duration: 5000,
           });
@@ -216,6 +199,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       }),
       this.store.select('file_upload', 'downloadPdfURL').subscribe((url) => {
         if (url != null) {
+          this.ebookFormGroup.patchValue({ content: url });
           this._snackBar.open('File uploaded successfully', 'Close', {
             duration: 5000,
           });
