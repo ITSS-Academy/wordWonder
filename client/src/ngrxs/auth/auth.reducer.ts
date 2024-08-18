@@ -16,6 +16,7 @@ export const authReducer = createReducer(
     return <AuthState>{
       ...state,
       loading: true,
+      error: null,
     };
   }),
   on(AuthActions.signInWithGoogleSuccess, (state, action) => {
@@ -38,6 +39,7 @@ export const authReducer = createReducer(
     return <AuthState>{
       ...state,
       loading: true,
+      error: null,
     };
   }),
   on(AuthActions.signOutSuccess, (state, action) => {
@@ -69,6 +71,7 @@ export const authReducer = createReducer(
     return <AuthState>{
       ...state,
       loading: true,
+      error: null,
     };
   }),
   on(AuthActions.signInWithStaticUserSuccess, (state, action) => {

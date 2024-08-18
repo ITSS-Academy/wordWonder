@@ -47,7 +47,7 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly dialog = inject(MatDialog);
 
   constructor() {
-    // Create 100 users
+    // Create n ebooks
     this.ebooks = Array.from({ length: 10 }, (_, k) => createNewEbook(k + 1));
 
     // Assign the data to the data source for the table to render
@@ -92,6 +92,13 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
     // console.log(this.selection.selected);
   }
 
+  reInitTable(ebook: EBookModel) {
+    this.ebooks.push(ebook);
+    this.dataSource = new MatTableDataSource(this.ebooks);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   openCreateEbookDialog() {
     const dialogRef = this.dialog.open(EbookFormDialogComponent);
 
@@ -102,10 +109,9 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
           id: (this.dataSource.data.length + 1).toString(),
           like: 0,
           view: 0,
-          dateCreated: new Date().toDateString(),
+          dateCreated: Date.now().toString(),
         };
-        this.ebooks.push(newEbook);
-        this.dataSource = new MatTableDataSource(this.ebooks);
+        this.reInitTable(newEbook);
         console.log(newEbook);
       }
     });

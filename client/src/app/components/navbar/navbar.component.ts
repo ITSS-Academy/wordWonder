@@ -349,6 +349,12 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.store.dispatch(AuthActions.signOut());
     }
   }
+
+  navigateToEbookDetailPage(ebook: EBookModel) {
+    this.router.navigate(['/main/book-info', ebook.id]).then(() => {
+      this.searchControl.setValue('');
+    });
+  }
 }
 
 /** Builds and returns a new User. */
@@ -373,7 +379,9 @@ export function createNewEbook(id: number): EBookModel {
     description: 'This is a detail of ' + name,
     imageUrl: 'public/assets/poster.jpg',
     translator: 'Translator of ' + name,
-    dateCreated: new Date().toDateString(),
+    dateCreated: (
+      Number(Date.now().toString()) + Math.round(Math.random() * 1000)
+    ).toString(),
     view: Math.round(Math.random() * 1000),
     like: Math.round(Math.random() * 100),
     content: 'This is content of ' + name,

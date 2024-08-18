@@ -41,7 +41,6 @@ export const fileUploadReducer = createReducer(
     console.log(action.type);
     return <FileUploadState>{
       ...state,
-      progress: 0,
       downloadPdfURL: null,
       isLoading: true,
       error: null,
@@ -62,6 +61,15 @@ export const fileUploadReducer = createReducer(
       ...state,
       error: action.error,
       isLoading: false,
+    };
+  }),
+  on(UploadActions.clearUploadState, (state) => {
+    return <FileUploadState>{
+      ...state,
+      isLoading: false,
+      downloadCoverURL: null,
+      downloadPdfURL: null,
+      error: null,
     };
   }),
 );
