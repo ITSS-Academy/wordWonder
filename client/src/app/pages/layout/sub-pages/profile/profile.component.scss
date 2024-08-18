@@ -1,182 +1,142 @@
 #profile-container {
   width: 100%;
-  height: 100%;
+  height: 100%; /* Adjust height to account for nav-bar height */
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none;
+
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    background-color: var(--primary);
+    color: var(--onPrimary);
+  }
+}
+
+#profile-container::-webkit-scrollbar {
+  display: none;
 }
 
 .card-container1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
-  width: 50%;
+  align-items: center;
+  width: calc(50% - 3em);
   height: max-content;
   min-width: 800px;
   max-width: 1000px;
-  padding: 1.5em;
+  padding: 0 1.5em;
   border-radius: 28px;
   background-color: #fff;
-}
-
-#left-card1 {
-  display: flex;
-  flex-direction: column;
-  gap: 0; /* Giảm khoảng cách giữa các phần tử */
-  width: 45%; /* Giảm chiều rộng để card nhỏ hơn */
-  box-sizing: border-box;
   overflow: hidden;
 }
 
-#left-card1 .mat-button,
-#left-card1 .mat-raised-button,
-#left-card1 .mat-flat-button,
-#left-card1 .mat-stroked-button {
-  width: 100%;
-  height: 2.3em; /* Tăng chiều cao của nút */
-  padding: 0.3em; /* Tăng padding để nút lớn hơn */
-  font-size: 0.875rem; /* Tăng kích thước font một chút */
+#left-card,
+#right-card {
+  display: flex;
+  width: 50%;
   box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1em 0;
+}
+
+#left-card {
+  gap: 10px;
 }
 
 #right-card {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50%; /* Điều chỉnh chiều rộng để cân bằng với thẻ bên trái */
-  padding: 1em;
-  box-sizing: border-box;
+  padding: 1em 0 1em 1em;
+
+  .top-right {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--inverseOnSurface);
+    //border-top-right-radius: 16px;
+    //border-bottom-right-radius: 16px;
+    border-radius: 16px;
+
+    .profile-image {
+      width: 150px; /* Set width to 100% of the parent container */
+      height: 100%; /* Giảm chiều cao tối đa của hình ảnh */
+      object-fit: cover;
+    }
+  }
+
+  .bot-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    p {
+      font-size: 1em;
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .example-button-row {
+      display: flex;
+      width: 100%;
+      margin-top: 1em;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
 }
 
-.top-right {
-  width: 100%;
-  height: 150px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.1em; /* Điều chỉnh khoảng cách giữa các phần tử */
-  flex-wrap: nowrap;
-  justify-content: center;
+#preview {
+  margin-top: 1em;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
 }
 
-.profile-image {
-  width: 150px; /* Set width to 100% of the parent container */
-  height: 100%; /* Giảm chiều cao tối đa của hình ảnh */
-  object-fit: cover;
-}
+@media (max-width: 810px) {
+  .card-container1 {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: calc(50% - 2em); /* Adjusted width */
+    height: max-content;
+    min-width: 500px; /* Adjusted min-width */
+    max-width: 700px; /* Adjusted max-width */
+    padding: 1em;
+    border-radius: 28px;
+    background-color: #fff;
+    display: flex;
+  }
 
-#right-cardTL {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.1em; /* Giảm khoảng cách giữa các phần tử */
-}
+  .top-right {
+    flex-direction: column;
+  }
 
-#right-cardTL p {
-  margin: 0;
-  font-size: 0.95em; /* Điều chỉnh kích thước font */
-}
-
-.bot-right {
-  width: calc(100% - 40px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 10px;
-}
-
-.bot-right p {
-  font-size: 1em;
-  text-align: center;
-  margin: 0 0 0.25em 0;
-  margin-left: 10px;
-}
-
-.gmail-button {
-  width: 50px; /* Giảm kích thước nút Gmail */
-  height: 50px;
-  border-radius: 50%;
-  background-color: #e6f9ff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.gmail-button mat-icon {
-  width: 35px;
-  height: 25px;
-}
-
-#gmail-container1 {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-content: space-between;
-  align-items: flex-start;
-  font-size: 0.8em;
-  margin: 8px; /* Giảm khoảng cách bên ngoài */
-}
-
-#gmail-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: nowrap;
-  margin-left: 9px;
-}
-
-#gmail-container1 p {
-  margin-bottom: 0.1em;
-}
-
-#gmail-container1 p {
-  margin-top: 0;
-}
-
-.example-button-row {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.example-button-row button {
-  display: flex;
-  padding: 10px 10px;
-  font-size: 0.875rem;
-  border-radius: 20px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
-  flex-wrap: nowrap;
-}
-
-.nickname-IF1 {
-  display: block;
-  width: 100%;
-  height: 3.5em;
-  padding: 1em;
-  font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  border-radius: 5px;
-  box-sizing: border-box;
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
-}
-
-.nickname-IF1:hover {
-  border-color: rgba(0, 0, 0, 0.87); /* Đậm hơn khi hover */
-}
-
-.nickname-IF1:focus {
-  border-color: #6750a4; /* Màu viền khi focus */
-  outline: none; /* Bỏ outline mặc định */
-  box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.3); /* Thêm bóng đổ màu primary */
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+  .example-button-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1em;
+    gap: 20px;
+  }
 }
 
 .custom-file-input {
@@ -195,11 +155,12 @@
 
   .file-input-label {
     display: flex;
+    align-items: center;
     width: 100%;
     padding: 1em;
     font-size: 0.945rem;
     color: rgba(0, 0, 0, 0.87);
-    background-color: #ffffff;
+    background-color: transparent;
     border: 1px solid rgba(0, 0, 0, 0.55);
     border-radius: 6px;
     box-sizing: border-box;
@@ -207,6 +168,7 @@
       border-color 0.3s,
       box-shadow 0.3s;
     text-align: center;
+    justify-content: space-between;
   }
 
   .file-input-label:hover {
@@ -217,5 +179,10 @@
     border-color: #6750a4;
     outline: none;
     box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.3);
+  }
+
+  .file-input-logo {
+    display: flex;
+    max-width: 20px;
   }
 }

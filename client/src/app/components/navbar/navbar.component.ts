@@ -1,59 +1,29 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  HostListener,
   inject,
   OnDestroy,
   OnInit,
-  viewChild,
+  Renderer2,
+  ViewChild,
 } from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
-import { EBookModel } from '../../../models/ebook.model';
+import { EBookModel, GENRES } from '../../../models/ebook.model';
 import { MatDialog } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../../ngrxs/auth/auth.state';
+import { Subscription } from 'rxjs';
+import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 
 /** Constants used to fill up our data base. */
-export const GENRES: string[] = [
-  'Adventure',
-  'Science Fiction',
-  'Fantasy',
-  'Mystery',
-  'Historical Fiction',
-  'Horror',
-  'Thriller',
-  'Romance',
-  'Westerns',
-  'Dystopian',
-  'Memoir',
-  'Biography',
-  'Self-help',
-  'Cookbooks',
-  'History',
-  'Travel',
-  'True Crime',
-  'Humor',
-  'Children’s',
-  'Young Adult',
-  'Poetry',
-  'Science',
-  'Nature',
-  'Math',
-  'Philosophy',
-  'Religion',
-  'Spirituality',
-  'New Age',
-  'Art',
-  'Photography',
-  'Architecture',
-  'Music',
-  'Film',
-  'Fashion',
-  'Performing Arts',
-  'Graphic Novels',
-  'Manga',
-];
 const NAMES: string[] = [
   'Around the World in Eighty Days',
   'The War of the Worlds',
@@ -255,18 +225,100 @@ const AUTHORS: string[] = [
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent implements OnInit, OnDestroy {
-  constructor(private router: Router) {}
+export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
+  @ViewChild('searchInput') searchInput!: ElementRef;
+  @ViewChild('dropdown') dropdown!: ElementRef;
 
-  ngOnDestroy(): void {}
+  subscriptions: Subscription[] = [];
+  isStaticUser = false;
 
-  ngOnInit(): void {}
+  searchControl = new FormControl('');
+  showDropdown = false;
 
   ebooks = Array.from({ length: 10 }, (_, k) => createNewEbook(k + 1));
 
-  readonly menuTrigger = viewChild.required(MatMenuTrigger);
-
   readonly dialog = inject(MatDialog);
+  private renderer = inject(Renderer2);
+
+  constructor(
+    private store: Store<{ auth: AuthState }>,
+    private router: Router,
+  ) {
+    this.searchControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe((value) => {
+        if (value !== '') {
+          this.showDropdown = true;
+          this.setPosition();
+          if (this.dropdown) {
+            this.renderer.setStyle(this.dropdown.nativeElement, 'opacity', '1');
+            this.renderer.setStyle(
+              this.dropdown.nativeElement,
+              'transform',
+              'translateY(0)',
+            );
+          }
+        } else {
+          if (this.dropdown) {
+            this.renderer.setStyle(this.dropdown.nativeElement, 'opacity', '0');
+            this.renderer.setStyle(
+              this.dropdown.nativeElement,
+              'transform',
+              'translateY(-10px)',
+            );
+            this.dropdown.nativeElement.addEventListener(
+              'transitionend',
+              () => {
+                this.showDropdown = false;
+              },
+              { once: true },
+            );
+          }
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
+        this.isStaticUser = isStaticUser;
+      }),
+    );
+  }
+
+  ngAfterViewInit() {
+    this.setPosition();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.setPosition();
+  }
+
+  setPosition() {
+    if (this.searchInput && this.dropdown) {
+      const rect = this.searchInput.nativeElement.getBoundingClientRect();
+      this.renderer.setStyle(
+        this.dropdown.nativeElement,
+        'top',
+        `${rect.bottom + 13}px`,
+      );
+      this.renderer.setStyle(
+        this.dropdown.nativeElement,
+        'left',
+        `${rect.left - 50}px`,
+      );
+      this.renderer.setStyle(
+        this.dropdown.nativeElement,
+        'width',
+        `${rect.width + 66}px`,
+      );
+    }
+  }
 
   openConfirmLogoutDialog() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -279,21 +331,28 @@ export class NavbarComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result == true) {
-        this.router.navigate(['/login']).then(() => {
-          console.log('User confirmed logout');
-        });
+        this.logout();
       }
-      return this.menuTrigger().focus();
     });
   }
 
   navigateToProfile() {
     this.router.navigate(['/main/profile']).then(() => {});
   }
+
+  logout() {
+    if (this.isStaticUser) {
+      this.router.navigate(['/login']).then(() => {
+        this.store.dispatch(AuthActions.signOut());
+      });
+    } else {
+      this.store.dispatch(AuthActions.signOut());
+    }
+  }
 }
 
 /** Builds and returns a new User. */
-function createNewEbook(id: number): EBookModel {
+export function createNewEbook(id: number): EBookModel {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
     ' ' +

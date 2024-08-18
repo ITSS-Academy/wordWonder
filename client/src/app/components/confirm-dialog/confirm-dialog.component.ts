@@ -9,7 +9,6 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MaterialModule } from '../../../shared/modules/material.module';
-import { Router } from '@angular/router';
 
 export interface DialogData {
   title: string;
