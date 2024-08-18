@@ -14,7 +14,7 @@ export const canActivateMain: CanActivateFn = () => {
         } else {
           router
             .navigate(['/login'])
-            .then((r) => console.log('user is not signed in'));
+            .then((r) => console.log('[Main] user is not signed in'));
           return false;
         }
       }),
@@ -30,7 +30,7 @@ export const canActivateLogin: CanActivateFn = () => {
         if (isSignedIn) {
           router
             .navigate(['/main'])
-            .then((r) => console.log('user is signed in'));
+            .then((r) => console.log('[Login] user is signed in'));
           return false;
         } else {
           return true;
@@ -47,12 +47,12 @@ export const canMatchLoading: CanMatchFn = () => {
       map((isSignedIn) => {
         if (isSignedIn) {
           router.navigate(['/main']).then(() => {
-            console.log('user is signed in');
+            console.log('[Loading] user is signed in');
           });
           return true;
         } else {
           router.navigate(['/login']).then(() => {
-            console.log('user is not signed in');
+            console.log('[Loading] user is not signed in');
           });
           return true;
         }

@@ -287,6 +287,9 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
         this.isStaticUser = isStaticUser;
       }),
+      this.store.select('auth', 'idToken').subscribe((isAuthenticated) => {
+        this.router.navigate(['/login']).then();
+      }),
     );
   }
 
@@ -342,9 +345,7 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
 
   logout() {
     if (this.isStaticUser) {
-      this.router.navigate(['/login']).then(() => {
-        this.store.dispatch(AuthActions.signOut());
-      });
+      this.store.dispatch(AuthActions.signOut());
     } else {
       this.store.dispatch(AuthActions.signOut());
     }

@@ -13,19 +13,6 @@ import { AuthState } from '../../../ngrxs/auth/auth.state';
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.scss',
 })
-export class LoadingComponent implements OnInit, OnDestroy {
-  subscriptions: Subscription[] = [];
-
-  constructor(
-    private store: Store<{ auth: AuthState }>,
-    private router: Router,
-  ) {}
-
-  ngOnInit(): void {
-    this.subscriptions.push();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
+export class LoadingComponent {
+  constructor() {}
 }

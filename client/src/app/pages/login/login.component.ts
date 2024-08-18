@@ -8,6 +8,7 @@ import { AuthState } from '../../../ngrxs/auth/auth.state';
 import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { idToken } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +43,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.store.select('auth', 'loading').subscribe((loading) => {
         this.isLoadingSignIn = loading;
+      }),
+      this.store.select('auth', 'idToken').subscribe((val) => {
+        if (idToken) {
+          this.router.navigate(['/main']).then();
+        }
       }),
     );
   }
