@@ -3,7 +3,7 @@
     <div id="admin-header-button-grp">
       <div id="admin-header-button-grp-left-side">
         <button mat-icon-button [routerLink]="'/main'">
-          <mat-icon>arrow_back</mat-icon>
+          <mat-icon>home</mat-icon>
         </button>
       </div>
       <div id="admin-header-button-grp-right-side">
@@ -49,7 +49,7 @@
 
           <!-- Image Url Column -->
           <ng-container matColumnDef="imageUrl">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ảnh bìa</th>
+            <th mat-header-cell *matHeaderCellDef>Ảnh bìa</th>
             <td mat-cell *matCellDef="let row">
               <img
                 [src]="row.imageUrl"
@@ -62,32 +62,34 @@
 
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên</th>
+            <th mat-header-cell *matHeaderCellDef>Tên</th>
             <td mat-cell *matCellDef="let row">{{ row.name }}</td>
           </ng-container>
 
           <!-- Author Column -->
           <ng-container matColumnDef="author">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tác giả</th>
+            <th mat-header-cell *matHeaderCellDef>Tác giả</th>
             <td mat-cell *matCellDef="let row">{{ row.author }}</td>
           </ng-container>
 
           <!-- Translator Column -->
           <ng-container matColumnDef="translator">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Dịch giả</th>
+            <th mat-header-cell *matHeaderCellDef>Dịch giả</th>
             <td mat-cell *matCellDef="let row">{{ row.translator }}</td>
           </ng-container>
 
           <!-- Description Column -->
           <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mô tả</th>
+            <th mat-header-cell *matHeaderCellDef>Mô tả</th>
             <td mat-cell *matCellDef="let row">{{ row.description }}</td>
           </ng-container>
 
           <!-- DateCreated Column -->
           <ng-container matColumnDef="dateCreated">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</th>
-            <td mat-cell *matCellDef="let row">{{ row.dateCreated }}</td>
+            <td mat-cell *matCellDef="let row">
+              {{ row.dateCreated | date: "short" }}
+            </td>
           </ng-container>
 
           <!-- Like Column -->
@@ -106,7 +108,7 @@
 
           <!-- Category Column -->
           <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Thể loại</th>
+            <th mat-header-cell *matHeaderCellDef>Thể loại</th>
             <td mat-cell *matCellDef="let row">
               <mat-chip-set aria-label="Category Chip">
                 @for (genre of row.category; track $index) {
@@ -127,10 +129,10 @@
           </tr>
         </table>
       </div>
-      <mat-paginator
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        aria-label="Select page of users"
-      ></mat-paginator>
     </cdk-virtual-scroll-viewport>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of users"
+    ></mat-paginator>
   </div>
 </div>
