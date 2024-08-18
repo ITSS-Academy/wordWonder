@@ -349,6 +349,12 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.store.dispatch(AuthActions.signOut());
     }
   }
+
+  navigateToEbookDetailPage(ebook: EBookModel) {
+    this.router.navigate(['/main/book-info', ebook.id]).then(() => {
+      this.searchControl.setValue('');
+    });
+  }
 }
 
 /** Builds and returns a new User. */
