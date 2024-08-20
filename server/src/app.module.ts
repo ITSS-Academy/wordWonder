@@ -8,6 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './domains/users/users.module';
 import { UsersService } from './domains/users/users.service';
 import { Role } from './domains/users/entities/user.entity';
+import { CommentsModule } from './domains/comments/comments.module';
+import { EbooksModule } from './domains/ebooks/ebooks.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { Role } from './domains/users/entities/user.entity';
       signOptions: { expiresIn: '7200s' },
     }),
     UsersModule,
+    CommentsModule,
+    EbooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
