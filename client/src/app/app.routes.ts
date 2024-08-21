@@ -1,19 +1,20 @@
 import { Routes } from '@angular/router';
 import * as AuthGuards from './guards/auth.guard';
+import { canMatchLogin } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/loading', pathMatch: 'full' },
+  { path: '', redirectTo: 'loading', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () =>
       import('./pages/login/login.route').then((m) => m.LOGIN_ROUTES),
-    canActivate: [AuthGuards.canActivateLogin],
+    canMatch: [AuthGuards.canMatchLogin],
   },
   {
     path: 'main',
     loadChildren: () =>
       import('./pages/layout/layout.route').then((m) => m.LAYOUT_ROUTES),
-    canActivate: [AuthGuards.canActivateMain],
+    canMatch: [AuthGuards.canMatchMain],
   },
   {
     path: 'loading',

@@ -223,7 +223,7 @@ const AUTHORS: string[] = [
   imports: [MaterialModule, SharedModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef;
@@ -287,8 +287,12 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
         this.isStaticUser = isStaticUser;
       }),
-      this.store.select('auth', 'idToken').subscribe((isAuthenticated) => {
-        this.router.navigate(['/login']).then();
+      this.store.select('auth', 'idToken').subscribe((val) => {
+        if (val == '') {
+          this.router.navigate(['/login']).then(() => {
+            console.log('toc');
+          });
+        }
       }),
     );
   }
@@ -344,11 +348,7 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   logout() {
-    if (this.isStaticUser) {
-      this.store.dispatch(AuthActions.signOut());
-    } else {
-      this.store.dispatch(AuthActions.signOut());
-    }
+    this.store.dispatch(AuthActions.signOut());
   }
 
   navigateToEbookDetailPage(ebook: EBookModel) {

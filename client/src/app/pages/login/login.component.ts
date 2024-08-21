@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatButton } from '@angular/material/button';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,7 +7,6 @@ import { AuthState } from '../../../ngrxs/auth/auth.state';
 import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { idToken } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -45,8 +43,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isLoadingSignIn = loading;
       }),
       this.store.select('auth', 'idToken').subscribe((val) => {
-        if (idToken) {
-          this.router.navigate(['/main']).then();
+        if (val != '') {
+          this.router.navigate(['/main']).then(() => {
+            console.log('tic');
+          });
         }
       }),
     );

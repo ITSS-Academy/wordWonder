@@ -29,20 +29,22 @@
   @if (showDropdown) {
     <div class="dropdown" #dropdown>
       @for (ebook of ebooks; track ebook) {
-        <div class="dropdown-item" (click)="navigateToEbookDetailPage(ebook)">
-          <img
-            width="40"
-            height="40"
-            [src]="ebook.imageUrl"
-            alt="ebook cover"
-          />
-          <div class="name-author">
-            <span class="name"
-              ><b>{{ ebook.name }}</b></span
-            >
-            <span class="author">{{ ebook.author }}</span>
+        @if (showDropdown) {
+          <div class="dropdown-item" (click)="navigateToEbookDetailPage(ebook)">
+            <img
+              width="40"
+              height="40"
+              [src]="ebook.imageUrl"
+              alt="ebook cover"
+            />
+            <div class="name-author">
+              <span class="name"
+                ><b>{{ ebook.name }}</b></span
+              >
+              <span class="author">{{ ebook.author }}</span>
+            </div>
           </div>
-        </div>
+        }
       }
     </div>
   }
