@@ -10,6 +10,7 @@ import { UsersService } from './domains/users/users.service';
 import { Role } from './domains/users/entities/user.entity';
 import { CommentsModule } from './domains/comments/comments.module';
 import { EbooksModule } from './domains/ebooks/ebooks.module';
+import { AuthModule } from './domains/auths/auth.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { EbooksModule } from './domains/ebooks/ebooks.module';
     UsersModule,
     CommentsModule,
     EbooksModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

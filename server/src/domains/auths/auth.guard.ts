@@ -10,6 +10,7 @@ import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../../utils/custom_decorators';
 import { ConfigService } from '@nestjs/config';
+import * as admin from 'firebase-admin';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -32,7 +33,7 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
-      throw new HttpException('invalid token', HttpStatus.UNAUTHORIZED);
+      throw new HttpException('token is empty', HttpStatus.UNAUTHORIZED);
     }
     try {
       // 💡 We're assigning the payload to the request object here
@@ -41,7 +42,13 @@ export class AuthGuard implements CanActivate {
         secret: this.configService.get('JWT_SECRET'),
       });
     } catch (e) {
-      throw new HttpException(e, HttpStatus.UNAUTHORIZED);
+      try {
+        // 💡 We're assigning the payload to the request object here
+        // so that we can access it in our route handlers
+        request['user'] = await admin.auth().verifyIdToken(token);
+      } catch (e) {
+        throw new HttpException('invalid token', HttpStatus.UNAUTHORIZED);
+      }
     }
     return true;
   }
