@@ -18,7 +18,6 @@ export class AppComponent {
   title = 'WordWonder';
 
   constructor(
-    private router: Router,
     private auth: Auth,
     private store: Store<{ auth: AuthState }>,
   ) {

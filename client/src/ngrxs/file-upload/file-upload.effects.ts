@@ -55,4 +55,26 @@ export class FileUploadEffects {
       ),
     ),
   );
+
+  uploadAvatarFile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UploadActions.uploadAvatarFile),
+      mergeMap(({ file, path }) =>
+        this.cloudStorageService.uploadFile(file, path).pipe(
+          map((result) => {
+            if (typeof result === 'number') {
+              return UploadActions.uploadFileProgress({ progress: result });
+            } else {
+              return UploadActions.uploadAvatarFileSuccess({
+                downloadURL: result,
+              });
+            }
+          }),
+          catchError((error) =>
+            of(UploadActions.uploadAvatarFileFailure({ error })),
+          ),
+        ),
+      ),
+    ),
+  );
 }

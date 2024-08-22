@@ -30,7 +30,26 @@ export const uploadEbookPdfFileFailure = createAction(
   props<{ error: any }>(),
 );
 
+export const uploadAvatarFile = createAction(
+  '[File Upload] Upload Avatar File',
+  props<{ file: File; path: string }>(),
+);
+
+export const uploadAvatarFileSuccess = createAction(
+  '[File Upload] Upload Avatar File Success',
+  props<{ downloadURL: string }>(),
+);
+
+export const uploadAvatarFileFailure = createAction(
+  '[File Upload] Upload Avatar File Failure',
+  props<{ error: any }>(),
+);
+
 export const uploadFileProgress = createAction(
   '[File Upload] Upload File Progress',
   props<{ progress: number }>(),
+);
+
+export const clearUploadState = createAction(
+  '[File Upload] Clear Upload State',
 );

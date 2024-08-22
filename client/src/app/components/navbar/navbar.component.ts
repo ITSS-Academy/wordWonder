@@ -223,7 +223,7 @@ const AUTHORS: string[] = [
   imports: [MaterialModule, SharedModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef;
@@ -287,6 +287,13 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
         this.isStaticUser = isStaticUser;
       }),
+      this.store.select('auth', 'idToken').subscribe((val) => {
+        if (val == '') {
+          this.router.navigate(['/login']).then(() => {
+            console.log('toc');
+          });
+        }
+      }),
     );
   }
 
@@ -323,8 +330,8 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   openConfirmLogoutDialog() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Logout',
-        message: 'Are you sure you want to logout?',
+        title: 'Đăng xuất',
+        message: 'Bạn có chắc chắn muốn đăng xuất?',
       },
       restoreFocus: false,
     });
@@ -341,13 +348,13 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   logout() {
-    if (this.isStaticUser) {
-      this.router.navigate(['/login']).then(() => {
-        this.store.dispatch(AuthActions.signOut());
-      });
-    } else {
-      this.store.dispatch(AuthActions.signOut());
-    }
+    this.store.dispatch(AuthActions.signOut());
+  }
+
+  navigateToEbookDetailPage(ebook: EBookModel) {
+    this.router.navigate(['/main/book-info', ebook.id]).then(() => {
+      this.searchControl.setValue('');
+    });
   }
 }
 
@@ -373,7 +380,9 @@ export function createNewEbook(id: number): EBookModel {
     description: 'This is a detail of ' + name,
     imageUrl: 'public/assets/poster.jpg',
     translator: 'Translator of ' + name,
-    dateCreated: new Date().toDateString(),
+    dateCreated: (
+      Number(Date.now().toString()) + Math.round(Math.random() * 1000)
+    ).toString(),
     view: Math.round(Math.random() * 1000),
     like: Math.round(Math.random() * 100),
     content: 'This is content of ' + name,

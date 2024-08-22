@@ -1,42 +1,60 @@
 #profile-container {
   width: 100%;
-  height: 100%; /* Adjust height to account for nav-bar height */
+  height: 100%; /* Use viewport height to ensure it takes the full height of the screen */
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  position: relative;
-  overflow-y: auto;
+  overflow-y: auto; /* Enable vertical scrolling */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none;
-
-  .back-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 2;
-    background-color: var(--primary);
-    color: var(--onPrimary);
-  }
 }
 
 #profile-container::-webkit-scrollbar {
   display: none;
 }
 
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 .card-container1 {
+  width: calc(50% - 3em);
+  min-width: 800px;
+  max-width: 1000px;
+  height: max-content;
+  padding: 0 1.5em;
+  border-radius: 28px;
+  //overflow-y: auto;
+
+  #card-name {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+}
+
+#card-content {
+  width: 100%;
+  height: inherit;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: calc(50% - 3em);
-  height: max-content;
-  min-width: 800px;
-  max-width: 1000px;
-  padding: 0 1.5em;
-  border-radius: 28px;
-  background-color: #fff;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 #left-card,
@@ -52,13 +70,17 @@
 
 #left-card {
   gap: 10px;
+
+  .example-button-row {
+    display: none;
+  }
 }
 
 #right-card {
   justify-content: center;
   align-items: center;
-  width: 50%; /* Điều chỉnh chiều rộng để cân bằng với thẻ bên trái */
   padding: 1em 0 1em 1em;
+  margin-bottom: auto;
 
   .top-right {
     width: 100%;
@@ -85,9 +107,14 @@
     align-items: baseline;
 
     p {
-      font-size: 1em;
-      text-align: center;
+      //font-size: 1em;
       margin-top: 5px;
+      display: -webkit-box;
+      width: 100%;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .example-button-row {
@@ -107,43 +134,10 @@
   border-radius: 6px;
 }
 
-@media (max-width: 810px) {
-  .card-container1 {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: calc(50% - 2em); /* Adjusted width */
-    height: max-content;
-    min-width: 500px; /* Adjusted min-width */
-    max-width: 700px; /* Adjusted max-width */
-    padding: 1em;
-    border-radius: 28px;
-    background-color: #fff;
-    display: flex;
-  }
-
-  .top-right {
-    flex-direction: column;
-  }
-
-  .profile-image {
-    width: 100px;
-    height: 100px;
-  }
-  .example-button-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1em;
-    gap: 20px;
-  }
-}
-
 .custom-file-input {
   position: relative;
   display: inline-block;
   width: 100%;
-  margin-top: 0.5em;
 
   input[type="file"] {
     position: absolute;
@@ -184,5 +178,36 @@
   .file-input-logo {
     display: flex;
     max-width: 20px;
+  }
+}
+
+@media (max-width: 425px) {
+  .card-container1 {
+    border-radius: 0;
+
+    #card-content {
+      #right-card {
+        display: none;
+      }
+
+      #left-card {
+        width: 100%;
+
+        .example-button-row {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+          margin: 10px 0 0 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 810px) {
+  .card-container1 {
+    min-width: 320px;
+    width: 100%;
   }
 }

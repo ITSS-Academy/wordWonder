@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatButton } from '@angular/material/button';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -30,7 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(11)]],
     });
   }
 
@@ -42,6 +41,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.store.select('auth', 'loading').subscribe((loading) => {
         this.isLoadingSignIn = loading;
+      }),
+      this.store.select('auth', 'idToken').subscribe((val) => {
+        if (val != '') {
+          this.router.navigate(['/main']).then(() => {
+            console.log('tic');
+          });
+        }
       }),
     );
   }

@@ -3,7 +3,7 @@
   width: 100%;
 
   #admin-header {
-    height: 80px;
+    height: 60px;
     width: 100%;
 
     #admin-header-button-grp {
@@ -31,7 +31,8 @@
   #admin-content {
     width: calc(100% - 40px);
     height: calc(100% - 100px);
-    padding: 0 20px 20px 20px;
+    padding: 20px;
+    background: var(--surfaceContainerLowest);
 
     #filter-search {
       width: 100%;

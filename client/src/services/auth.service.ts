@@ -7,8 +7,10 @@ import {
 } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 import { from, Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../ngrxs/auth/auth.state';
 
 @Injectable({
   providedIn: 'root',
@@ -17,24 +19,17 @@ export class AuthService {
   constructor(
     private auth: Auth,
     private http: HttpClient,
+    private store: Store<{ auth: AuthState }>,
   ) {}
 
   signInWithGoogle() {
     return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
       catchError((error: any) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.error('Error:', {
-          errorCode,
-          errorMessage,
-          email,
-          credential,
-        });
+        console.error('Error:', { errorCode, errorMessage, email, credential });
         return of(credential);
       }),
     );
@@ -62,12 +57,14 @@ export class AuthService {
   isSignedIn(): Observable<boolean> {
     return new Observable<boolean>((observer) => {
       this.auth.onAuthStateChanged((user) => {
-        if (user) {
-          observer.next(true);
-        } else {
-          observer.next(false);
-        }
+        observer.next(!!user);
       });
     });
+  }
+
+  isStaticUser(): Observable<boolean> {
+    return this.store
+      .select('auth', 'isStaticUser')
+      .pipe(map((staticUser) => !!staticUser));
   }
 }

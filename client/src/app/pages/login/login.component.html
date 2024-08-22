@@ -14,48 +14,52 @@
         <h5 class="login-title">Thế giới truyện diệu kỳ.</h5>
         <h5 class="login-title">Chỉ với một chạm là sẽ mở ra!</h5>
       </div>
-      <form [formGroup]="loginForm" id="form">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Email" />
-          @if (loginForm.get("email")?.invalid) {
-            <mat-error>Email không hợp lệ</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Mật khẩu</mat-label>
-          <input
-            matInput
-            formControlName="password"
-            placeholder="Password"
-            type="password"
-            autocomplete="off"
-          />
-          @if (loginForm.get("password")?.invalid) {
-            <mat-error>Mật khẩu không hợp lệ</mat-error>
-          }
-        </mat-form-field>
+      <form [formGroup]="loginForm">
+        <div id="form">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Email" />
+            @if (loginForm.get("email")?.invalid) {
+              <mat-error>Email không hợp lệ</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Mật khẩu</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              placeholder="Password"
+              type="password"
+              autocomplete="off"
+            />
+            @if (loginForm.get("password")?.invalid) {
+              <mat-error>Mật khẩu không hợp lệ</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="btn-grp">
+          <button
+            mat-stroked-button
+            color="primary"
+            class="login"
+            type="button"
+            (click)="signInWithGoogle()"
+          >
+            <img src="/public/assets/logo/google_logo.png" id="google-logo" />
+            Đăng Nhập với Google
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            class="login"
+            (click)="signInWithStaticUser()"
+            [disabled]="loginForm.invalid"
+            type="submit"
+          >
+            Đăng Nhập
+          </button>
+        </div>
       </form>
-      <div class="btn-grp">
-        <button
-          mat-stroked-button
-          color="primary"
-          class="login"
-          (click)="signInWithGoogle()"
-        >
-          <img src="/public/assets/logo/google_logo.png" id="google-logo" />
-          Đăng Nhập với Google
-        </button>
-        <button
-          mat-flat-button
-          color="primary"
-          class="login"
-          (click)="signInWithStaticUser()"
-          [disabled]="loginForm.invalid"
-        >
-          Đăng Nhập
-        </button>
-      </div>
     </div>
   </div>
 </div>

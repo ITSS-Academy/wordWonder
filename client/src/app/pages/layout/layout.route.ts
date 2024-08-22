@@ -16,7 +16,7 @@ export const LAYOUT_ROUTES: Routes = [
           import('./sub-pages/home/home.route').then((m) => m.HOME_ROUTES),
       },
       {
-        path: 'book-info',
+        path: 'book-info/:id',
         loadChildren: () =>
           import('./sub-pages/book-info/book-info.route').then(
             (m) => m.BOOK_INFO_ROUTES,
