@@ -12,7 +12,7 @@ export class User {
   id: string;
 
   @Column()
-  userName: string;
+  nickName: string;
 
   @Column()
   @IsEmail()
@@ -23,8 +23,13 @@ export class User {
   })
   password: string;
 
+  @Column({
+    default: '',
+  })
+  phoneNumber: string;
+
   @Column({ default: '' })
-  avatarURL: string;
+  photoURL: string;
 
   @Column({
     type: 'enum',

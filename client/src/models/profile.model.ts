@@ -1,8 +1,8 @@
 export interface ProfileModel {
-  nickname: string;
+  id: string;
+  nickName: string;
   email: string;
   phoneNumber: string;
-  birthDate: Date;
-  profileImage: string;
-  gmail: string;
+  photoURL: string;
+  joinedDate: string;
 }
