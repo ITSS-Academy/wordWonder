@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -22,14 +23,14 @@ export class UsersController {
   }
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.usersService.create(createUserDto);
+  async create(@Request() req: any) {
+    return await this.usersService.create(req.user);
   }
 
-  @Get()
-  async findAll() {
-    return await this.usersService.findAll();
-  }
+  // @Get()
+  // async findAll() {
+  //   return await this.usersService.findAll();
+  // }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
@@ -38,6 +39,6 @@ export class UsersController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.usersService.remove(+id);
+    return await this.usersService.remove(id);
   }
 }
