@@ -54,9 +54,10 @@ export class AppModule {
         if (!user) {
           await this.userService.create({
             id: 'admin',
-            userName: 'admin',
+            nickName: 'admin',
             email: this.configService.get<string>('STATIC_USER_EMAIL'),
-            avatarURL: '',
+            phoneNumber: '30-210-1234567',
+            photoURL: '',
             joinedDate: '',
             password: this.configService.get<string>('STATIC_USER_PASSWORD'),
             role: Role.ADMIN,
