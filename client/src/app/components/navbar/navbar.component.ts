@@ -20,7 +20,6 @@ import { AuthService } from '../../../services/auth.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-/** Constants used to fill up our data base. */
 export const GENRES: string[] = [
   'Adventure',
   'Science Fiction',
