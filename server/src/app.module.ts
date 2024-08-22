@@ -11,6 +11,7 @@ import { Role } from './domains/users/entities/user.entity';
 import { CommentsModule } from './domains/comments/comments.module';
 import { EbooksModule } from './domains/ebooks/ebooks.module';
 import { AuthModule } from './domains/auths/auth.module';
+import { CategoriesModule } from './domains/categories/categories.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AuthModule } from './domains/auths/auth.module';
     CommentsModule,
     EbooksModule,
     AuthModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
