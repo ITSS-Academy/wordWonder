@@ -7,6 +7,12 @@
   cursor: pointer;
 }
 
+#logo-with-text {
+  max-width: 303px;
+  max-height: 42px;
+  object-fit: cover;
+}
+
 #logo {
   display: none;
 }
@@ -42,7 +48,7 @@
 .dropdown {
   border-radius: 16px;
   position: absolute;
-  background: var(--surfaceContainerLowest);
+  background: var(--background);
   overflow-y: auto;
   z-index: 1000;
   opacity: 0;

@@ -11,8 +11,9 @@
     align-items: center;
     width: 90%;
     height: fit-content;
+    padding: 10px 0;
 
-    h6 {
+    h4 {
       color: var(--primary);
       margin: 0;
     }
@@ -28,6 +29,8 @@
     justify-content: center;
     width: calc(90% - 20px);
     padding: 10px;
+    border-bottom: 1px solid var(--primary);
+    border-top: 1px solid var(--primary);
 
     p {
       width: 180px;

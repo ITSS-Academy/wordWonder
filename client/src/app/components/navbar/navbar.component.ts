@@ -5,60 +5,25 @@ import {
   ElementRef,
   HostListener,
   inject,
+  OnDestroy,
+  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
-import { EBookModel } from '../../../models/ebook.model';
+import { EBookModel, GENRES } from '../../../models/ebook.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AuthService } from '../../../services/auth.service';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { AuthState } from '../../../ngrxs/auth/auth.state';
+import { Subscription } from 'rxjs';
+import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 
-export const GENRES: string[] = [
-  'Adventure',
-  'Science Fiction',
-  'Fantasy',
-  'Mystery',
-  'Historical Fiction',
-  'Horror',
-  'Thriller',
-  'Romance',
-  'Westerns',
-  'Dystopian',
-  'Memoir',
-  'Biography',
-  'Self-help',
-  'Cookbooks',
-  'History',
-  'Travel',
-  'True Crime',
-  'Humor',
-  'Children’s',
-  'Young Adult',
-  'Poetry',
-  'Science',
-  'Nature',
-  'Math',
-  'Philosophy',
-  'Religion',
-  'Spirituality',
-  'New Age',
-  'Art',
-  'Photography',
-  'Architecture',
-  'Music',
-  'Film',
-  'Fashion',
-  'Performing Arts',
-  'Graphic Novels',
-  'Manga',
-];
+/** Constants used to fill up our data base. */
 const NAMES: string[] = [
   'Around the World in Eighty Days',
   'The War of the Worlds',
@@ -258,11 +223,14 @@ const AUTHORS: string[] = [
   imports: [MaterialModule, SharedModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('dropdown') dropdown!: ElementRef;
+
+  subscriptions: Subscription[] = [];
+  isStaticUser = false;
 
   searchControl = new FormControl('');
   showDropdown = false;
@@ -273,8 +241,8 @@ export class NavbarComponent implements AfterViewInit {
   private renderer = inject(Renderer2);
 
   constructor(
+    private store: Store<{ auth: AuthState }>,
     private router: Router,
-    private authService: AuthService,
   ) {
     this.searchControl.valueChanges
       .pipe(takeUntilDestroyed())
@@ -310,12 +278,31 @@ export class NavbarComponent implements AfterViewInit {
       });
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
+        this.isStaticUser = isStaticUser;
+      }),
+      this.store.select('auth', 'idToken').subscribe((val) => {
+        if (val == '') {
+          this.router.navigate(['/login']).then(() => {
+            console.log('toc');
+          });
+        }
+      }),
+    );
+  }
+
   ngAfterViewInit() {
     this.setPosition();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     this.setPosition();
   }
 
@@ -343,17 +330,15 @@ export class NavbarComponent implements AfterViewInit {
   openConfirmLogoutDialog() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Logout',
-        message: 'Are you sure you want to logout?',
+        title: 'Đăng xuất',
+        message: 'Bạn có chắc chắn muốn đăng xuất?',
       },
       restoreFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result == true) {
-        this.router.navigate(['/login']).then(() => {
-          console.log('User confirmed logout');
-        });
+        this.logout();
       }
     });
   }
@@ -361,10 +346,20 @@ export class NavbarComponent implements AfterViewInit {
   navigateToProfile() {
     this.router.navigate(['/main/profile']).then(() => {});
   }
+
+  logout() {
+    this.store.dispatch(AuthActions.signOut());
+  }
+
+  navigateToEbookDetailPage(ebook: EBookModel) {
+    this.router.navigate(['/main/book-info', ebook.id]).then(() => {
+      this.searchControl.setValue('');
+    });
+  }
 }
 
 /** Builds and returns a new User. */
-function createNewEbook(id: number): EBookModel {
+export function createNewEbook(id: number): EBookModel {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
     ' ' +
@@ -385,7 +380,9 @@ function createNewEbook(id: number): EBookModel {
     description: 'This is a detail of ' + name,
     imageUrl: 'public/assets/poster.jpg',
     translator: 'Translator of ' + name,
-    dateCreated: new Date().toDateString(),
+    dateCreated: (
+      Number(Date.now().toString()) + Math.round(Math.random() * 1000)
+    ).toString(),
     view: Math.round(Math.random() * 1000),
     like: Math.round(Math.random() * 100),
     content: 'This is content of ' + name,

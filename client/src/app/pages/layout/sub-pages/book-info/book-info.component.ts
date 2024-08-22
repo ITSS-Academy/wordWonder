@@ -83,4 +83,8 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   read() {
     this.router.navigate(['/main/reading']).then();
   }
+
+  goBackToHome(): void {
+    this.router.navigate(['/main']).then();
+  }
 }

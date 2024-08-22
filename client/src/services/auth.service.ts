@@ -1,24 +1,70 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+} from '@angular/fire/auth';
+import { HttpClient } from '@angular/common/http';
+import { from, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../ngrxs/auth/auth.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  currentUser!: any;
-  constructor(private auth: Auth) {} // Inject Auth vào constructor
+  constructor(
+    private auth: Auth,
+    private http: HttpClient,
+    private store: Store<{ auth: AuthState }>,
+  ) {}
 
-  async login() {
-    const credential = await signInWithPopup(
-      this.auth,
-      new GoogleAuthProvider(),
+  signInWithGoogle() {
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
+      catchError((error: any) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.error('Error:', { errorCode, errorMessage, email, credential });
+        return of(credential);
+      }),
     );
-    this.currentUser = credential.user;
-    console.log(credential);
   }
 
-  async logout() {
-    await this.auth.signOut();
-    this.currentUser = null; //dang xuat mat di thong tin nguoi dung
+  signInWithStaticUser(email: string, password: string) {
+    return this.http.post<{ access_token: string }>(
+      `${environment.apiUrl}/auth/login`,
+      {
+        email: email,
+        password: password,
+      },
+    );
+  }
+
+  logout() {
+    return from(signOut(this.auth)).pipe(
+      catchError((error: any) => {
+        console.error('Error:', error);
+        return of(error);
+      }),
+    );
+  }
+
+  isSignedIn(): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      this.auth.onAuthStateChanged((user) => {
+        observer.next(!!user);
+      });
+    });
+  }
+
+  isStaticUser(): Observable<boolean> {
+    return this.store
+      .select('auth', 'isStaticUser')
+      .pipe(map((staticUser) => !!staticUser));
   }
 }

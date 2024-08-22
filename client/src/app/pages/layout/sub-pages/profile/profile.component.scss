@@ -1,168 +1,130 @@
 #profile-container {
   width: 100%;
-  height: calc(100% - 60px); /* Adjust height to account for nav-bar height */
+  height: 100%; /* Use viewport height to ensure it takes the full height of the screen */
   display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  margin-top: 30px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none;
+}
+
+#profile-container::-webkit-scrollbar {
+  display: none;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .card-container1 {
+  width: calc(50% - 3em);
+  min-width: 800px;
+  max-width: 1000px;
+  height: max-content;
+  padding: 0 1.5em;
+  border-radius: 28px;
+  //overflow-y: auto;
+
+  #card-name {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+}
+
+#card-content {
+  width: 100%;
+  height: inherit;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
-  height: max-content;
-  min-width: 800px;
-  max-width: 1000px;
-  padding: 0.5em;
-  border-radius: 28px;
-  background-color: #fff;
-  margin-top: 20px;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
-#left-card1,
+#left-card,
 #right-card {
   display: flex;
-  gap: 0;
   width: 50%;
   box-sizing: border-box;
   overflow: hidden;
   flex-direction: column;
   align-items: stretch;
-  margin-left: 10px;
+  padding: 1em 0;
 }
 
-#left-card1 .mat-button,
-#left-card1 .mat-raised-button,
-#left-card1 .mat-flat-button,
-#left-card1 .mat-stroked-button {
-  width: 100%;
-  height: 2.3em; /* Tăng chiều cao của nút */
-  padding: 0.3em; /* Tăng padding để nút lớn hơn */
-  font-size: 0.875rem; /* Tăng kích thước font một chút */
-  box-sizing: border-box;
+#left-card {
+  gap: 10px;
+
+  .example-button-row {
+    display: none;
+  }
 }
 
 #right-card {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%; /* Điều chỉnh chiều rộng để cân bằng với thẻ bên trái */
-  padding: 1em;
-  box-sizing: border-box;
-}
+  padding: 1em 0 1em 1em;
+  margin-bottom: auto;
 
-.top-right {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.1em; /* Điều chỉnh khoảng cách giữa các phần tử */
-  justify-content: center;
-}
+  .top-right {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--inverseOnSurface);
+    //border-top-right-radius: 16px;
+    //border-bottom-right-radius: 16px;
+    border-radius: 16px;
 
-.profile-image {
-  width: 150px; /* Set width to 100% of the parent container */
-  height: 100%; /* Giảm chiều cao tối đa của hình ảnh */
-  object-fit: cover;
-}
+    .profile-image {
+      width: 150px; /* Set width to 100% of the parent container */
+      height: 100%; /* Giảm chiều cao tối đa của hình ảnh */
+      object-fit: cover;
+    }
+  }
 
-#right-cardTL {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em; /* Giảm khoảng cách giữa các phần tử */
-}
+  .bot-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
 
-#right-cardTL p {
-  margin: 0;
-  font-size: 0.95em; /* Điều chỉnh kích thước font */
-}
+    p {
+      //font-size: 1em;
+      margin-top: 5px;
+      display: -webkit-box;
+      width: 100%;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
-.bot-right {
-  width: calc(100% - 20px);
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  margin-left: 30px;
-}
-
-.bot-right p {
-  font-size: 1em;
-  text-align: center;
-  margin-top: 5px;
-}
-
-.gmail-button {
-  width: 50px; /* Giảm kích thước nút Gmail */
-  height: 50px;
-  border-radius: 50%;
-  background-color: #e6f9ff;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.gmail-button mat-icon {
-  width: 35px;
-  height: 25px;
-}
-
-#gmail-container1 {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-content: space-between;
-  align-items: flex-start;
-  font-size: 0.8em;
-  margin: 8px; /* Giảm khoảng cách bên ngoài */
-}
-
-#gmail-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-#gmail-container1 p {
-  margin-bottom: 0.1em;
-}
-
-#gmail-container1 p {
-  margin-top: 0;
-}
-
-.example-button-row {
-  display: flex;
-  width: 100%;
-  margin-top: 1em;
-  flex-direction: column;
-  gap: 39px;
-}
-
-.example-button-row button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 10px;
-  font-size: 0.875rem;
-  border-radius: 20px;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
-  flex-wrap: nowrap;
-}
-
-.btn-admin {
-  background-color: #00a8fd; /* Change to desired color */
-  color: white;
+    .example-button-row {
+      display: flex;
+      width: 100%;
+      margin-top: 1em;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
 }
 
 #preview {
@@ -172,48 +134,10 @@
   border-radius: 6px;
 }
 
-@media (max-width: 810px) {
-  .card-container1 {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 50%; /* Adjusted width */
-    height: max-content;
-    min-width: 500px; /* Adjusted min-width */
-    max-width: 700px; /* Adjusted max-width */
-    padding: 0.5em;
-    border-radius: 28px;
-    background-color: #fff;
-    display: flex;
-  }
-
-  #left-card1,
-  #right-card {
-    max-width: 100%;
-  }
-
-  .top-right {
-    flex-direction: column;
-  }
-
-  .profile-image {
-    width: 100px;
-    height: 100px;
-  }
-  .example-button-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1em;
-    gap: 20px;
-  }
-}
-
 .custom-file-input {
   position: relative;
   display: inline-block;
   width: 100%;
-  margin-top: 0.5em;
 
   input[type="file"] {
     position: absolute;
@@ -230,7 +154,7 @@
     padding: 1em;
     font-size: 0.945rem;
     color: rgba(0, 0, 0, 0.87);
-    background-color: #ffffff;
+    background-color: transparent;
     border: 1px solid rgba(0, 0, 0, 0.55);
     border-radius: 6px;
     box-sizing: border-box;
@@ -254,5 +178,36 @@
   .file-input-logo {
     display: flex;
     max-width: 20px;
+  }
+}
+
+@media (max-width: 425px) {
+  .card-container1 {
+    border-radius: 0;
+
+    #card-content {
+      #right-card {
+        display: none;
+      }
+
+      #left-card {
+        width: 100%;
+
+        .example-button-row {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+          margin: 10px 0 0 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 810px) {
+  .card-container1 {
+    min-width: 320px;
+    width: 100%;
   }
 }

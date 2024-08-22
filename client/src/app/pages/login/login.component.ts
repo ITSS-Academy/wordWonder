@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../../ngrxs/auth/auth.state';
+import * as AuthActions from '../../../ngrxs/auth/auth.actions';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,26 +15,53 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
-  isLoginWithEmailAndPass = false;
-
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  isLoadingSignIn = false;
+
+  subscriptions: Subscription[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<{ auth: AuthState }>,
+    private router: Router,
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(11)]],
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      // Handle form submission
-      console.log(this.loginForm.value);
-    }
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  changeLoginMethod() {
-    this.isLoginWithEmailAndPass = !this.isLoginWithEmailAndPass;
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store.select('auth', 'loading').subscribe((loading) => {
+        this.isLoadingSignIn = loading;
+      }),
+      this.store.select('auth', 'idToken').subscribe((val) => {
+        if (val != '') {
+          this.router.navigate(['/main']).then(() => {
+            console.log('tic');
+          });
+        }
+      }),
+    );
+  }
+
+  signInWithGoogle() {
+    this.store.dispatch(AuthActions.signInWithGoogle());
+  }
+
+  signInWithStaticUser() {
+    this.store.dispatch(
+      AuthActions.signInWithStaticUser({
+        email: this.loginForm.get('email')?.value,
+        password: this.loginForm.get('password')?.value,
+      }),
+    );
   }
 }

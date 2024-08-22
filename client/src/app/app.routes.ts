@@ -1,18 +1,30 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import * as AuthGuards from './guards/auth.guard';
+import { canMatchLogin } from './guards/auth.guard';
 
 export const routes: Routes = [
-  // redirect to `login`
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'loading', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () =>
       import('./pages/login/login.route').then((m) => m.LOGIN_ROUTES),
+    canMatch: [AuthGuards.canMatchLogin],
   },
   {
     path: 'main',
     loadChildren: () =>
       import('./pages/layout/layout.route').then((m) => m.LAYOUT_ROUTES),
+    canMatch: [AuthGuards.canMatchMain],
   },
-  { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
+  {
+    path: 'loading',
+    loadChildren: () =>
+      import('./pages/loading/loading.route').then((m) => m.LOADING_ROUTES),
+    canMatch: [AuthGuards.canMatchLoading],
+  },
+  {
+    path: '**',
+    redirectTo: '/loading',
+    pathMatch: 'full',
+  },
 ];
