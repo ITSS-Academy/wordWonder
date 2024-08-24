@@ -424,6 +424,7 @@ type-mobile {
   height: 35px;
 }
 
+/* Apply loading animation with different delays */
 .skeleton-container::before,
 .skeleton-header::before,
 .skeleton-image::before,
@@ -441,12 +442,58 @@ type-mobile {
   height: 100%;
   width: 150px;
   background: linear-gradient(
-    to right,
-    transparent 0%,
-    #f0f0f0 50%,
-    transparent 100%
+      to right,
+      transparent 0%,
+      #f0f0f0 50%,
+      transparent 100%
   );
   animation: loading 1.5s infinite;
+}
+
+/* Different animation delays for each element */
+.skeleton-header::before {
+  animation-delay: 0s;
+}
+
+.skeleton-image::before {
+  animation-delay: 0.2s;
+}
+
+.skeleton-title::before {
+  animation-delay: 0.4s;
+}
+
+.skeleton-author::before {
+  animation-delay: 0.6s;
+}
+
+.skeleton-rating::before {
+  animation-delay: 0.8s;
+}
+
+.skeleton-view::before {
+  animation-delay: 1s;
+}
+
+.skeleton-tags::before {
+  animation-delay: 1.2s;
+}
+
+.skeleton-buttons::before {
+  animation-delay: 1.4s;
+}
+
+.skeleton-container,
+.skeleton-header,
+.skeleton-image,
+.skeleton-title,
+.skeleton-author,
+.skeleton-rating,
+.skeleton-view,
+.skeleton-tags,
+.skeleton-buttons {
+  position: relative;
+  overflow: hidden;
 }
 
 @keyframes loading {
@@ -466,6 +513,7 @@ type-mobile {
   padding: 15px;
   background-color: var(--bg-color-lighter);
   border-radius: 6px;
+  margin: 0 auto;
 }
 
 .skeleton-description {
@@ -492,6 +540,7 @@ type-mobile {
   border-radius: 4px;
 }
 
+/* Loading animation for the novel body section */
 .skeleton-introduce::before,
 .skeleton-paragraph::before {
   content: "";
@@ -502,22 +551,146 @@ type-mobile {
   height: 100%;
   width: 150px;
   background: linear-gradient(
-    to right,
-    transparent 0%,
-    #f0f0f0 50%,
-    transparent 100%
+      to right,
+      transparent 0%,
+      #f0f0f0 50%,
+      transparent 100%
   );
   animation: loading 1.5s infinite;
 }
 
-@keyframes loading {
-  0% {
-    left: -150px;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
+.skeleton-introduce::before {
+  animation-delay: 1.6s;
 }
+
+.skeleton-paragraph::before {
+  animation-delay: 1.8s;
+}
+
+//
+//.skeleton-novel-body-container,
+//.skeleton-introduce,
+//.skeleton-description,
+//.skeleton-description-container,
+//.skeleton-paragraph {
+//  position: relative;
+//  overflow: hidden;
+//}
+//
+//@keyframes loading {
+//  0% {
+//    left: -150px;
+//  }
+//  50% {
+//    left: 100%;
+//  }
+//  100% {
+//    left: 100%;
+//  }
+//}
+
+//@media only screen and (max-width: 670px)  {
+//  /* Skeleton Loader Styles for Mobile */
+//  .skeleton-image-shade {
+//    height: 100%;
+//    width: 100%;
+//    position: absolute;
+//    top: 0;
+//    left: 0;
+//    right: 0;
+//    background: #e0e0e0;
+//    margin: 0;
+//    padding: 0;
+//    display: block;
+//    z-index: -1;
+//  }
+//
+//  .skeleton-cover {
+//    height: 100%;
+//    width: 100%;
+//    margin: 0;
+//    padding: 0;
+//    background: #e0e0e0;
+//  }
+//
+//  .skeleton-book-info-mobile {
+//    display: flex;
+//    flex-direction: column;
+//    margin-top: auto;
+//    padding: 10px;
+//    gap: 10px;
+//  }
+//
+//  .skeleton-title-mobile,
+//  .skeleton-author-mobile,
+//  .skeleton-rating-mobile,
+//  .skeleton-view-mobile,
+//  .skeleton-buttons-mobile,
+//  .skeleton-tags-mobile {
+//    height: 20px;
+//    background-color: #e0e0e0;
+//    border-radius: 4px;
+//    position: relative;
+//    overflow: hidden;
+//  }
+//
+//  .skeleton-title-mobile {
+//    width: 70%;
+//    height: 24px;
+//  }
+//
+//  .skeleton-author-mobile,
+//  .skeleton-rating-mobile,
+//  .skeleton-view-mobile {
+//    width: 50%;
+//    height: 18px;
+//  }
+//
+//  .skeleton-buttons-mobile {
+//    width: 100%;
+//    height: 35px;
+//    margin-top: 10px;
+//  }
+//
+//  .skeleton-tags-mobile {
+//    width: 100%;
+//    height: 50px;
+//    margin-top: 10px;
+//  }
+//
+//  .skeleton-image-shade::before,
+//  .skeleton-cover::before,
+//  .skeleton-title-mobile::before,
+//  .skeleton-author-mobile::before,
+//  .skeleton-rating-mobile::before,
+//  .skeleton-view-mobile::before,
+//  .skeleton-buttons-mobile::before,
+//  .skeleton-tags-mobile::before {
+//    content: "";
+//    display: block;
+//    position: absolute;
+//    top: 0;
+//    left: -150px;
+//    height: 100%;
+//    width: 150px;
+//    background: linear-gradient(
+//        to right,
+//        transparent 0%,
+//        #f0f0f0 50%,
+//        transparent 100%
+//    );
+//    animation: loading 1.5s infinite;
+//  }
+//
+//  @keyframes loading {
+//    0% {
+//      left: -150px;
+//    }
+//    50% {
+//      left: 100%;
+//    }
+//    100% {
+//      left: 100%;
+//    }
+//  }
+//}
