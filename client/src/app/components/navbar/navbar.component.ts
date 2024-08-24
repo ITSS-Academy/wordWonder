@@ -36,6 +36,9 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('dropdown') dropdown!: ElementRef;
 
   subscriptions: Subscription[] = [];
+  isStaticUser = false;
+
+  profile$ = this.store.select('user', 'user');
 
   searchControl = new FormControl('');
   showDropdown = false;
@@ -93,11 +96,15 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.store.select('auth', 'idToken').subscribe((val) => {
+        console.log('idToken: ', val);
         if (val == '') {
           this.router.navigate(['/login']).then(() => {
             console.log('toc');
           });
         }
+      }),
+      this.store.select('auth', 'isStaticUser').subscribe((value) => {
+        this.isStaticUser = value;
       }),
     );
   }

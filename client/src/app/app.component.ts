@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../ngrxs/auth/auth.state';
 import * as AuthActions from '../ngrxs/auth/auth.actions';
 import * as UserActions from '../ngrxs/user/user.actions';
+import { UserState } from '../ngrxs/user/user.state';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private auth: Auth,
-    private store: Store<{ auth: AuthState }>,
+    private store: Store<{ auth: AuthState; user: UserState }>,
   ) {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
@@ -32,6 +33,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('auth', 'idToken').subscribe((val) => {
       if (val != '') {
+        this.store.dispatch(UserActions.getById());
+      }
+    });
+    this.store.select('user', 'loadingError').subscribe((val) => {
+      if (val == 'User not found') {
+        this.store.dispatch(UserActions.create());
+      }
+    });
+    this.store.select('user', 'isCreatedSuccess').subscribe((val) => {
+      if (val) {
         this.store.dispatch(UserActions.getById());
       }
     });

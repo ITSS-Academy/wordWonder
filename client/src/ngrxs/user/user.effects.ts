@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { map, exhaustMap, catchError } from 'rxjs/operators';
 import * as UserActions from './user.actions';
 import { UserService } from '../../services/user.service';
+import { ProfileModel } from '../../models/profile.model';
 
 @Injectable()
 export class UserEffects {
@@ -44,11 +45,12 @@ export class UserEffects {
         return this.userService.getById().pipe(
           map((response) =>
             UserActions.getByIdSuccess({
-              user: response,
+              user: response as ProfileModel,
             }),
           ),
-          catchError((error) => {
-            return of(UserActions.getByIdFailure({ error: error }));
+          catchError((obj) => {
+            // console.log(obj);
+            return of(UserActions.getByIdFailure({ error: obj.error.message }));
           }),
         );
       }),
