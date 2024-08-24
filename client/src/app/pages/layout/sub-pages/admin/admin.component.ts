@@ -13,9 +13,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { EBookModel } from '../../../../../models/ebook.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { createNewEbook } from '../../../../components/navbar/navbar.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EbookFormDialogComponent } from './components/ebook-form-dialog/ebook-form-dialog.component';
+import { EbookService } from '../../../../../services/ebook.service';
 
 @Component({
   selector: 'app-admin',
@@ -46,9 +46,11 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
   //dialog
   readonly dialog = inject(MatDialog);
 
-  constructor() {
+  constructor(private ebookService: EbookService) {
     // Create n ebooks
-    this.ebooks = Array.from({ length: 10 }, (_, k) => createNewEbook(k + 1));
+    this.ebooks = Array.from({ length: 10 }, (_, k) =>
+      this.ebookService.createNewEbook(k + 1),
+    );
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.ebooks);
