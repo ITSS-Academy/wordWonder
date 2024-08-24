@@ -71,10 +71,10 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   ) {}
   isLoading: boolean = true;
   ngOnInit(): void {
-    // Simulate loading time
+    // Simulate loading data
     setTimeout(() => {
       this.isLoading = false;
-    }, 2000);
+    }, 60000); // Adjust the timeout as needed
   }
 
   ngOnDestroy(): void {}

@@ -13,6 +13,7 @@ import { MaterialModule } from '../../../shared/modules/material.module';
 export interface DialogData {
   title: string;
   message: string;
+  color: string;
 }
 
 @Component({

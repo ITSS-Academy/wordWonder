@@ -1,3 +1,42 @@
+<div id="icon-menu">
+<div class="flex-container">
+  <div class="btn-back">
+    <button
+      [routerLink]="'../book-info'" mat-mini-fab aria-label="back icon"> <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="flex-container">
+  <div class="btn-menu">
+    <button
+      mat-mini-fab
+      aria-label="menu icon"
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button
+        [routerLink]="'../../main/home'"
+        style="border-radius: 8px; color: #6750a4"
+        mat-menu-item
+      >
+        <mat-icon style="color: #6750a4">home</mat-icon>
+        Home
+      </button>
+      <button
+        style="border-radius: 8px; word-spacing: -6px; color: #6750a4"
+        mat-button
+        (click)="openDialog()"
+      >
+        <mat-icon style="color: #6750a4">settings</mat-icon>
+        Tùy chỉnh
+      </button>
+      <!--          <button mat-button (click)="openDialog()">Open dialog</button>-->
+    </mat-menu>
+  </div>
+</div>
+</div>
 <div id="reading-container">
   <div class="example-button-row">
     <div class="example-flex-container">
