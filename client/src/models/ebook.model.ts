@@ -6,7 +6,6 @@ export interface EBookModel {
   author: string;
   category: string[];
   translator: string;
-  dateCreated: string;
   like: number;
   view: number;
   content: string;
