@@ -425,7 +425,6 @@ type-mobile {
 }
 
 /* Apply loading animation with different delays */
-.skeleton-container::before,
 .skeleton-header::before,
 .skeleton-image::before,
 .skeleton-title::before,
@@ -567,15 +566,119 @@ type-mobile {
   animation-delay: 1.8s;
 }
 
+
+//.skeleton-container {
+//  width: 100%;
+//  max-width: 800px;
+//  margin: 0 auto;
+//  padding: 15px;
+//  display: flex;
+//  flex-direction: column;
+//  background-color: var(--bg-color-lighter);
+//  border-radius: 6px;
+//}
 //
-//.skeleton-novel-body-container,
-//.skeleton-introduce,
-//.skeleton-description,
-//.skeleton-description-container,
-//.skeleton-paragraph {
+//.skeleton-header {
+//  height: 30px;
+//  margin-bottom: 20px;
+//  background-color: #e0e0e0;
+//  border-radius: 4px;
 //  position: relative;
 //  overflow: hidden;
 //}
+//
+//.skeleton-body {
+//  display: flex;
+//  flex-direction: row;
+//  gap: 15px;
+//}
+//
+//.skeleton-image {
+//  width: 314px;
+//  height: 450px;
+//  background-color: #e0e0e0;
+//  border-radius: 28px;
+//  position: relative;
+//  overflow: hidden;
+//}
+//
+//.skeleton-info {
+//  flex: 1;
+//  display: flex;
+//  flex-direction: column;
+//  gap: 10px;
+//}
+//
+//.skeleton-title,
+//.skeleton-author,
+//.skeleton-rating,
+//.skeleton-view,
+//.skeleton-tags,
+//.skeleton-buttons {
+//  height: 20px;
+//  background-color: #e0e0e0;
+//  border-radius: 4px;
+//  position: relative;
+//  overflow: hidden;
+//}
+//
+//.skeleton-title {
+//  width: 70%;
+//  height: 24px;
+//  margin-bottom: 10px;
+//}
+//
+//.skeleton-author {
+//  width: 50%;
+//  height: 18px;
+//  margin-bottom: 15px;
+//}
+//
+//.skeleton-rating,
+//.skeleton-view,
+//.skeleton-tags,
+//.skeleton-buttons {
+//  width: 40%;
+//  height: 18px;
+//}
+//
+//.skeleton-tags {
+//  width: 60%;
+//  height: 18px;
+//  margin-bottom: 15px;
+//}
+//
+//.skeleton-buttons {
+//  width: 50%;
+//  height: 35px;
+//}
+//
+//.skeleton-container::before,
+//.skeleton-header::before,
+//.skeleton-image::before,
+//.skeleton-title::before,
+//.skeleton-author::before,
+//.skeleton-rating::before,
+//.skeleton-view::before,
+//.skeleton-tags::before,
+//.skeleton-buttons::before {
+//  content: "";
+//  display: block;
+//  position: absolute;
+//  top: 0;
+//  left: -150px;
+//  height: 100%;
+//  width: 150px;
+//  background: linear-gradient(
+//    to right,
+//    transparent 0%,
+//    #f0f0f0 50%,
+//    transparent 100%
+//  );
+//  animation: loading 1.5s infinite;
+//}
+//
+
 //
 //@keyframes loading {
 //  0% {
@@ -588,6 +691,77 @@ type-mobile {
 //    left: 100%;
 //  }
 //}
+//
+//.skeleton-novel-body-container {
+//  width: 100%;
+//  padding: 15px;
+//  background-color: var(--bg-color-lighter);
+//  border-radius: 6px;
+//  margin: 0 auto;
+//}
+//
+//.skeleton-description {
+//  display: flex;
+//  flex-direction: column;
+//  gap: 10px;
+//}
+//
+//.skeleton-introduce {
+//  height: 30px;
+//  background: #e0e0e0;
+//  border-radius: 4px;
+//}
+//
+//.skeleton-description-container {
+//  display: flex;
+//  flex-direction: column;
+//  gap: 10px;
+//}
+//
+//.skeleton-paragraph {
+//  height: 20px;
+//  background: #e0e0e0;
+//  border-radius: 4px;
+//}
+//
+//.skeleton-introduce::before,
+//.skeleton-paragraph::before {
+//  content: "";
+//  display: block;
+//  position: absolute;
+//  top: 0;
+//  left: -150px;
+//  height: 100%;
+//  width: 150px;
+//  background: linear-gradient(
+//    to right,
+//    transparent 0%,
+//    #f0f0f0 50%,
+//    transparent 100%
+//  );
+//  animation: loading 1.5s infinite;
+//}
+//
+//.skeleton-novel-body-container,
+//.skeleton-introduce,
+//.skeleton-description,
+//.skeleton-description-container,
+//.skeleton-paragraph {
+//  position: relative;
+//  overflow: hidden;
+//}
+
+@keyframes loading {
+  0% {
+    left: -150px;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
 
 //@media only screen and (max-width: 670px)  {
 //  /* Skeleton Loader Styles for Mobile */
