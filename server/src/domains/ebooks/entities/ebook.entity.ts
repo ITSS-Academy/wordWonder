@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity()
 export class Ebook {
@@ -13,15 +21,15 @@ export class Ebook {
   @Column({ type: 'varchar', length: 50 })
   author: string;
   @Column({ type: 'varchar', length: 50 })
-  category: string[];
-  @Column({ type: 'varchar', length: 50 })
   translator: string;
-  @Column({ type: 'varchar', length: 50 })
-  dateCreated: string;
   @Column({ type: 'int' })
   like: number;
   @Column({ type: 'int' })
   view: number;
   @Column({ type: 'varchar', length: 50 })
   content: string;
+
+  @ManyToMany(() => Category, { cascade: true })
+  @JoinTable()
+  categories: Category[];
 }

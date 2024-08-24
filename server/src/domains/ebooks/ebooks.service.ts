@@ -1,15 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEbookDto } from './dto/create-ebook.dto';
 import { UpdateEbookDto } from './dto/update-ebook.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ebook } from './entities/ebook.entity';
+import { Category } from '../categories/entities/category.entity';
 
 @Injectable()
 export class EbooksService {
   constructor(
     @InjectRepository(Ebook)
     private readonly ebookRepository: Repository<Ebook>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
   ) {}
 
   async create(CreateEbookDto: CreateEbookDto) {
@@ -18,23 +21,33 @@ export class EbooksService {
     newEbook.imageUrl = CreateEbookDto.imageUrl;
     newEbook.description = CreateEbookDto.description;
     newEbook.author = CreateEbookDto.author;
-    newEbook.category = CreateEbookDto.category;
     newEbook.translator = CreateEbookDto.translator;
-    newEbook.dateCreated = CreateEbookDto.dateCreated;
     newEbook.like = CreateEbookDto.like;
     newEbook.view = CreateEbookDto.view;
     newEbook.content = CreateEbookDto.content;
+    newEbook.categories = CreateEbookDto.categories;
     await this.ebookRepository.save(newEbook);
     return;
   }
 
   async findAll() {
-    return await this.ebookRepository.find();
+    return await this.ebookRepository.find({
+      relations: {
+        categories: true,
+      },
+    });
   }
 
   async findOne(id: string) {
-    await this.ebookRepository.findOneBy({ id: id });
-    return;
+    try {
+      return await this.ebookRepository
+        .createQueryBuilder('ebook')
+        .leftJoinAndSelect('ebook.categories', 'category')
+        .where('ebook.id = :id', { id })
+        .getOne();
+    } catch {
+      throw new HttpException('Ebook not found', 400);
+    }
   }
 
   async update(id: string, UpdateEbookDto: UpdateEbookDto) {
@@ -46,7 +59,6 @@ export class EbooksService {
     updateEbook.imageUrl = UpdateEbookDto.imageUrl;
     updateEbook.description = UpdateEbookDto.description;
     updateEbook.author = UpdateEbookDto.author;
-    updateEbook.category = UpdateEbookDto.category;
     await this.ebookRepository.save(updateEbook);
     return;
   }
@@ -58,5 +70,25 @@ export class EbooksService {
     }
     await this.ebookRepository.remove(deleteEbook);
     return;
+  }
+
+  async removeCategoriesFromEbook(
+    ebookId: string,
+    categoryIds: string[],
+  ): Promise<void> {
+    const ebook = await this.ebookRepository.findOne({
+      where: { id: ebookId },
+      relations: ['categories'],
+    });
+
+    if (!ebook) {
+      throw new NotFoundException('Ebook and Category not found');
+    }
+
+    ebook.categories = ebook.categories.filter(
+      (category) => !categoryIds.includes(category.id),
+    );
+
+    await this.ebookRepository.save(ebook);
   }
 }
