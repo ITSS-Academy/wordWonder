@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 import { UserState } from './user.state';
 import { createReducer, on } from '@ngrx/store';
 import * as UserActions from './user.actions';
@@ -95,4 +92,3 @@ export const userReducer = createReducer(
     };
   }),
 );
->>>>>>> adb2c67ed6069803c76df17a6448bdc5183ed4e5
