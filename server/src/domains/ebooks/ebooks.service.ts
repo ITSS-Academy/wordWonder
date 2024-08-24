@@ -65,21 +65,13 @@ export class EbooksService {
 
   async remove(id: string) {
     try {
-      console.log('id:', id);
-      let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
-      if (!deleteEbook) {
-        throw new NotFoundException('Ebook not found');
-      }
-      await this.ebookRepository.remove(deleteEbook);
-      return { message: 'Ebook successfully removed' };
-    } catch (error) {
-      if (
-        error instanceof SyntaxError &&
-        error.message.includes('Unexpected token')
-      ) {
-        throw new HttpException('Invalid JSON format', 400);
-      }
-      throw new HttpException(error.message, error.status || 500);
+      const deleteResult = await this.ebookRepository
+        .createQueryBuilder('ebook')
+        .delete()
+        .where('id = :id', { id })
+        .execute();
+    } catch {
+      throw new HttpException('Ebook not found', 400);
     }
   }
 
