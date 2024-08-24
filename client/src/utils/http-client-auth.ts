@@ -29,7 +29,7 @@ export class HttpClientAuth {
       url: newUrl,
       options: {
         headers: new HttpHeaders({
-          Authorization: `${this.idToken}`,
+          Authorization: `Bearer ${this.idToken}`,
         }),
         ...options,
       },
@@ -66,5 +66,13 @@ export class HttpClientAuth {
       options,
     );
     return this.http.delete(newUrl, newOptions);
+  }
+
+  patch(url: string, options?: any) {
+    const { url: newUrl, options: newOptions } = this.transformRequest(
+      url,
+      options,
+    );
+    return this.http.patch(newUrl, newOptions);
   }
 }

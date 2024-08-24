@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
-import { ProfileComponent } from './sub-pages/profile/profile.component';
-import { AdminComponent } from './sub-pages/admin/admin.component';
-import { BookInfoComponent } from './sub-pages/book-info/book-info.component';
-import { ReadingComponent } from './sub-pages/reading/reading.component';
+import * as RoleGuards from '../../guards/role.guard';
 
 export const LAYOUT_ROUTES: Routes = [
   {
@@ -33,6 +30,7 @@ export const LAYOUT_ROUTES: Routes = [
         path: 'admin',
         loadChildren: () =>
           import('./sub-pages/admin/admin.route').then((m) => m.ADMIN_ROUTES),
+        canActivate: [RoleGuards.canActivateAdmin],
       },
       {
         path: 'reading',
