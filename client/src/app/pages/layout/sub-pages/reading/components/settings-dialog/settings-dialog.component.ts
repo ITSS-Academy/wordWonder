@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { MaterialModule } from '../../../../../../../shared/modules/material.module';
 import { SharedModule } from '../../../../../../../shared/modules/shared.module';
 import {
@@ -20,4 +20,5 @@ import {
   templateUrl: './settings-dialog.component.html',
   styleUrl: './settings-dialog.component.scss',
 })
-export class SettingsDialogComponent {}
+export class SettingsDialogComponent {
+}
