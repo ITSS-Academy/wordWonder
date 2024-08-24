@@ -1,0 +1,85 @@
+//.skeleton-card {
+//  width: 150px;
+//  height: 250px;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  justify-content: center;
+//  background-color: #fdf7ff;
+//  border-radius: 4px;
+//  padding: 10px;
+//  box-sizing: border-box;
+//  margin: 0;
+//
+//  animation-duration: 1s;
+//  animation-fill-mode: forwards;
+//  animation-iteration-count: infinite;
+//  animation-name: placeHolderShimmer;
+//  animation-timing-function: linear;
+//
+//}
+//
+//.skeleton-image {
+//  width: 100%;
+//  height: 100%;
+//  background-color: #f6eeff;
+//  border-radius: 28px;
+//
+//  box-sizing: border-box;
+//  display: block;
+//  //width: 335px;
+//  //height: 243px;
+//  //background: #605e5f;
+//  //padding: 16px;
+//}
+//
+//.skeleton-text {
+//  width: 80%;
+//  height: 10%;
+//  background-color: #00a392;
+//  margin-top: 10px;
+//  border-radius: 4px;
+//  clear: both;
+//  box-sizing: border-box;
+//  padding: 16px;
+//}
+//
+////.skeleton-text.short {
+////  width: 60%;
+////}
+
+.skeleton-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .skeleton-image {
+    width: 100%;
+    height: 195px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    border-radius: 28px;
+    margin-bottom: 7px;
+    animation: skeleton-loading 2.0s infinite;
+  }
+
+  .skeleton-title {
+    width: 90%;
+    height: 20px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #e1e1e1 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: skeleton-loading 2.0s infinite;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

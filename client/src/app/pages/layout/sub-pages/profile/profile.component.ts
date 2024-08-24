@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from '../../../../components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 
 @Component({
   selector: 'app-profile',
@@ -22,9 +23,9 @@ import { MatDialog } from '@angular/material/dialog';
 export class ProfileComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
-  isUploadingAvatar = false;
+  isStaticUser = false;
 
-  readonly startDate = new Date(1900, 0, 1);
+  isUploadingAvatar = false;
 
   profileForm: FormGroup = new FormGroup({
     id: new FormControl(Date.now().toString(), Validators.required),
@@ -38,7 +39,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       //pattern 10 digits
       Validators.pattern('^[0-9]{10}$'),
     ]),
-    dob: new FormControl(new Date(), Validators.required),
     avatar: new FormControl('', Validators.required),
   });
 
@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private router: Router,
     private store: Store<{
       file_upload: FileUploadState;
+      auth: AuthState;
     }>,
     protected _snackBar: MatSnackBar,
   ) {
@@ -81,6 +82,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
             duration: 5000,
           });
         }
+      }),
+      this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
+        this.isStaticUser = isStaticUser;
       }),
     );
   }

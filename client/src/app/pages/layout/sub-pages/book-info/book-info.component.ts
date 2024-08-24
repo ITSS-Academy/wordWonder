@@ -69,8 +69,13 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     private router: Router,
   ) {}
-
-  ngOnInit(): void {}
+  isLoading: boolean = true;
+  ngOnInit(): void {
+    // Simulate loading data
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 60000); // Adjust the timeout as needed
+  }
 
   ngOnDestroy(): void {}
 
