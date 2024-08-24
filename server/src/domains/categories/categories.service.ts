@@ -65,4 +65,5 @@ export class CategoriesService {
   async findByName(name: string): Promise<Category> {
     return await this.categoryRepository.findOneBy({ name: name });
   }
+
 }
