@@ -1,6 +1,18 @@
-<div class="card-container" [routerLink]="['/main/book-info', ebook.id]">
-  <img [src]="ebook.imageUrl" alt="card cover" />
-  <div class="title">
-    <p>{{ ebook.name }}</p>
+@if (isLoading()) {
+  <app-ebook-card-skeleton></app-ebook-card-skeleton>
+}
+@else {
+  <div class="card-container" [routerLink]="['/main/book-info', ebook.id]">
+    <img [src]="ebook.imageUrl" alt="card cover" />
+    <div class="title">
+      <p>{{ ebook.name }}</p>
+    </div>
   </div>
-</div>
+}
+
+<!--<div class="card-container" [routerLink]="['/main/book-info', ebook.id]">-->
+<!--    <img [src]="ebook.imageUrl" alt="card cover" />-->
+<!--    <div class="title">-->
+<!--      <p>{{ ebook.name }}</p>-->
+<!--    </div>-->
+<!--  </div>}-->

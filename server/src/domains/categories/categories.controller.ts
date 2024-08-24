@@ -10,7 +10,7 @@ import {
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import {Public} from "../../utils/custom_decorators";
+import { Public } from '../../utils/custom_decorators';
 
 @Controller('categories')
 export class CategoriesController {
@@ -37,13 +37,9 @@ export class CategoriesController {
   @Public()
   @Patch(':id')
   async update(
-      @Param('id') id: string,
-      @Body() updateCategoryDto: UpdateCategoryDto,
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    const existingCategory = await this.categoriesService.findByName(
-        updateCategoryDto.name,
-    );
-
     return this.categoriesService.update(id, updateCategoryDto);
   }
 
