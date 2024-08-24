@@ -87,43 +87,60 @@
         </div>
       </div>
     </div>
-    <!--  mobile-->
-    <div id="header-content-mobile">
-      <div class="image-shade">
-        <figure class="cover">
-          <img
-            [src]="
+
+    @if (isLoading){
+      <div id="skeleton-header-content-mobile">
+        <div class="skeleton-image-shade">
+          <figure class="skeleton-cover"></figure>
+        </div>
+        <div class="skeleton-book-info-mobile">
+          <div class="skeleton-title-mobile"></div>
+          <div class="skeleton-author-mobile"></div>
+          <div class="skeleton-rating-mobile"></div>
+          <div class="skeleton-view-mobile"></div>
+        </div>
+      </div>
+      <div class="skeleton-buttons-mobile"></div>
+      <div class="skeleton-tags-mobile"></div>
+    } @else {
+      <!--  mobile-->
+      <div id="header-content-mobile">
+        <div class="image-shade">
+          <figure class="cover">
+            <img
+              [src]="
               '../public/assets/harry_potter_va_hon_da_phu_thuy__j_k_rowling%203.png'
             "
-            alt="harry potter"
-          />
-        </figure>
+              alt="harry potter"
+            />
+          </figure>
+        </div>
+        <div class="book-info-mobile">
+          <h6>Harry Potter và Hòn Đá Phù Thủy</h6>
+          <p>Tác giả: J.K. ROWLING</p>
+          <p>Lượt yêu thích: 5</p>
+          <p>Lượt xem: 2024</p>
+        </div>
       </div>
-      <div class="book-info-mobile">
-        <h6>Harry Potter và Hòn Đá Phù Thủy</h6>
-        <p>Tác giả: J.K. ROWLING</p>
-        <p>Lượt yêu thích: 5</p>
-        <p>Lượt xem: 2024</p>
-      </div>
-    </div>
-    <button mat-stroked-button class="btn-mobile" (click)="openSnackBar('Đã thêm vào yêu thích', 'Đóng')">
-      <mat-icon>favorite</mat-icon>
-      Yêu thích
-    </button>
-    <button mat-flat-button class="btn-mobile" (click)="read()">
-      <mat-icon>book_2</mat-icon>
-      Đọc
-    </button>
+      <button mat-stroked-button class="btn-mobile" (click)="openSnackBar('Đã thêm vào yêu thích', 'Đóng')">
+        <mat-icon>favorite</mat-icon>
+        Yêu thích
+      </button>
+      <button mat-flat-button class="btn-mobile" (click)="read()">
+        <mat-icon>book_2</mat-icon>
+        Đọc
+      </button>
 
-    <p class="type-mobile">Thể loại</p>
-    <div class="tags-mobile">
-      <mat-chip-set aria-label="Category selection">
-        @for (genre of genres; track $index) {
-          <mat-chip class="secondary-chips">{{ genre }}</mat-chip>
-        }
-      </mat-chip-set>
-    </div>
-    <!--  mobile-->
+      <p class="type-mobile">Thể loại</p>
+      <div class="tags-mobile">
+        <mat-chip-set aria-label="Category selection">
+          @for (genre of genres; track $index) {
+            <mat-chip class="secondary-chips">{{ genre }}</mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+      <!--  mobile-->
+    }
 
     <div id="novel-body-container">
       <div class="description">
