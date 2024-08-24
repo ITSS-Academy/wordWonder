@@ -221,7 +221,6 @@ export class EbookService {
       translator: 'Lý Lan',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -235,7 +234,6 @@ export class EbookService {
       translator: 'Lý Lan',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -249,7 +247,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -263,7 +260,6 @@ export class EbookService {
       translator: 'Lý Lan',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -277,7 +273,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -291,7 +286,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -305,7 +299,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -319,7 +312,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -333,7 +325,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -347,7 +338,6 @@ export class EbookService {
       translator: 'Lý Lan',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -361,7 +351,6 @@ export class EbookService {
       translator: 'Lý Lan',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -375,7 +364,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -389,7 +377,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -403,7 +390,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -417,7 +403,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -431,7 +416,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -445,7 +429,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -459,7 +442,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -473,7 +455,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
     {
@@ -487,7 +468,6 @@ export class EbookService {
       translator: '',
       like: 5,
       view: 2024,
-      dateCreated: Date.now().toString(),
       content: '',
     },
   ];
@@ -514,9 +494,6 @@ export class EbookService {
       description: 'This is a detail of ' + name,
       imageUrl: 'public/assets/poster.jpg',
       translator: 'Translator of ' + name,
-      dateCreated: (
-        Number(Date.now().toString()) + Math.round(Math.random() * 1000)
-      ).toString(),
       view: Math.round(Math.random() * 1000),
       like: Math.round(Math.random() * 100),
       content: 'This is content of ' + name,

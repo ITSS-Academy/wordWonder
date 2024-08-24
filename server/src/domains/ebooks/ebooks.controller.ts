@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
 } from '@nestjs/common';
 import { EbooksService } from './ebooks.service';
 import { CreateEbookDto } from './dto/create-ebook.dto';
@@ -42,7 +43,19 @@ export class EbooksController {
 
   @Public()
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ebooksService.remove(id);
+  async remove(@Param('id') id: string) {
+    try {
+      console.log('id:', id);
+      await this.ebooksService.remove(id);
+      return { message: 'Ebook successfully removed' };
+    } catch (error) {
+      if (
+        error instanceof SyntaxError &&
+        error.message.includes('Unexpected token')
+      ) {
+        throw new HttpException('Invalid JSON format', 400);
+      }
+      throw new HttpException(error.message, error.status || 500);
+    }
   }
 }

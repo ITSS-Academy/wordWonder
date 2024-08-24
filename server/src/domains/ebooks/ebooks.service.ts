@@ -64,31 +64,51 @@ export class EbooksService {
   }
 
   async remove(id: string) {
-    let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
-    if (!deleteEbook) {
-      throw new NotFoundException('Ebook not found');
+    try {
+      console.log('id:', id);
+      let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
+      if (!deleteEbook) {
+        throw new NotFoundException('Ebook not found');
+      }
+      await this.ebookRepository.remove(deleteEbook);
+      return { message: 'Ebook successfully removed' };
+    } catch (error) {
+      if (
+        error instanceof SyntaxError &&
+        error.message.includes('Unexpected token')
+      ) {
+        throw new HttpException('Invalid JSON format', 400);
+      }
+      throw new HttpException(error.message, error.status || 500);
     }
-    await this.ebookRepository.remove(deleteEbook);
-    return;
   }
 
-  async removeCategoriesFromEbook(
-    ebookId: string,
-    categoryIds: string[],
-  ): Promise<void> {
-    const ebook = await this.ebookRepository.findOne({
-      where: { id: ebookId },
-      relations: ['categories'],
-    });
+  // async remove(id: string) {
+  //   let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
+  //   if (!deleteEbook) {
+  //     throw new NotFoundException('Ebook not found');
+  //   }
+  //   await this.ebookRepository.remove(deleteEbook);
+  //   return;
+  // }
 
-    if (!ebook) {
-      throw new NotFoundException('Ebook and Category not found');
-    }
-
-    ebook.categories = ebook.categories.filter(
-      (category) => !categoryIds.includes(category.id),
-    );
-
-    await this.ebookRepository.save(ebook);
-  }
+  // async removeCategoriesFromEbook(
+  //   ebookId: string,
+  //   categoryIds: string[],
+  // ): Promise<void> {
+  //   const ebook = await this.ebookRepository.findOne({
+  //     where: { id: ebookId },
+  //     relations: ['categories'],
+  //   });
+  //
+  //   if (!ebook) {
+  //     throw new NotFoundException('Ebook and Category not found');
+  //   }
+  //
+  //   ebook.categories = ebook.categories.filter(
+  //     (category) => !categoryIds.includes(category.id),
+  //   );
+  //
+  //   await this.ebookRepository.save(ebook);
+  // }
 }
