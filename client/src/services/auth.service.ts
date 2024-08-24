@@ -5,8 +5,8 @@ import {
   GoogleAuthProvider,
   signOut,
 } from '@angular/fire/auth';
-import { HttpClient } from '@angular/common/http';
-import { from, Observable, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { from, Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { Store } from '@ngrx/store';
@@ -36,13 +36,24 @@ export class AuthService {
   }
 
   signInWithStaticUser(email: string, password: string) {
-    return this.http.post<{ access_token: string }>(
-      `${environment.apiUrl}/auth/login`,
-      {
+    return this.http
+      .post<{ access_token: string }>(`${environment.apiUrl}/auth/login`, {
         email: email,
         password: password,
-      },
-    );
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side or network error
+      errorMessage = `Đang xảy ra lỗi`;
+    } else {
+      // Backend error
+      errorMessage = `Đang xảy ra lỗi`;
+    }
+    return throwError(() => errorMessage);
   }
 
   logout() {

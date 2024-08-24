@@ -1,4 +1,9 @@
 <div id="admin-container">
+  @if (isRefreshing) {
+    <div class="progress-bar-overlay">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  }
   <div id="admin-header">
     <div id="admin-header-button-grp">
       <div id="admin-header-button-grp-left-side">
@@ -7,6 +12,9 @@
         </button>
       </div>
       <div id="admin-header-button-grp-right-side">
+        <button mat-icon-button (click)="reload()">
+          <mat-icon>refresh</mat-icon>
+        </button>
         <button mat-icon-button (click)="openCreateEbookDialog()">
           <mat-icon>add_circle</mat-icon>
         </button>
@@ -22,11 +30,11 @@
   </div>
   <div id="admin-content">
     <mat-form-field id="filter-search">
-      <mat-label>Tìm kiếm</mat-label>
+      <mat-label>Bộ lọc</mat-label>
       <input
         matInput
         (keyup)="applyFilter($event)"
-        placeholder="Ex. Mia"
+        placeholder="Ví dụ. Mia"
         #input
       />
     </mat-form-field>
@@ -82,14 +90,6 @@
           <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>Mô tả</th>
             <td mat-cell *matCellDef="let row">{{ row.description }}</td>
-          </ng-container>
-
-          <!-- DateCreated Column -->
-          <ng-container matColumnDef="dateCreated">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.dateCreated | date: "short" }}
-            </td>
           </ng-container>
 
           <!-- Like Column -->

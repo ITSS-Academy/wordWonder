@@ -28,6 +28,15 @@ export class AppComponent implements OnInit {
         this.store.dispatch(AuthActions.storeIdToken({ idToken: token.token }));
       }
     });
+    // console.log(this.get('idToken'));
+    if (this.get('idToken') != '') {
+      this.store.dispatch(
+        AuthActions.toggleStaticUserMode({ isStaticUser: true }),
+      );
+      this.store.dispatch(
+        AuthActions.storeIdToken({ idToken: this.get('idToken') }),
+      );
+    }
   }
 
   ngOnInit(): void {
@@ -46,5 +55,9 @@ export class AppComponent implements OnInit {
         this.store.dispatch(UserActions.getById());
       }
     });
+  }
+
+  get(key: string) {
+    return sessionStorage.getItem(key) || '';
   }
 }
