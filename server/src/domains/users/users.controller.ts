@@ -17,9 +17,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  @Patch()
+  update(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(req.user.uid, updateUserDto);
   }
 
   @Post()
@@ -32,9 +32,10 @@ export class UsersController {
   //   return await this.usersService.findAll();
   // }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.usersService.findOne(id);
+  @Get()
+  async findOne(@Request() req: any) {
+    console.log(req.user.uid);
+    return await this.usersService.findOne(req.user.uid);
   }
 
   @Delete(':id')
