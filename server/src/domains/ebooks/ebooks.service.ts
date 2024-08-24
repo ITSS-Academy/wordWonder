@@ -1,26 +1,94 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEbookDto } from './dto/create-ebook.dto';
 import { UpdateEbookDto } from './dto/update-ebook.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Ebook } from './entities/ebook.entity';
+import { Category } from '../categories/entities/category.entity';
 
 @Injectable()
 export class EbooksService {
-  create(createEbookDto: CreateEbookDto) {
-    return 'This action adds a new ebook';
+  constructor(
+    @InjectRepository(Ebook)
+    private readonly ebookRepository: Repository<Ebook>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
+  ) {}
+
+  async create(CreateEbookDto: CreateEbookDto) {
+    let newEbook = new Ebook();
+    newEbook.name = CreateEbookDto.name;
+    newEbook.imageUrl = CreateEbookDto.imageUrl;
+    newEbook.description = CreateEbookDto.description;
+    newEbook.author = CreateEbookDto.author;
+    newEbook.translator = CreateEbookDto.translator;
+    newEbook.like = CreateEbookDto.like;
+    newEbook.view = CreateEbookDto.view;
+    newEbook.content = CreateEbookDto.content;
+    newEbook.categories = CreateEbookDto.categories;
+    await this.ebookRepository.save(newEbook);
+    return;
   }
 
-  findAll() {
-    return `This action returns all ebooks`;
+  async findAll() {
+    return await this.ebookRepository.find({
+      relations: {
+        categories: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ebook`;
+  async findOne(id: string) {
+    try {
+      return await this.ebookRepository
+        .createQueryBuilder('ebook')
+        .leftJoinAndSelect('ebook.categories', 'category')
+        .where('ebook.id = :id', { id })
+        .getOne();
+    } catch {
+      throw new HttpException('Ebook not found', 400);
+    }
   }
 
-  update(id: number, updateEbookDto: UpdateEbookDto) {
-    return `This action updates a #${id} ebook`;
+  async update(id: string, UpdateEbookDto: UpdateEbookDto) {
+    let updateEbook = await this.ebookRepository.findOneBy({ id: id });
+    if (!updateEbook) {
+      throw new NotFoundException('Ebook not found');
+    }
+    updateEbook.name = UpdateEbookDto.name;
+    updateEbook.imageUrl = UpdateEbookDto.imageUrl;
+    updateEbook.description = UpdateEbookDto.description;
+    updateEbook.author = UpdateEbookDto.author;
+    await this.ebookRepository.save(updateEbook);
+    return;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ebook`;
+  async remove(id: string) {
+    let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
+    if (!deleteEbook) {
+      throw new NotFoundException('Ebook not found');
+    }
+    await this.ebookRepository.remove(deleteEbook);
+    return;
+  }
+
+  async removeCategoriesFromEbook(
+    ebookId: string,
+    categoryIds: string[],
+  ): Promise<void> {
+    const ebook = await this.ebookRepository.findOne({
+      where: { id: ebookId },
+      relations: ['categories'],
+    });
+
+    if (!ebook) {
+      throw new NotFoundException('Ebook and Category not found');
+    }
+
+    ebook.categories = ebook.categories.filter(
+      (category) => !categoryIds.includes(category.id),
+    );
+
+    await this.ebookRepository.save(ebook);
   }
 }

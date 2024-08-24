@@ -11,6 +11,7 @@ import { Role } from './domains/users/entities/user.entity';
 import { CommentsModule } from './domains/comments/comments.module';
 import { EbooksModule } from './domains/ebooks/ebooks.module';
 import { AuthModule } from './domains/auths/auth.module';
+import { CategoriesModule } from './domains/categories/categories.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AuthModule } from './domains/auths/auth.module';
     CommentsModule,
     EbooksModule,
     AuthModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -54,9 +56,10 @@ export class AppModule {
         if (!user) {
           await this.userService.create({
             id: 'admin',
-            userName: 'admin',
+            nickName: 'admin',
             email: this.configService.get<string>('STATIC_USER_EMAIL'),
-            avatarURL: '',
+            phoneNumber: '30-210-1234567',
+            photoURL: '',
             joinedDate: '',
             password: this.configService.get<string>('STATIC_USER_PASSWORD'),
             role: Role.ADMIN,
