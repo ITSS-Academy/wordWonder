@@ -65,18 +65,21 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     'Sách văn học xuyên không',
   ];
 
+  isLoading = true; // Default to true while loading
+
   constructor(
     private _snackBar: MatSnackBar,
     private router: Router,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngOnDestroy(): void {}
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 5000,
+      duration: 2000,
     });
   }
 
