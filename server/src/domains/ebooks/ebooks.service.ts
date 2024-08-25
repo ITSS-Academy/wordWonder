@@ -149,6 +149,9 @@ export class EbooksService {
   //de do di a sua lai cai api tren do cho em
   //okki anh
   //day code moi len em oi
+  //nong lam
+  //yes
+  //tesst lai di em
 
   // async remove(id: string) {
   //   let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
