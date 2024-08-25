@@ -70,13 +70,13 @@ export class EbooksController {
   }
 
   @Public()
-  @Patch('view')
+  @Patch('view/:id')
   async updateView(@Param('id') id: string) {
     return await this.ebooksService.updateView(id);
   }
 
   @Public()
-  @Patch('like')
+  @Patch('like/:id')
   async updateLike(@Param('id') id: string) {
     return await this.ebooksService.updateLike(id);
   }
