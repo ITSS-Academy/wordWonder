@@ -7,6 +7,8 @@ import { AuthState } from '../ngrxs/auth/auth.state';
 import * as AuthActions from '../ngrxs/auth/auth.actions';
 import * as UserActions from '../ngrxs/user/user.actions';
 import { UserState } from '../ngrxs/user/user.state';
+import { SessionStorageService } from '../services/session-storage.service';
+import { JWTTokenService } from '../services/jwttoken.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,8 @@ export class AppComponent implements OnInit {
   constructor(
     private auth: Auth,
     private store: Store<{ auth: AuthState; user: UserState }>,
+    private sessionStorageService: SessionStorageService,
+    private jwtTokenService: JWTTokenService,
   ) {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
@@ -29,13 +33,23 @@ export class AppComponent implements OnInit {
       }
     });
     // console.log(this.get('idToken'));
-    if (this.getValueFromSession('idToken') != '') {
+    if (this.sessionStorageService.getValueFromSession('idToken') != '') {
+      //check if token is expired
+      this.jwtTokenService.setToken(
+        this.sessionStorageService.getValueFromSession('idToken'),
+      );
+      if (this.jwtTokenService.isTokenExpired()) {
+        this.sessionStorageService.removeTokenInSession();
+        return;
+      }
+
+      //set static user mode
       this.store.dispatch(
         AuthActions.toggleStaticUserMode({ isStaticUser: true }),
       );
       this.store.dispatch(
         AuthActions.storeIdToken({
-          idToken: this.getValueFromSession('idToken'),
+          idToken: this.sessionStorageService.getValueFromSession('idToken'),
         }),
       );
     }
@@ -57,9 +71,5 @@ export class AppComponent implements OnInit {
         this.store.dispatch(UserActions.getById());
       }
     });
-  }
-
-  getValueFromSession(key: string) {
-    return sessionStorage.getItem(key) || '';
   }
 }
