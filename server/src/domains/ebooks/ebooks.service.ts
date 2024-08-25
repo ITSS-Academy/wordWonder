@@ -75,6 +75,81 @@ export class EbooksService {
     }
   }
 
+  async listByTrend(limit: number) {
+    try {
+      return await this.ebookRepository
+        .createQueryBuilder('ebook')
+        .leftJoinAndSelect('ebook.categories', 'categories')
+        .select(['ebook', 'categories'])
+        .orderBy('ebook.view', 'DESC')
+        .limit(limit)
+        .getMany();
+    } catch (e) {
+      throw new HttpException(e, 400);
+    }
+  }
+
+  async listByRating(limit: number) {
+    try {
+      return await this.ebookRepository
+        .createQueryBuilder('ebook')
+        .leftJoinAndSelect('ebook.categories', 'categories')
+        .select(['ebook', 'categories'])
+        .orderBy('ebook.like', 'DESC')
+        .limit(limit)
+        .getMany();
+    } catch (e) {
+      throw new HttpException(e, 400);
+    }
+  }
+
+  async listByRecommend(limit: number) {
+    try {
+      return await this.ebookRepository
+        .createQueryBuilder('ebook')
+        .leftJoinAndSelect('ebook.categories', 'categories')
+        .select(['ebook', 'categories'])
+        .orderBy('RANDOM()')
+        .limit(limit)
+        .getMany();
+    } catch (e) {
+      throw new HttpException(e, 400);
+    }
+  }
+
+  async updateView(id: string) {
+    try {
+      const ebook = await this.ebookRepository.findOneBy({ id: id });
+      if (!ebook) {
+        throw new HttpException('Ebook not found', 400);
+      }
+      ebook.view += 1;
+      await this.ebookRepository.save(ebook);
+    } catch (e) {
+      throw new HttpException(e, 400);
+    }
+  }
+
+  async updateLike(id: string) {
+    try {
+      const ebook = await this.ebookRepository.findOneBy({ id: id });
+      if (!ebook) {
+        throw new HttpException('Ebook not found', 400);
+      }
+      ebook.like += 1;
+      await this.ebookRepository.save(ebook);
+    } catch (e) {
+      throw new HttpException(e, 400);
+    }
+  }
+
+  //xoa het body di
+  //cai api nay k can body chi can param la id cua cuon sach de em tang luot like luot view len thoi
+  //sua ten no lai la updateView updateLike
+  //de do di a sua lai cai api tren do cho em
+  //okki anh
+  //day code moi len em oi
+
   // async remove(id: string) {
   //   let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
   //   if (!deleteEbook) {
