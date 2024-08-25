@@ -29,12 +29,14 @@ export class AppComponent implements OnInit {
       }
     });
     // console.log(this.get('idToken'));
-    if (this.get('idToken') != '') {
+    if (this.getValueFromSession('idToken') != '') {
       this.store.dispatch(
         AuthActions.toggleStaticUserMode({ isStaticUser: true }),
       );
       this.store.dispatch(
-        AuthActions.storeIdToken({ idToken: this.get('idToken') }),
+        AuthActions.storeIdToken({
+          idToken: this.getValueFromSession('idToken'),
+        }),
       );
     }
   }
@@ -57,7 +59,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  get(key: string) {
+  getValueFromSession(key: string) {
     return sessionStorage.getItem(key) || '';
   }
 }
