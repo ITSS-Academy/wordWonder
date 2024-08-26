@@ -70,11 +70,13 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {}
   isLoading: boolean = true;
+  isMobileView: boolean = false;
+
   ngOnInit(): void {
     // Simulate loading data
     setTimeout(() => {
       this.isLoading = false;
-    }, 60000); // Adjust the timeout as needed
+    }, 2000); // Adjust the timeout as needed
   }
 
   ngOnDestroy(): void {}

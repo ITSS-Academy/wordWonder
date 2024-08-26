@@ -14,9 +14,7 @@
     </div>
     <div class="skeleton-novel-body-container">
       <div class="skeleton-description">
-        <div class="skeleton-introduce">
-          <div class="skeleton-title"></div>
-        </div>
+        <div class="skeleton-introduce"></div>
         <div class="skeleton-description-container">
           <div class="skeleton-paragraph"></div>
           <div class="skeleton-paragraph"></div>
@@ -88,7 +86,7 @@
       </div>
     </div>
 
-    @if (isLoading){
+    @if (isMobileView) {
       <div id="skeleton-header-content-mobile">
         <div class="skeleton-image-shade">
           <figure class="skeleton-cover"></figure>
@@ -109,8 +107,8 @@
           <figure class="cover">
             <img
               [src]="
-              '../public/assets/harry_potter_va_hon_da_phu_thuy__j_k_rowling%203.png'
-            "
+                '../public/assets/harry_potter_va_hon_da_phu_thuy__j_k_rowling%203.png'
+              "
               alt="harry potter"
             />
           </figure>
@@ -122,7 +120,11 @@
           <p>Lượt xem: 2024</p>
         </div>
       </div>
-      <button mat-stroked-button class="btn-mobile" (click)="openSnackBar('Đã thêm vào yêu thích', 'Đóng')">
+      <button
+        mat-stroked-button
+        class="btn-mobile"
+        (click)="openSnackBar('Đã thêm vào yêu thích', 'Đóng')"
+      >
         <mat-icon>favorite</mat-icon>
         Yêu thích
       </button>
