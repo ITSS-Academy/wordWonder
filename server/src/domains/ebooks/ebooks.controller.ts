@@ -36,7 +36,7 @@ export class EbooksController {
   }
 
   @Public()
-  @Patch(':id')
+  @Patch('one/:id')
   async update(
     @Param('id') id: string,
     @Body() updateEbookDto: UpdateEbookDto,
@@ -77,8 +77,14 @@ export class EbooksController {
 
   @Public()
   @Patch('like/:id')
-  async updateLike(@Param('id') id: string) {
-    return await this.ebooksService.updateLike(id);
+  async increaseLike(@Param('id') id: string) {
+    return await this.ebooksService.increaseLike(id);
+  }
+
+  @Public()
+  @Patch('dislike/:id')
+  async decreaseLike(@Param('id') id: string) {
+    return await this.ebooksService.decreaseLike(id);
   }
 
   // @Public()
