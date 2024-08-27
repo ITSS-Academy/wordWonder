@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import * as UploadActions from '../../../../../ngrxs/file-upload/file-upload.actions';
+import * as UserActions from '../../../../../ngrxs/user/user.actions'; // Add user actions
 import { Store } from '@ngrx/store';
 import { FileUploadState } from '../../../../../ngrxs/file-upload/file-upload.state';
 import { Subscription } from 'rxjs';
@@ -12,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from '../../../../components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
+import {UserState} from "../../../../../ngrxs/user/user.state";
 
 @Component({
   selector: 'app-profile',
@@ -24,8 +26,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   isStaticUser = false;
-
   isUploadingAvatar = false;
+
+  isUpdatingProfile = false;
+  isUpdating = false; // kiem tra trang thai update
+  isLoading = false; // kiem tra trang thai load
 
   profileForm: FormGroup = new FormGroup({
     id: new FormControl(Date.now().toString(), Validators.required),
@@ -49,6 +54,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private store: Store<{
       file_upload: FileUploadState;
       auth: AuthState;
+      user: UserState; // Add user state
     }>,
     protected _snackBar: MatSnackBar,
   ) {
@@ -64,10 +70,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(UserActions.getById()); // Dispatch get user by id action
     this.subscriptions.push(
       this.store.select('file_upload', 'downloadAvatarURL').subscribe((url) => {
         if (url != null) {
-          this.profileForm.patchValue({ avatar: url });
+          this.profileForm.patchValue({avatar: url});
           this._snackBar.open('Đăng tải ảnh thành công', 'Close', {
             duration: 5000,
           });
@@ -86,6 +93,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.store.select('auth', 'isStaticUser').subscribe((isStaticUser) => {
         this.isStaticUser = isStaticUser;
       }),
+      //  Các subscription để lắng nghe trạng thái của user profile
+      this.store.select('user', 'isLoading').subscribe((isLoading) => {
+        this.isLoading = isLoading;
+        this.isUpdatingProfile = isLoading;
+      }),
+      this.store.select('user', 'isUpdating').subscribe((isUpdating) => {
+        this.isUpdating = isUpdating;
+      }),
+      this.store.select('user', 'user').subscribe((user) => {
+        if (user) {
+          this.profileForm.patchValue(user);
+        }
+      }),
+      
     );
   }
 
@@ -115,8 +136,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       if (result == true) {
+        this.isUpdatingProfile = true; // bat dau update  hieu ung loading
+        this.store.dispatch(UserActions.update({user: this.profileForm.value}));
         console.log('User confirmed logout');
+        this.updateProfile(); // lay tu updateProfile()
       }
     });
+  }
+// tao ham updateProfile
+  updateProfile() {
+    const profileData = this.profileForm.value;
+    console.log('Update profile: ', profileData); // in ra gia tri cua profileData
+    this.store.dispatch(UserActions.update({user: profileData}));
   }
 }
