@@ -28,7 +28,7 @@ export class Ebook {
   @Column({ type: 'varchar', length: 50 })
   translator: string;
 
-  @Column({ type: 'int' })
+  @Column({ default: 0 })
   like: number;
 
   @Column({ type: 'int' })

@@ -13,10 +13,10 @@ export class UserEbooksService {
     private readonly userEbookRepository: Repository<UserEbook>,
   ) {}
 
-  async create(createUserEbookDto: CreateUserEbookDto) {
+  async create(userId: string, createUserEbookDto: CreateUserEbookDto) {
     try {
-      let newUserEbook = new UserEbook();
-      newUserEbook.user = createUserEbookDto.user;
+      let newUserEbook = this.userEbookRepository.create(createUserEbookDto);
+      newUserEbook.user = userId as any;
       newUserEbook.ebook = createUserEbookDto.ebook;
       newUserEbook.readingStatus = createUserEbookDto.readingStatus;
       newUserEbook.purchaseDate = Date.now().toString();
@@ -27,9 +27,21 @@ export class UserEbooksService {
     }
   }
 
-  async listUserHistory() {
+  async listUserHistory(userId: string) {
     try {
-      return await this.userEbookRepository.find();
+      return await this.userEbookRepository
+        .createQueryBuilder('userEbook')
+        .leftJoinAndSelect('userEbook.ebook', 'ebook')
+        .select([
+          'userEbook.readingStatus',
+          'userEbook.purchaseDate',
+          'ebook.id',
+          'ebook.name',
+          'ebook.imageUrl',
+          'ebook.author',
+        ])
+        .where('userEbook.userId = :userId', { userId })
+        .getMany();
     } catch (e) {
       throw new HttpException(e, 400);
     }
@@ -48,6 +60,7 @@ export class UserEbooksService {
           'user.id',
           'user.nickName',
           'user.photoURL',
+          'UserEbook.isLiked',
         ])
         .where('UserEbook.userId = :userId', { userId })
         .andWhere('UserEbook.ebookId = :ebookId', { ebookId })
@@ -61,32 +74,34 @@ export class UserEbooksService {
     }
   }
 
-  async update(
-    userId: string,
-    ebookId: string,
-    updateUserEbookDto: UpdateUserEbookDto,
-  ) {
+  // async update(
+  //   userId: string,
+  //   ebookId: string,
+  //   updateUserEbookDto: UpdateUserEbookDto,
+  // ) {
+  //   try {
+  //     await this.userEbookRepository
+  //       .createQueryBuilder()
+  //       .update(UserEbook)
+  //       .set(updateUserEbookDto)
+  //       .where('userId = :userId AND ebookId = :ebookId', { userId, ebookId })
+  //       .execute();
+  //     return;
+  //   } catch (e) {
+  //     throw new HttpException(e, HttpStatus.BAD_REQUEST);
+  //   }
+  // }
+
+  async remove(userId: string, ebookId: string) {
     try {
       await this.userEbookRepository
         .createQueryBuilder()
-        .update(UserEbook)
-        .set(updateUserEbookDto)
-        .where('userId = :userId AND ebookId = :ebookId', { userId, ebookId })
-        .execute();
-      return;
-    } catch (e) {
-      throw new HttpException(e, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  remove(user: User) {
-    try {
-      const deleteResult = this.userEbookRepository
-        .createQueryBuilder()
         .delete()
         .from(UserEbook)
-        .where('user = :user', { User })
+        .where('userEbook.userId = :userId', { userId })
+        .andWhere('userEbook.ebookId = :ebookId', { ebookId })
         .execute();
+      return;
     } catch {
       throw new HttpException('Delete fail', 400);
     }
