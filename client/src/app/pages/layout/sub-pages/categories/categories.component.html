@@ -12,11 +12,25 @@
 
   <div class="genre">
     <p>Thể loại:</p>
-    <mat-chip-listbox aria-label="category list">
-      @for (type of genre; track type) {
-        <mat-chip-option>{{ type }}</mat-chip-option>
-      }
-    </mat-chip-listbox>
+
+    @if (isLoading) {
+      <div class="loading-genre">
+        <mat-spinner [diameter]="24"></mat-spinner>
+        <!--diameter = 24: set kích thước = 24px-->
+      </div>
+    }
+
+    @if (error) {
+      <div class="error">{{ error }}</div>
+    }
+
+    @if (!isLoading && !error) {
+      <mat-chip-listbox aria-label="category list">
+        <mat-chip-option *ngFor="let type of genre; trackBy: trackByFn">
+          {{ type.name }}
+        </mat-chip-option>
+      </mat-chip-listbox>
+    }
   </div>
 
   <div class="book">

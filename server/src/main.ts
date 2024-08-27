@@ -17,5 +17,5 @@ async function bootstrap() {
 }
 
 bootstrap()
-  .then(() => console.log('Tic Tic Boom!!!'))
+  .then(() => console.log('Boom Boom Chiu Chiu!!!'))
   .catch((e) => console.error(e));
