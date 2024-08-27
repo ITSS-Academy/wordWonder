@@ -19,7 +19,7 @@ export enum ReadingStatus {
 @Entity()
 export class UserEbook {
   @PrimaryColumn({ name: 'userId' })
-  @ManyToOne((type) => User, (user) => user.id, {
+  @ManyToOne(() => User, (user) => user.id, {
     nullable: false,
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
@@ -28,7 +28,7 @@ export class UserEbook {
   user: User;
 
   @PrimaryColumn({ name: 'ebookId' })
-  @ManyToOne((type) => Ebook, (ebook) => ebook.id, {
+  @ManyToOne(() => Ebook, (ebook) => ebook.id, {
     nullable: false,
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
@@ -43,22 +43,11 @@ export class UserEbook {
   })
   readingStatus: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp' }) //ngày lần đầu tiên bấm vào đọc cuốn sách
   purchaseDate: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp', nullable: true }) //ngày lần cuối cùng đọc cuốn sách
   lastReadDate: string;
-
-  @Min(0)
-  @Column({ nullable: true, default: 0 })
-  lastPageRead: number;
-
-  @Min(0)
-  @Column({ nullable: true, default: 0 })
-  currentPage: number;
-
-  @DeleteDateColumn()
-  deletedAt: string;
 
   @Column({ default: false })
   isLiked: boolean;
