@@ -340,28 +340,45 @@ type-mobile {
 
 .skeleton-container {
   width: 100%;
-  max-width: 800px;
+  //height: 100%;
+  //max-width: 800px;
   margin: 0 auto;
-  padding: 15px;
+  //padding: 15px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: var(--bg-color-lighter);
-  border-radius: 6px;
+  //border-radius: 6px;
 }
 
 .skeleton-header {
-  height: 30px;
-  margin-bottom: 20px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
+  height: 488px;
+  width: 100%;
+  margin: 0 auto;
+  //margin-bottom: 20px;
+  background-color: #cfbcff;
+  //border-radius: 4px;
   position: relative;
   overflow: hidden;
+  z-index: -100;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Căn giữa theo chiều ngang */
+  justify-content: center;
 }
 
 .skeleton-body {
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: row;
   gap: 15px;
+  z-index: 1;
+  margin: auto;
+}
+
+.skeleton-body::before {
+  box-sizing: border-box;
 }
 
 .skeleton-image {
@@ -384,11 +401,18 @@ type-mobile {
 .skeleton-author,
 .skeleton-rating,
 .skeleton-view,
-.skeleton-tags,
-.skeleton-buttons {
+.skeleton-tags, {
   height: 20px;
   background-color: #e0e0e0;
   border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-buttons-read,
+.skeleton-buttons-favorite{
+  height: 48px;
+  background-color: #e0e0e0;
+  border-radius: 28px;
   position: relative;
   overflow: hidden;
 }
@@ -407,17 +431,45 @@ type-mobile {
 
 .skeleton-rating,
 .skeleton-view,
-.skeleton-tags,
-.skeleton-buttons {
+.skeleton-tags, {
   width: 40%;
   height: 18px;
 }
 
-.skeleton-tags {
-  width: 60%;
-  height: 18px;
-  margin-bottom: 15px;
+.skeleton-buttons-read{
+  width: 100px;
+  height: 48px;
 }
+
+.skeleton-buttons-favorite{
+  width: 150px;
+  height: 48px;
+}
+
+.skeleton-tags {
+  background-color: #e0e0e0; /* Màu nền cho skeleton */
+  height: 20px; /* Chiều cao cơ bản */
+  margin: 5px 0; /* Khoảng cách giữa các thẻ */
+  border-radius: 5px; /* Bo tròn góc */
+  animation: shimmer 1.5s infinite; /* Hiệu ứng skeleton */
+}
+
+.skeleton-tag-1 { width: 50px; }
+.skeleton-tag-2 { width: 100px; }
+.skeleton-tag-3 { width: 75px; }
+.skeleton-tag-4 { width: 120px; }
+.skeleton-tag-5 { width: 90px; }
+.skeleton-tag-6 { width: 110px; }
+.skeleton-tag-7 { width: 60px; }
+.skeleton-tag-8 { width: 80px; }
+.skeleton-tag-9 { width: 95px; }
+.skeleton-tag-10 { width: 70px; }
+
+//.skeleton-tags {
+//  width: 60%;
+//  height: 18px;
+//  margin-bottom: 15px;
+//}
 
 .skeleton-buttons {
   width: 50%;
@@ -425,14 +477,15 @@ type-mobile {
 }
 
 /* Apply loading animation with different delays */
-.skeleton-header::before,
+//.skeleton-header::before,
 .skeleton-image::before,
 .skeleton-title::before,
 .skeleton-author::before,
 .skeleton-rating::before,
 .skeleton-view::before,
 .skeleton-tags::before,
-.skeleton-buttons::before {
+.skeleton-buttons-read::before,
+.skeleton-buttons-favorite::before{
   content: "";
   display: block;
   position: absolute;
@@ -450,9 +503,9 @@ type-mobile {
 }
 
 /* Different animation delays for each element */
-.skeleton-header::before {
-  animation-delay: 0s;
-}
+//.skeleton-header::before {
+//  animation-delay: 0s;
+//}
 
 .skeleton-image::before {
   animation-delay: 0.2s;
@@ -490,7 +543,8 @@ type-mobile {
 .skeleton-rating,
 .skeleton-view,
 .skeleton-tags,
-.skeleton-buttons {
+.skeleton-buttons-read,
+.skeleton-buttons-favorite {
   position: relative;
   overflow: hidden;
 }
@@ -508,6 +562,7 @@ type-mobile {
 }
 
 .skeleton-novel-body-container {
+  max-width: 800px;
   width: 100%;
   padding: 15px;
   background-color: var(--bg-color-lighter);
@@ -534,7 +589,7 @@ type-mobile {
 }
 
 .skeleton-paragraph {
-  height: 20px;
+  height: 130px;
   background: #e0e0e0;
   border-radius: 4px;
 }
@@ -586,36 +641,36 @@ type-mobile {
 }
 
 @media only screen and (max-width: 670px) {
+  .skeleton-header,
+  .skeleton-novel-body-container{
+    display: none;
+  }
   /* Skeleton Loader Styles for Mobile */
   #skeleton-header-content-mobile {
-    position: relative;
-    padding: 20px;
-  }
-
-  .skeleton-image-shade {
-    height: 150px;
     width: 100%;
-    position: relative;
-    background: #e0e0e0;
-    margin: 0 auto;
-    z-index: 1;
-  }
-
-  .skeleton-cover {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: #e0e0e0;
-    z-index: 2;
-  }
-
-  .skeleton-book-info-mobile {
+    height: 500px;
+    background-color: #cfbcff;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end; /* Đặt các phần tử con sang trái */
+    align-items: start; /* Đặt các phần tử con xuống dưới */
     padding: 10px;
-    gap: 10px;
-    z-index: 3;
+    gap: 10px/* Khoảng cách giữa các phần tử và cạnh của khung */
+  }
+
+  //#skeleton-header-content-mobile{
+  //  position: relative;
+  //  overflow: hidden;
+  //}
+
+  .skeleton-title-mobile,
+  .skeleton-author-mobile,
+  .skeleton-rating-mobile,
+  .skeleton-view-mobile,{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Đặt các phần tử con xuống dưới */
+    color: var(--onPrimary);
   }
 
   .skeleton-title-mobile,
@@ -656,8 +711,7 @@ type-mobile {
   }
 
   /* Loading animation for each skeleton element */
-  .skeleton-image-shade::before,
-  .skeleton-cover::before,
+
   .skeleton-title-mobile::before,
   .skeleton-author-mobile::before,
   .skeleton-rating-mobile::before,
@@ -676,6 +730,23 @@ type-mobile {
       transparent 0%,
       #f0f0f0 50%,
       transparent 100%
+    );
+    animation: loading 1.5s infinite;
+  }
+
+  #skeleton-header-content-mobile::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -150px;
+    height: 520px;
+    width: 150px;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        #f0f0f0 50%,
+        transparent 100%
     );
     animation: loading 1.5s infinite;
   }

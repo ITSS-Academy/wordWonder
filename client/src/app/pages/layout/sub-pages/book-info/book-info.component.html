@@ -1,22 +1,39 @@
 @if (isLoading) {
   <div class="skeleton-container">
-    <div class="skeleton-header"></div>
-    <div class="skeleton-body">
-      <div class="skeleton-image"></div>
-      <div class="skeleton-info">
-        <div class="skeleton-title"></div>
-        <div class="skeleton-author"></div>
-        <div class="skeleton-rating"></div>
-        <div class="skeleton-view"></div>
-        <div class="skeleton-tags"></div>
-        <div class="skeleton-buttons"></div>
+    <div class="skeleton-header">
+      <div class="skeleton-body">
+        <div class="skeleton-image"></div>
+        <div class="skeleton-info">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-author"></div>
+          <div class="skeleton-rating"></div>
+          <div class="skeleton-view"></div>
+          <div class="skeleton-tags">
+            @for(tag of skeletonTags;track tag) {
+              <div class="'skeleton-tag-'+tag"></div>
+            }
+          </div>
+          <div class="skeleton-buttons-read"></div>
+          <div class="skeleton-buttons-favorite"></div>
+        </div>
       </div>
     </div>
+    <!--  mobile-->
+    <div id="skeleton-header-content-mobile">
+      <div class="skeleton-title-mobile"></div>
+      <div class="skeleton-author-mobile"></div>
+      <div class="skeleton-rating-mobile"></div>
+      <div class="skeleton-view-mobile"></div>
+    </div>
+    <div class="skeleton-buttons-mobile"></div>
+    <div class="skeleton-tags-mobile"></div>
+    <div class="skeleton-paragraph-mobile"></div>
+    <!--  mobile-->
+
     <div class="skeleton-novel-body-container">
       <div class="skeleton-description">
         <div class="skeleton-introduce"></div>
         <div class="skeleton-description-container">
-          <div class="skeleton-paragraph"></div>
           <div class="skeleton-paragraph"></div>
         </div>
       </div>
@@ -86,21 +103,6 @@
       </div>
     </div>
 
-    @if (isMobileView) {
-      <div id="skeleton-header-content-mobile">
-        <div class="skeleton-image-shade">
-          <figure class="skeleton-cover"></figure>
-        </div>
-        <div class="skeleton-book-info-mobile">
-          <div class="skeleton-title-mobile"></div>
-          <div class="skeleton-author-mobile"></div>
-          <div class="skeleton-rating-mobile"></div>
-          <div class="skeleton-view-mobile"></div>
-        </div>
-      </div>
-      <div class="skeleton-buttons-mobile"></div>
-      <div class="skeleton-tags-mobile"></div>
-    } @else {
       <!--  mobile-->
       <div id="header-content-mobile">
         <div class="image-shade">
@@ -142,7 +144,6 @@
         </mat-chip-set>
       </div>
       <!--  mobile-->
-    }
 
     <div id="novel-body-container">
       <div class="description">
