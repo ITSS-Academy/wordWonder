@@ -12,10 +12,10 @@ async function bootstrap() {
   admin.initializeApp({
     credential: admin.credential.cert('firebase-admin-key.json'),
   });
-  await app.listen(4444);
+  await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 
 bootstrap()
-  .then(() => console.log('Tic Tic Boom!!!'))
+  .then(() => console.log('Boom Boom Chiu Chiu!!!'))
   .catch((e) => console.error(e));
