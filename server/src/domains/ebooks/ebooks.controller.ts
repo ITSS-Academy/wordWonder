@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  Request,
+  HttpException,
 } from '@nestjs/common';
 import { EbooksService } from './ebooks.service';
 import { CreateEbookDto } from './dto/create-ebook.dto';
@@ -17,74 +19,81 @@ import { Public } from '../../utils/custom_decorators';
 export class EbooksController {
   constructor(private readonly ebooksService: EbooksService) {}
 
-  @Public()
   @Post()
-  async create(@Body() createEbookDto: CreateEbookDto) {
+  async create(@Body() createEbookDto: CreateEbookDto, @Request() req: any) {
+    if (!req.user.role) {
+      throw new HttpException('Permission denied', 403);
+    }
     return await this.ebooksService.create(createEbookDto);
   }
 
-  @Public()
   @Get()
-  async findAll() {
+  async findAll(@Request() req: any) {
+    if (!req.user.role) {
+      throw new HttpException('Permission denied', 403);
+    }
     return await this.ebooksService.findAll();
   }
 
-  @Public()
   @Get('one/:id')
   async findOne(@Param('id') id: string) {
     return await this.ebooksService.findOne(id);
   }
 
-  @Public()
   @Patch('one/:id')
   async update(
     @Param('id') id: string,
     @Body() updateEbookDto: UpdateEbookDto,
+    @Request() req: any,
   ) {
+    if (!req.user.role) {
+      throw new HttpException('Permission denied', 403);
+    }
     return await this.ebooksService.update(id, updateEbookDto);
   }
 
-  @Public()
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string, @Request() req: any) {
+    if (!req.user.role) {
+      throw new HttpException('Permission denied', 403);
+    }
     return this.ebooksService.remove(id);
   }
 
-  @Public()
   @Get('trend')
   async findListByTrend(@Query('limit') limit: string) {
-    console.log('limit', limit);
     return await this.ebooksService.listByTrend(+limit);
   }
 
-  @Public()
   @Get('rating')
   async findListByRating(@Query('limit') limit: string) {
     return await this.ebooksService.listByRating(+limit);
   }
 
-  @Public()
   @Get('recommend')
   async findListByRecommend(@Query('limit') limit: string) {
     return await this.ebooksService.listByRecommend(+limit);
   }
 
-  @Public()
   @Patch('view/:id')
   async updateView(@Param('id') id: string) {
     return await this.ebooksService.updateView(id);
   }
 
-  @Public()
   @Patch('like/:id')
-  async increaseLike(@Param('id') id: string) {
-    return await this.ebooksService.increaseLike(id);
+  async increaseLike(@Param('id') ebookId: string, @Request() req: any) {
+    return await this.ebooksService.increaseLike(
+      ebookId,
+      req.user.id || req.user.uid,
+    );
   }
 
-  @Public()
   @Patch('dislike/:id')
-  async decreaseLike(@Param('id') id: string) {
-    return await this.ebooksService.decreaseLike(id);
+  async decreaseLike(@Param('id') ebookId: string, @Request() req: any) {
+    return await this.ebooksService.decreaseLike(
+      ebookId,
+      req.user.id || req.user.uid,
+    );
   }
 
   // @Public()
