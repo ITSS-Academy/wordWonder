@@ -16,6 +16,10 @@ import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EbookFormDialogComponent } from './components/ebook-form-dialog/ebook-form-dialog.component';
 import { EbookService } from '../../../../../services/ebook.service';
+import { Store } from '@ngrx/store';
+import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
+import { Subscription } from 'rxjs';
+import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
 
 @Component({
   selector: 'app-admin',
@@ -25,6 +29,7 @@ import { EbookService } from '../../../../../services/ebook.service';
   styleUrl: './admin.component.scss',
 })
 export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
+  subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
     'select',
     'imageUrl',
@@ -45,11 +50,16 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
   //dialog
   readonly dialog = inject(MatDialog);
 
-  constructor(private ebookService: EbookService) {
+  constructor(
+    private ebookService: EbookService,
+    private store: Store<{ ebook: EbookState }>,
+  ) {
     // Create n ebooks
-    this.ebooks = Array.from({ length: 10 }, (_, k) =>
-      this.ebookService.createNewEbook(k + 1),
-    );
+    // this.ebooks = Array.from({ length: 10 }, (_, k) =>
+    //   this.ebookService.createNewEbook(k + 1),
+    // );
+
+    this.store.dispatch(EbookActions.listAll());
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(this.ebooks);
@@ -60,9 +70,20 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store.select('ebook', 'ebooks').subscribe((ebooks) => {
+        this.ebooks = ebooks;
+        this.dataSource = new MatTableDataSource(this.ebooks);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }),
+    );
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
