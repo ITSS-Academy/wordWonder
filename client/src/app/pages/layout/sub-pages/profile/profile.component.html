@@ -117,7 +117,12 @@
       <div id="right-card">
         <div class="top-right">
           <img
-            [src]="profileForm.get('photoURL')?.value"
+            [src]="
+              profileForm.get('photoURL')?.value != '' &&
+              profileForm.get('photoURL')?.value != null
+                ? profileForm.get('photoURL')?.value
+                : '../public/assets/default-avatar.png'
+            "
             alt="Profile Image"
             class="profile-image"
           />
