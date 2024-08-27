@@ -97,6 +97,7 @@
       width: 150px; /* Set width to 100% of the parent container */
       height: 100%; /* Giảm chiều cao tối đa của hình ảnh */
       object-fit: cover;
+      border-radius: 16px;
     }
   }
 
@@ -111,8 +112,6 @@
       margin-top: 5px;
       display: -webkit-box;
       width: 100%;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }

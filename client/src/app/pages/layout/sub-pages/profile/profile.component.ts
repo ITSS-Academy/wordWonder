@@ -32,18 +32,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isLoading$ = this.store.select('user', 'isLoading');
 
   profileForm: FormGroup = new FormGroup({
-    id: new FormControl(Date.now().toString(), Validators.required),
-    name: new FormControl('Phạm Hoàng Long', Validators.required),
-    email: new FormControl('phamhoanglong@gmail.com', [
-      Validators.required,
-      Validators.email,
-    ]),
-    phone: new FormControl('0123456789', [
+    id: new FormControl('', Validators.required),
+    nickName: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phoneNumber: new FormControl('', [
       Validators.required,
       //pattern 10 digits
       Validators.pattern('^[0-9]{10}$'),
     ]),
-    avatar: new FormControl('', Validators.required),
+    photoURL: new FormControl('', Validators.required),
   });
 
   readonly dialog = inject(MatDialog);
@@ -72,8 +69,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.store.select('file_upload', 'downloadAvatarURL').subscribe((url) => {
         if (url != null) {
-          this.profileForm.patchValue({ avatar: url });
-          this._snackBar.open('Đăng tải ảnh thành công', 'Close', {
+          this.profileForm.patchValue({ photoURL: url });
+          this._snackBar.open('Đăng tải ảnh thành công', 'Đóng', {
             duration: 5000,
           });
         }
@@ -83,7 +80,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }),
       this.store.select('file_upload', 'error').subscribe((error) => {
         if (error) {
-          this._snackBar.open('Đã tải ảnh thất bại', 'Close', {
+          this._snackBar.open('Đã tải ảnh thất bại', 'Đóng', {
             duration: 5000,
           });
         }
@@ -94,7 +91,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       //  Các subscription để lắng nghe trạng thái của user profile
       this.store.select('user', 'user').subscribe((user) => {
         if (user) {
-          this.profileForm.patchValue(user);
+          this.profileForm.patchValue({ ...user });
         }
       }),
       this.store.select('user', 'isUpdatedSuccess').subscribe((val) => {
@@ -106,9 +103,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }),
       this.store.select('user', 'updatingError').subscribe((error) => {
         if (error) {
-          this._snackBar.open('Cập nhật thông tin thất bại', 'Close', {
+          this._snackBar.open('Cập nhật thông tin thất bại', 'Đóng', {
             duration: 5000,
           });
+        }
+      }),
+      this.store.select('user', 'loadingError').subscribe((error) => {
+        if (error) {
+          this._snackBar.open(
+            'Lỗi khi tải thông tin người dùng. Vui lòng tải lại',
+            'Đóng',
+            {
+              duration: 5000,
+            },
+          );
         }
       }),
     );

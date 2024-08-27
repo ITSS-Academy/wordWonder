@@ -22,8 +22,12 @@
       <form [formGroup]="profileForm" id="left-card">
         <mat-form-field appearance="outline">
           <mat-label>Nickname</mat-label>
-          <input matInput placeholder="Tên người dùng" formControlName="name" />
-          @if (profileForm.get("name")?.hasError("required")) {
+          <input
+            matInput
+            placeholder="Tên người dùng"
+            formControlName="nickName"
+          />
+          @if (profileForm.get("nickName")?.hasError("required")) {
             <mat-error> Tên người dùng không được để trống</mat-error>
           }
         </mat-form-field>
@@ -48,13 +52,13 @@
           <input
             matInput
             placeholder="Số điện thoại người dùng"
-            formControlName="phone"
+            formControlName="phoneNumber"
             type="tel"
           />
-          @if (profileForm.get("phone")?.hasError("required")) {
+          @if (profileForm.get("phoneNumber")?.hasError("required")) {
             <mat-error> Sđt người dùng không được để trống</mat-error>
           }
-          @if (profileForm.get("phone")?.hasError("pattern")) {
+          @if (profileForm.get("phoneNumber")?.hasError("pattern")) {
             <mat-error> Sđt người dùng không hợp lệ</mat-error>
           }
         </mat-form-field>
@@ -64,9 +68,9 @@
           <input
             matInput
             placeholder="Avatar người dùng"
-            formControlName="avatar"
+            formControlName="photoURL"
           />
-          @if (profileForm.get("avatar")?.hasError("required")) {
+          @if (profileForm.get("photoURL")?.hasError("required")) {
             <mat-error> Avatar url không được để trống</mat-error>
           }
         </mat-form-field>
@@ -98,32 +102,34 @@
             <mat-icon>edit</mat-icon>
             Cập nhật hồ sơ
           </button>
-          <button
-            mat-stroked-button
-            class="btn-admin"
-            [routerLink]="['/main/admin']"
-          >
-            <mat-icon>admin_panel_settings</mat-icon>
-            Admin
-          </button>
+          @if (isStaticUser) {
+            <button
+              mat-stroked-button
+              class="btn-admin"
+              [routerLink]="['/main/admin']"
+            >
+              <mat-icon>admin_panel_settings</mat-icon>
+              Admin
+            </button>
+          }
         </div>
       </form>
       <div id="right-card">
         <div class="top-right">
           <img
-            src="../public/assets/29.png"
+            [src]="profileForm.get('photoURL')?.value"
             alt="Profile Image"
             class="profile-image"
           />
         </div>
         <div class="bot-right">
           <p>
-            Tên: <b> {{ profileForm.get("name")?.value }}</b>
+            Tên: <b> {{ profileForm.get("nickName")?.value }}</b>
           </p>
           <p>
             Email: <b>{{ profileForm.get("email")?.value }}</b>
           </p>
-          <p>Số điện thoại: +{{ profileForm.get("phone")?.value }}</p>
+          <p>Số điện thoại: +{{ profileForm.get("phoneNumber")?.value }}</p>
 
           <div class="example-button-row">
             <button
