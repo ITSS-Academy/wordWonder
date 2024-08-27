@@ -101,20 +101,22 @@
         required
       >
         <mat-select-trigger>
-          {{ ebookFormGroup.get("category")?.value?.[0] || "" }}
-          @if ((ebookFormGroup.get("category")?.value?.length || 0) > 1) {
+          {{ ebookFormGroup.controls["category"].value[0] || "" }}
+          @if ((ebookFormGroup.controls["category"].value.length || 0) > 1) {
             <span class="additional-selection">
-              (+{{ (ebookFormGroup.get("category")?.value?.length || 0) - 1 }}
+              (+{{
+                (ebookFormGroup.controls["category"].value.length || 0) - 1
+              }}
               {{
-                ebookFormGroup.get("category")?.value?.length === 2
+                ebookFormGroup.controls["category"].value.length === 2
                   ? "thể loại"
                   : "thể loại"
               }})
             </span>
           }
         </mat-select-trigger>
-        @for (genre of genreList; track genre) {
-          <mat-option [value]="genre">{{ genre }}</mat-option>
+        @for (genre of categories$ | async; track genre) {
+          <mat-option [value]="genre">{{ genre.name }}</mat-option>
         }
       </mat-select>
       @if (category.hasError("required")) {

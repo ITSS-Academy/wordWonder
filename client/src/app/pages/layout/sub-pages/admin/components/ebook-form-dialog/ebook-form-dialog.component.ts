@@ -16,6 +16,7 @@ import {
 } from '@angular/material/dialog';
 import * as UploadActions from '../../../../../../../ngrxs/file-upload/file-upload.actions';
 import { FileUploadState } from '../../../../../../../ngrxs/file-upload/file-upload.state';
+import { CategoryState } from '../../../../../../../ngrxs/category/category.state';
 
 @Component({
   selector: 'app-ebook-form-dialog',
@@ -38,6 +39,8 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   isEditMode = false;
 
+  categories$ = this.store.select('category', 'categories');
+
   //form
   ebookFormGroup: FormGroup;
   name = new FormControl('', [Validators.required]);
@@ -59,10 +62,12 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: EBookModel,
     protected store: Store<{
       file_upload: FileUploadState;
+      category: CategoryState;
     }>,
     protected _snackBar: MatSnackBar,
   ) {
     this.ebookFormGroup = new FormGroup({
+      id: new FormControl(this.tempId, [Validators.required]),
       name: new FormControl('', [Validators.required]),
       author: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -75,6 +80,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       this.isEditMode = true;
       console.log(data);
       this.ebookFormGroup.patchValue({ ...data });
+      this.tempId = data.id;
     }
 
     merge(this.name.statusChanges, this.name.valueChanges)

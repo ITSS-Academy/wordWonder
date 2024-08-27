@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { MaterialModule } from '../../../shared/modules/material.module';
 import { SharedModule } from '../../../shared/modules/shared.module';
-import { EBookModel, GENRES } from '../../../models/ebook.model';
+import { EBookModel } from '../../../models/ebook.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Router } from '@angular/router';
@@ -19,10 +19,12 @@ import { FormControl } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../../ngrxs/auth/auth.state';
-import { Subscription } from 'rxjs';
+import { debounceTime, Subscription } from 'rxjs';
 import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 import { UserState } from '../../../ngrxs/user/user.state';
-import { EbookService } from '../../../services/ebook.service';
+import { JWTTokenService } from '../../../services/jwttoken.service';
+import { SearchState } from '../../../ngrxs/search/search.state';
+import * as SearchActions from '../../../ngrxs/search/search.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -43,17 +45,21 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   searchControl = new FormControl('');
   showDropdown = false;
 
-  ebooks = Array.from({ length: 10 }, (_, k) =>
-    this.ebookService.createNewEbook(k + 1),
-  );
+  searchResults$ = this.store.select('search', 'searchResults');
+  loading$ = this.store.select('search', 'loading');
+  error$ = this.store.select('search', 'error');
 
   readonly dialog = inject(MatDialog);
   private renderer = inject(Renderer2);
 
   constructor(
-    private store: Store<{ auth: AuthState; user: UserState }>,
+    private store: Store<{
+      auth: AuthState;
+      user: UserState;
+      search: SearchState;
+    }>,
     private router: Router,
-    private ebookService: EbookService,
+    private jwtTokenService: JWTTokenService,
   ) {
     this.searchControl.valueChanges
       .pipe(takeUntilDestroyed())
@@ -106,6 +112,13 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.store.select('auth', 'isStaticUser').subscribe((value) => {
         this.isStaticUser = value;
       }),
+      this.searchControl.valueChanges
+        .pipe(debounceTime(1000))
+        .subscribe((value) => {
+          if (value !== '' && value !== null) {
+            this.store.dispatch(SearchActions.search({ q: value }));
+          }
+        }),
     );
   }
 
@@ -155,16 +168,30 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
     });
   }
 
-  navigateToProfile() {
-    this.router.navigate(['/main/profile']).then(() => {});
-  }
-
   logout() {
     this.store.dispatch(AuthActions.signOut());
   }
 
   navigateToEbookDetailPage(ebook: EBookModel) {
+    if (this.jwtTokenService.jwtToken != '') {
+      this.jwtTokenService.checkTokenExpired();
+      if (this.jwtTokenService.isTokenExpired()) {
+        return;
+      }
+    }
     this.router.navigate(['/main/book-info', ebook.id]).then(() => {
+      this.searchControl.setValue('');
+    });
+  }
+
+  navigate(url: string) {
+    if (this.jwtTokenService.jwtToken != '') {
+      this.jwtTokenService.checkTokenExpired();
+      if (this.jwtTokenService.isTokenExpired()) {
+        return;
+      }
+    }
+    this.router.navigate([url]).then(() => {
       this.searchControl.setValue('');
     });
   }

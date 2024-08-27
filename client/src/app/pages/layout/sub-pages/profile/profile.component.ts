@@ -14,6 +14,7 @@ import { ConfirmDialogComponent } from '../../../../components/confirm-dialog/co
 import { MatDialog } from '@angular/material/dialog';
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 import { UserState } from '../../../../../ngrxs/user/user.state';
+import { JWTTokenService } from '../../../../../services/jwttoken.service';
 
 @Component({
   selector: 'app-profile',
@@ -53,6 +54,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       user: UserState; // Add user state
     }>,
     protected _snackBar: MatSnackBar,
+    private jwtTokenService: JWTTokenService,
   ) {
     this.profileForm.valueChanges
       .pipe(takeUntilDestroyed())
@@ -122,11 +124,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
-  goBackToHome(): void {
-    this.router.navigate(['/main']).then();
-  }
-
   onFileSelected(event: Event): void {
+    if (this.jwtTokenService.jwtToken != '') {
+      this.jwtTokenService.checkTokenExpired();
+      if (this.jwtTokenService.isTokenExpired()) {
+        return;
+      }
+    }
     const inputEvent = event as InputEvent;
     const file = (inputEvent.target as HTMLInputElement).files?.[0];
     this.store.dispatch(
@@ -138,6 +142,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   openConfirmUpdateDialog() {
+    if (this.jwtTokenService.jwtToken != '') {
+      this.jwtTokenService.checkTokenExpired();
+      if (this.jwtTokenService.isTokenExpired()) {
+        return;
+      }
+    }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Cập nhật hồ sơ',
@@ -154,5 +164,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log('User confirmed logout');
       }
     });
+  }
+
+  navigate(url: string) {
+    if (this.jwtTokenService.jwtToken != '') {
+      this.jwtTokenService.checkTokenExpired();
+      if (this.jwtTokenService.isTokenExpired()) {
+        return;
+      }
+    }
+    this.router.navigate([url]).then(() => {});
   }
 }

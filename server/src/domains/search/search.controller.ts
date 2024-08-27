@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  Param,
+  Query,
+  Request,
+} from '@nestjs/common';
 import { SearchService } from './search.service';
 
 @Controller('search')
@@ -16,5 +25,13 @@ export class SearchController {
     return {
       ebooks: ebooks,
     };
+  }
+
+  @Delete('ebooks/:id')
+  async deleteEbooks(@Param('id') id: string, @Request() req: any) {
+    if (!req.user.role) {
+      throw new HttpException('Permission denied', 403);
+    }
+    return this.searchService.deleteEbook(id);
   }
 }

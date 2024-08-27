@@ -5,7 +5,7 @@
     height="42"
     width="303"
     id="logo-with-text"
-    [routerLink]="'/main'"
+    (click)="navigate('/main')"
   />
   <img
     [src]="'../../../../public/assets/logo/logo-original.png'"
@@ -13,7 +13,7 @@
     height="64"
     width="64"
     id="logo"
-    [routerLink]="'/main'"
+    (click)="navigate('/main')"
   />
 
   <span class="example-spacer"></span>
@@ -28,7 +28,19 @@
   </mat-form-field>
   @if (showDropdown) {
     <div class="dropdown" #dropdown>
-      @for (ebook of ebooks; track ebook) {
+      @if (loading$ | async) {
+        <div class="spinner-overlay">
+          <mat-progress-spinner></mat-progress-spinner>
+        </div>
+      }
+      @if ((searchResults$ | async)?.length == 0 || (error$ | async)) {
+        @if (showDropdown) {
+          <div class="dropdown-item">
+            <span>Không tìm thấy kết quả</span>
+          </div>
+        }
+      }
+      @for (ebook of searchResults$ | async; track ebook) {
         @if (showDropdown) {
           <div class="dropdown-item" (click)="navigateToEbookDetailPage(ebook)">
             <img
@@ -63,7 +75,7 @@
     </div>
   }
   <mat-menu #avaMenu="matMenu">
-    <button mat-menu-item (click)="navigateToProfile()">
+    <button mat-menu-item (click)="navigate('/main/profile')">
       <mat-icon>person</mat-icon>
       Hồ sơ
     </button>

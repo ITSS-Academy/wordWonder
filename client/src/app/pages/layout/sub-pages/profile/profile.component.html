@@ -12,7 +12,7 @@
   }
   <mat-card class="card-container1">
     <div id="card-name">
-      <button mat-icon-button class="back-button" (click)="goBackToHome()">
+      <button mat-icon-button class="back-button" (click)="navigate('/main')">
         <mat-icon>home</mat-icon>
         <!--    Quay lại-->
       </button>
@@ -150,7 +150,7 @@
               <button
                 mat-stroked-button
                 class="btn-admin"
-                [routerLink]="['/main/admin']"
+                (click)="navigate('/main/admin')"
               >
                 <mat-icon>admin_panel_settings</mat-icon>
                 Admin

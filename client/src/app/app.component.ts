@@ -34,7 +34,6 @@ export class AppComponent implements OnInit {
     });
     // console.log(this.get('idToken'));
     if (this.sessionStorageService.getValueFromSession('idToken') != '') {
-      //check if token is expired
       this.jwtTokenService.setToken(
         this.sessionStorageService.getValueFromSession('idToken'),
       );
@@ -42,8 +41,6 @@ export class AppComponent implements OnInit {
         this.sessionStorageService.removeTokenInSession();
         return;
       }
-
-      //set static user mode
       this.store.dispatch(
         AuthActions.toggleStaticUserMode({ isStaticUser: true }),
       );
@@ -58,6 +55,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('auth', 'idToken').subscribe((val) => {
       if (val != '') {
+        this.jwtTokenService.setToken(val);
         this.store.dispatch(UserActions.getById());
       }
     });
