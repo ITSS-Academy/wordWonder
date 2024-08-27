@@ -6,11 +6,10 @@ import {
   Patch,
   Param,
   Delete,
-  ParseIntPipe,
   Request,
+  HttpException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
@@ -19,7 +18,7 @@ export class UsersController {
 
   @Patch()
   update(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(req.user.uid, updateUserDto);
+    return this.usersService.update(req.user.uid || req.user.id, updateUserDto);
   }
 
   @Post()
@@ -40,7 +39,11 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.usersService.remove(id);
+  async remove(@Param('id') id: string, @Request() req: any) {
+    if (req.user.role) {
+      return await this.usersService.remove(id);
+    } else {
+      throw new HttpException('Permission denied', 403);
+    }
   }
 }

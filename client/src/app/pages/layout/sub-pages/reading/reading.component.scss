@@ -5,7 +5,8 @@
   display: flex;
   justify-content: center;
 }
-.flex-container{
+
+.flex-container {
   display: none;
 }
 
@@ -112,16 +113,16 @@
   .example-button-container {
     display: none;
   }
-  #icon-menu{
+  #icon-menu {
     display: flex;
     justify-content: center;
   }
-  .flex-container{
+  .flex-container {
     display: flex;
     flex-wrap: wrap;
     padding: 5px 0 0 0;
   }
-  .flex-container button{
+  .flex-container button {
     border-radius: 0;
     width: 60px;
     height: 30px;
@@ -129,23 +130,22 @@
     background-color: #e8def9;
     color: #8069bf; /* Màu của biểu tượng */
   }
-  .flex-container button:hover{
+  .flex-container button:hover {
     background-color: #ccc2dc;
   }
-  .btn-back button{
-    border-top-left-radius: 18px ;
+  .btn-back button {
+    border-top-left-radius: 18px;
     border-bottom-left-radius: 18px;
   }
-  .btn-menu button{
-    border-top-right-radius: 18px ;
+  .btn-menu button {
+    border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
   }
-.reading-box{
-  height: calc(100% - 34px);
-}
+  .reading-box {
+    height: calc(100% - 34px);
+  }
   #reading-container {
     padding-top: 5px;
     height: calc(100% - 16px);
   }
-
 }
