@@ -2,8 +2,8 @@ import {Injectable} from "@angular/core";
 import {CategoryService} from "../../services/category.service";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import * as CategoryActions from "./category.actions";
-import {of, switchMap, mergeMap, EMPTY, delay } from "rxjs";
-import {catchError, exhaustMap , map,} from "rxjs/operators";
+import {of, mergeMap, } from "rxjs";
+import {catchError, map,} from "rxjs/operators";
 
 
 @Injectable()
