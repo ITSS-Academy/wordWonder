@@ -50,10 +50,14 @@ export class SearchService {
   }
 
   async deleteEbook(ebookId: string) {
-    await this.esClient.delete({
-      index: 'wordwonder_ebooks',
-      id: ebookId,
-    });
+    try {
+      await this.esClient.delete({
+        index: 'wordwonder_ebooks',
+        id: ebookId,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async searchAny(indexName: string, query: string) {
