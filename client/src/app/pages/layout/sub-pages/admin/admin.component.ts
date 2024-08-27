@@ -32,7 +32,6 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
     'author',
     'translator',
     'description',
-    'dateCreated',
     'like',
     'view',
     'category',
@@ -136,5 +135,17 @@ export class AdminComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(result);
       }
     });
+  }
+
+  isRefreshing = false;
+
+  reload() {
+    if (this.isRefreshing) return;
+
+    this.isRefreshing = true;
+    // Perform the refresh operation here
+    setTimeout(() => {
+      this.isRefreshing = false;
+    }, 3000); // Re-enable the button after 3 seconds
   }
 }

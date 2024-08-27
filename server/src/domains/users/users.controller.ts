@@ -24,6 +24,7 @@ export class UsersController {
 
   @Post()
   async create(@Request() req: any) {
+    console.log(req.user);
     return await this.usersService.create(req.user);
   }
 
@@ -35,7 +36,7 @@ export class UsersController {
   @Get()
   async findOne(@Request() req: any) {
     console.log(req.user.uid);
-    return await this.usersService.findOne(req.user.uid);
+    return await this.usersService.findOne(req.user.uid || req.user.id);
   }
 
   @Delete(':id')

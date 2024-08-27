@@ -7,6 +7,7 @@ import { AuthState } from '../../../ngrxs/auth/auth.state';
 import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store<{ auth: AuthState }>,
     private router: Router,
+    private _matSnackBar: MatSnackBar,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -46,6 +48,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (val != '') {
           this.router.navigate(['/main']).then(() => {
             console.log('tic');
+          });
+        }
+      }),
+      this.store.select('auth', 'error').subscribe((error) => {
+        if (error) {
+          // console.log('Error:', error);
+          this._matSnackBar.open(error, 'Đóng', {
+            duration: 5000,
           });
         }
       }),

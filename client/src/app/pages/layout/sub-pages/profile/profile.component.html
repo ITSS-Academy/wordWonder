@@ -4,6 +4,12 @@
       <mat-spinner></mat-spinner>
     </div>
   }
+<!-- hieu ung khi update profile-->
+  @if(isUpdatingProfile){
+    <div class="loading-overlay">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
   <mat-card class="card-container1">
     <div id="card-name">
       <button mat-icon-button class="back-button" (click)="goBackToHome()">
@@ -52,7 +58,7 @@
             <mat-error> Sđt người dùng không hợp lệ</mat-error>
           }
         </mat-form-field>
-        
+
         <mat-form-field appearance="outline">
           <mat-label>Avatar Url</mat-label>
           <input

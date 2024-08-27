@@ -49,17 +49,27 @@
     </div>
   }
 
-  <div id="avatar">
-    <mat-icon [matMenuTriggerFor]="avaMenu">account_circle</mat-icon>
-    <mat-menu #avaMenu="matMenu">
-      <button mat-menu-item (click)="navigateToProfile()">
-        <mat-icon>person</mat-icon>
-        Hồ sơ
-      </button>
-      <button mat-menu-item (click)="openConfirmLogoutDialog()">
-        <mat-icon>logout</mat-icon>
-        Đăng xuất
-      </button>
-    </mat-menu>
-  </div>
+  @if (isStaticUser) {
+    <div id="icon-avatar">
+      <mat-icon [matMenuTriggerFor]="avaMenu">account_circle</mat-icon>
+    </div>
+  } @else {
+    <div id="avatar">
+      <img
+        [src]="(profile$ | async)?.photoURL"
+        [alt]="(profile$ | async)?.nickName"
+        [matMenuTriggerFor]="avaMenu"
+      />
+    </div>
+  }
+  <mat-menu #avaMenu="matMenu">
+    <button mat-menu-item (click)="navigateToProfile()">
+      <mat-icon>person</mat-icon>
+      Hồ sơ
+    </button>
+    <button mat-menu-item (click)="openConfirmLogoutDialog()">
+      <mat-icon>logout</mat-icon>
+      Đăng xuất
+    </button>
+  </mat-menu>
 </mat-toolbar>
