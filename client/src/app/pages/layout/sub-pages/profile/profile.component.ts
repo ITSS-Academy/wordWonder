@@ -56,15 +56,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     protected _snackBar: MatSnackBar,
     private jwtTokenService: JWTTokenService,
   ) {
-    this.profileForm.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe((value) => {
-        console.log('Profile form value changed:', value);
-      });
+    // this.profileForm.valueChanges
+    //   .pipe(takeUntilDestroyed())
+    //   .subscribe((value) => {
+    //     console.log('Profile form value changed:', value);
+    //   });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.store.dispatch(UserActions.reset());
+    this.store.dispatch(UploadActions.reset());
   }
 
   ngOnInit(): void {
@@ -161,7 +163,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.store.dispatch(
           UserActions.update({ user: this.profileForm.value }),
         );
-        console.log('User confirmed logout');
+        // console.log('User confirmed logout');
       }
     });
   }

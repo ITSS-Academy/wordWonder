@@ -53,3 +53,5 @@ export const uploadFileProgress = createAction(
 export const clearUploadState = createAction(
   '[File Upload] Clear Upload State',
 );
+
+export const reset = createAction('[File Upload] Reset');
