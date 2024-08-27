@@ -8,6 +8,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [TypeOrmModule.forFeature([UserEbook])],
   controllers: [UserEbooksController],
   providers: [UserEbooksService],
-  exports: [UserEbooksService],
+  exports: [TypeOrmModule],
 })
 export class UserEbooksModule {}
