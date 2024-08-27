@@ -4,8 +4,8 @@
       <mat-spinner></mat-spinner>
     </div>
   }
-<!-- hieu ung khi update profile-->
-  @if(isUpdatingProfile){
+  <!-- hieu ung khi update profile-->
+  @if ((isUpdating$ | async) || (isLoading$ | async)) {
     <div class="loading-overlay">
       <mat-spinner></mat-spinner>
     </div>
