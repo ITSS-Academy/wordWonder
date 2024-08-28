@@ -103,8 +103,6 @@ export const fileUploadReducer = createReducer(
     return <FileUploadState>{
       ...state,
       isLoading: false,
-      downloadCoverURL: null,
-      downloadPdfURL: null,
       downloadAvatarURL: null,
       error: null,
     };

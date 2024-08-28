@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const uploadEbookCoverFile = createAction(
   '[File Upload] Upload Ebook Cover File',
-  props<{ file: File; path: string }>(),
+  props<{ file: File; path: string; isPdf: boolean }>(),
 );
 
 export const uploadEbookCoverFileSuccess = createAction(
@@ -17,7 +17,7 @@ export const uploadEbookCoverFileFailure = createAction(
 
 export const uploadEbookPdfFile = createAction(
   '[File Upload] Upload Ebook Pdf File',
-  props<{ file: File; path: string }>(),
+  props<{ file: File; path: string; isPdf: boolean }>(),
 );
 
 export const uploadEbookPdfFileSuccess = createAction(
@@ -32,7 +32,7 @@ export const uploadEbookPdfFileFailure = createAction(
 
 export const uploadAvatarFile = createAction(
   '[File Upload] Upload Avatar File',
-  props<{ file: File; path: string }>(),
+  props<{ file: File; path: string; isPdf: boolean }>(),
 );
 
 export const uploadAvatarFileSuccess = createAction(

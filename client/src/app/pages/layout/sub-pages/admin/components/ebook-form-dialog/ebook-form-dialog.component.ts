@@ -194,6 +194,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       UploadActions.uploadEbookCoverFile({
         file: file!,
         path: `ebooks/${this.tempId}/cover`,
+        isPdf: false,
       }),
     );
   }
@@ -205,6 +206,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       UploadActions.uploadEbookPdfFile({
         file: file!,
         path: `ebooks/${this.tempId}/pdf`,
+        isPdf: true,
       }),
     );
   }

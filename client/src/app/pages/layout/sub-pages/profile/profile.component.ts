@@ -139,6 +139,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       UploadActions.uploadAvatarFile({
         file: file!,
         path: `users/${this.profileForm.value.id}/avatar`,
+        isPdf: false,
       }),
     );
   }
