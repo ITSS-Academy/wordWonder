@@ -7,9 +7,12 @@ import {
 import { CreateEbookDto } from './dto/create-ebook.dto';
 import { UpdateEbookDto } from './dto/update-ebook.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Ebook } from './entities/ebook.entity';
 import { Category } from '../categories/entities/category.entity';
+import { UserEbook } from '../user_ebooks/entities/user_ebook.entity';
+import { User } from '../users/entities/user.entity';
+import { SearchService } from '../search/search.service';
 
 @Injectable()
 export class EbooksService {
@@ -18,21 +21,16 @@ export class EbooksService {
     private readonly ebookRepository: Repository<Ebook>,
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
+    @InjectRepository(UserEbook)
+    private readonly userEbookRepository: Repository<UserEbook>,
+    private readonly searchService: SearchService,
   ) {}
 
-  async create(CreateEbookDto: CreateEbookDto) {
+  async create(createEbookDto: CreateEbookDto) {
     try {
-      let newEbook = new Ebook();
-      newEbook.name = CreateEbookDto.name;
-      newEbook.imageUrl = CreateEbookDto.imageUrl;
-      newEbook.description = CreateEbookDto.description;
-      newEbook.author = CreateEbookDto.author;
-      newEbook.translator = CreateEbookDto.translator;
-      newEbook.like = 0;
-      newEbook.view = 0;
-      newEbook.content = CreateEbookDto.content;
-      newEbook.categories = CreateEbookDto.categories;
+      let newEbook = this.ebookRepository.create(createEbookDto);
       await this.ebookRepository.save(newEbook);
+      await this.searchService.indexEbook(newEbook);
       return;
     } catch (e) {
       throw new HttpException(e, 400);
@@ -40,11 +38,15 @@ export class EbooksService {
   }
 
   async findAll() {
-    return await this.ebookRepository.find({
-      relations: {
-        categories: true,
-      },
-    });
+    try {
+      return await this.ebookRepository.find({
+        relations: {
+          categories: true,
+        },
+      });
+    } catch (e) {
+      throw new HttpException(e, 400);
+    }
   }
 
   async findOne(id: string) {
@@ -58,29 +60,35 @@ export class EbooksService {
         throw new HttpException('Ebook not found', HttpStatus.NOT_FOUND);
       }
       return result;
-    } catch {
-      throw new HttpException('Ebook not found', 400);
-    }
-  }
-
-  async update(id: string, UpdateEbookDto: UpdateEbookDto) {
-    try {
-      let updateEbook = await this.ebookRepository.findOneBy({ id: id });
-      if (!updateEbook) {
-        throw new NotFoundException('Ebook not found');
-      }
-      updateEbook.name = UpdateEbookDto.name;
-      updateEbook.imageUrl = UpdateEbookDto.imageUrl;
-      updateEbook.description = UpdateEbookDto.description;
-      updateEbook.author = UpdateEbookDto.author;
-      updateEbook.translator = UpdateEbookDto.translator;
-      updateEbook.content = UpdateEbookDto.content;
-      updateEbook.categories = UpdateEbookDto.categories;
-      await this.ebookRepository.save(updateEbook);
-      return;
     } catch (e) {
       throw new HttpException(e, 400);
     }
+  }
+
+  async update(id: string, updateEbookDto: UpdateEbookDto) {
+    let updateEbook = new Ebook();
+    try {
+      updateEbook = await this.ebookRepository.findOneBy({ id: id });
+      if (!updateEbook) {
+        throw new NotFoundException('Ebook not found');
+      }
+      //fetch categories from the database
+      const categories = await this.categoryRepository.findBy({
+        id: In(updateEbookDto.categories.map((category) => category.id)),
+      });
+      updateEbook.name = updateEbookDto.name;
+      updateEbook.imageUrl = updateEbookDto.imageUrl;
+      updateEbook.description = updateEbookDto.description;
+      updateEbook.author = updateEbookDto.author;
+      updateEbook.translator = updateEbookDto.translator;
+      updateEbook.content = updateEbookDto.content;
+      updateEbook.categories = categories;
+      await this.ebookRepository.save(updateEbook);
+    } catch (e) {
+      throw new HttpException(e, 400);
+    }
+    await this.searchService.updateEbook(updateEbook);
+    return;
   }
 
   async remove(id: string) {
@@ -90,8 +98,13 @@ export class EbooksService {
         .delete()
         .where('id = :id', { id })
         .execute();
-    } catch {
-      throw new HttpException('Ebook not found', 400);
+      if (deleteResult.affected === 0) {
+        throw new HttpException('Ebook not found', HttpStatus.NOT_FOUND);
+      }
+      await this.searchService.deleteEbook(id);
+      return;
+    } catch (e) {
+      throw new HttpException(e, 400);
     }
   }
 
@@ -102,7 +115,7 @@ export class EbooksService {
         .leftJoinAndSelect('ebook.categories', 'categories')
         .select(['ebook', 'categories'])
         .orderBy('ebook.view', 'DESC')
-        .limit(limit)
+        .take(limit)
         .getMany();
     } catch (e) {
       throw new HttpException(e, 400);
@@ -116,7 +129,7 @@ export class EbooksService {
         .leftJoinAndSelect('ebook.categories', 'categories')
         .select(['ebook', 'categories'])
         .orderBy('ebook.like', 'DESC')
-        .limit(limit)
+        .take(limit)
         .getMany();
     } catch (e) {
       throw new HttpException(e, 400);
@@ -150,68 +163,86 @@ export class EbooksService {
     }
   }
 
-  async increaseLike(id: string) {
+  async increaseLike(ebookId: string, userId: string) {
     try {
-      const ebook = await this.ebookRepository.findOneBy({ id: id });
+      //find the ebook
+      const ebook = await this.ebookRepository.findOneBy({ id: ebookId });
       if (!ebook) {
         throw new HttpException('Ebook not found', 400);
+      }
+
+      //find the user-ebook
+      let userEbook = await this.userEbookRepository.findOneBy({
+        user: userId as any,
+        ebook: ebookId as any,
+      });
+
+      //condition when have or not have the user-ebook yet
+      if (userEbook) {
+        //check that the user already liked the ebook
+        if (userEbook.isLiked) {
+          throw new HttpException('User already liked this ebook', 400);
+        }
+        //update the user-ebook
+        userEbook.isLiked = true;
+        await this.userEbookRepository
+          .createQueryBuilder()
+          .update(UserEbook)
+          .set(userEbook)
+          .where('userId = :userId AND ebookId = :ebookId', { userId, ebookId })
+          .execute();
+      } else {
+        //create new
+        const newUserEbook = new UserEbook();
+        newUserEbook.ebook = ebookId as any;
+        newUserEbook.user = userId as any;
+        userEbook.isLiked = true;
+        await this.userEbookRepository.save(newUserEbook);
       }
       ebook.like += 1;
       await this.ebookRepository.save(ebook);
+      return;
     } catch (e) {
-      throw new HttpException('like fail', 400);
+      throw new HttpException(e, 400);
     }
   }
 
-  async decreaseLike(id: string) {
+  async decreaseLike(ebookId: string, userId: string) {
     try {
-      const ebook = await this.ebookRepository.findOneBy({ id: id });
+      //find the ebook
+      const ebook = await this.ebookRepository.findOneBy({ id: ebookId });
       if (!ebook) {
         throw new HttpException('Ebook not found', 400);
       }
+
+      //find the user-ebook
+      let userEbook = await this.userEbookRepository.findOneBy({
+        user: userId as any,
+        ebook: ebookId as any,
+      });
+
+      //condition when have or not have the user-ebook yet
+      if (userEbook) {
+        //check that the user already unliked the ebook
+        if (!userEbook.isLiked) {
+          throw new HttpException('User already dont liked this ebook', 400);
+        }
+        //update the user-ebook
+        userEbook.isLiked = false;
+        await this.userEbookRepository
+          .createQueryBuilder()
+          .update(UserEbook)
+          .set(userEbook)
+          .where('userId = :userId AND ebookId = :ebookId', { userId, ebookId })
+          .execute();
+      } else {
+        throw new HttpException('User ebook not found', 400);
+      }
       ebook.like -= 1;
       await this.ebookRepository.save(ebook);
+      return;
     } catch (e) {
-      throw new HttpException('like fail', 400);
+      throw new HttpException(e, 400);
     }
   }
-
-  //xoa het body di
-  //cai api nay k can body chi can param la id cua cuon sach de em tang luot like luot view len thoi
-  //sua ten no lai la updateView updateLike
-  //de do di a sua lai cai api tren do cho em
-  //okki anh
-  //day code moi len em oi
-  //nong lam
-  //yes
-  //tesst lai di em
-
-  // async remove(id: string) {
-  //   let deleteEbook = await this.ebookRepository.findOneBy({ id: id });
-  //   if (!deleteEbook) {
-  //     throw new NotFoundException('Ebook not found');
-  //   }
-  //   await this.ebookRepository.remove(deleteEbook);
-  //   return;
-  // }
-
-  // async removeCategoriesFromEbook(
-  //   ebookId: string,
-  //   categoryIds: string[],
-  // ): Promise<void> {
-  //   const ebook = await this.ebookRepository.findOne({
-  //     where: { id: ebookId },
-  //     relations: ['categories'],
-  //   });
-  //
-  //   if (!ebook) {
-  //     throw new NotFoundException('Ebook and Category not found');
-  //   }
-  //
-  //   ebook.categories = ebook.categories.filter(
-  //     (category) => !categoryIds.includes(category.id),
-  //   );
-  //
-  //   await this.ebookRepository.save(ebook);
-  // }
 }

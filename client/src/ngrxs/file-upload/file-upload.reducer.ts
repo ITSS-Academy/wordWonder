@@ -99,4 +99,14 @@ export const fileUploadReducer = createReducer(
       error: null,
     };
   }),
+  on(UploadActions.reset, (state) => {
+    return <FileUploadState>{
+      ...state,
+      isLoading: false,
+      downloadCoverURL: null,
+      downloadPdfURL: null,
+      downloadAvatarURL: null,
+      error: null,
+    };
+  }),
 );

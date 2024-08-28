@@ -10,31 +10,31 @@ import { Category } from '../../categories/entities/category.entity';
 
 @Entity()
 export class Ebook {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   id: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column()
   name: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column()
   imageUrl: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column()
   description: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column()
   author: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column()
   translator: string;
 
-  @Column({ type: 'int' })
+  @Column({ default: 0 })
   like: number;
 
-  @Column({ type: 'int' })
+  @Column({ default: 0 })
   view: number;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column()
   content: string;
 
   @ManyToMany(() => Category, { cascade: true })

@@ -16,6 +16,7 @@ import {
 } from '@angular/material/dialog';
 import * as UploadActions from '../../../../../../../ngrxs/file-upload/file-upload.actions';
 import { FileUploadState } from '../../../../../../../ngrxs/file-upload/file-upload.state';
+import { CategoryState } from '../../../../../../../ngrxs/category/category.state';
 
 @Component({
   selector: 'app-ebook-form-dialog',
@@ -38,15 +39,17 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   isEditMode = false;
 
+  categories$ = this.store.select('category', 'categories');
+
   //form
   ebookFormGroup: FormGroup;
   name = new FormControl('', [Validators.required]);
   author = new FormControl('', [Validators.required]);
   description = new FormControl('', [Validators.required]);
-  category = new FormControl('', [Validators.required]);
   content = new FormControl(null, [Validators.required]);
   imageUrl = new FormControl(null, [Validators.required]);
   translator = new FormControl('', [Validators.required]);
+  categories = new FormControl([], [Validators.required]);
 
   nameErrorMessage = signal('');
   authorErrorMessage = signal('');
@@ -59,22 +62,25 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: EBookModel,
     protected store: Store<{
       file_upload: FileUploadState;
+      category: CategoryState;
     }>,
     protected _snackBar: MatSnackBar,
   ) {
     this.ebookFormGroup = new FormGroup({
+      id: new FormControl(this.tempId, [Validators.required]),
       name: new FormControl('', [Validators.required]),
       author: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       imageUrl: new FormControl('', [Validators.required]),
       content: new FormControl('', [Validators.required]),
-      category: new FormControl([], [Validators.required]),
+      categories: new FormControl([], [Validators.required]),
       translator: new FormControl('', [Validators.required]),
     });
     if (data != undefined) {
       this.isEditMode = true;
       console.log(data);
       this.ebookFormGroup.patchValue({ ...data });
+      this.tempId = data.id;
     }
 
     merge(this.name.statusChanges, this.name.valueChanges)
@@ -107,7 +113,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       this.store.select('file_upload', 'downloadCoverURL').subscribe((url) => {
         if (url != null) {
           this.ebookFormGroup.patchValue({ imageUrl: url });
-          this._snackBar.open('File uploaded successfully', 'Close', {
+          this._snackBar.open('Đăng tải ảnh thành công', 'Đóng', {
             duration: 5000,
           });
         }
@@ -115,7 +121,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       this.store.select('file_upload', 'downloadPdfURL').subscribe((url) => {
         if (url != null) {
           this.ebookFormGroup.patchValue({ content: url });
-          this._snackBar.open('Đăng tải ảnh thành công', 'Close', {
+          this._snackBar.open('Đăng tải ảnh thành công', 'Đóng', {
             duration: 5000,
           });
         }
@@ -125,7 +131,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       }),
       this.store.select('file_upload', 'error').subscribe((error) => {
         if (error) {
-          this._snackBar.open('Đăng tải ảnh thất bại', 'Close', {
+          this._snackBar.open('Đăng tải ảnh thất bại', 'Đóng', {
             duration: 5000,
           });
         }

@@ -27,3 +27,5 @@ export const getByIdFailure = createAction(
   '[User] Get By Id Failure',
   props<{ error: any }>(),
 );
+
+export const reset = createAction('[User] Reset');

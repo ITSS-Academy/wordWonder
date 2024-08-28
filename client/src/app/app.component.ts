@@ -9,6 +9,7 @@ import * as UserActions from '../ngrxs/user/user.actions';
 import { UserState } from '../ngrxs/user/user.state';
 import { SessionStorageService } from '../services/session-storage.service';
 import { JWTTokenService } from '../services/jwttoken.service';
+import * as CategoryActions from '../ngrxs/category/category.actions';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private jwtTokenService: JWTTokenService,
   ) {
+    this.store.dispatch(CategoryActions.listCategory());
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         const token = await user.getIdTokenResult();
@@ -34,7 +36,6 @@ export class AppComponent implements OnInit {
     });
     // console.log(this.get('idToken'));
     if (this.sessionStorageService.getValueFromSession('idToken') != '') {
-      //check if token is expired
       this.jwtTokenService.setToken(
         this.sessionStorageService.getValueFromSession('idToken'),
       );
@@ -42,8 +43,6 @@ export class AppComponent implements OnInit {
         this.sessionStorageService.removeTokenInSession();
         return;
       }
-
-      //set static user mode
       this.store.dispatch(
         AuthActions.toggleStaticUserMode({ isStaticUser: true }),
       );
@@ -58,6 +57,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('auth', 'idToken').subscribe((val) => {
       if (val != '') {
+        this.jwtTokenService.setToken(val);
         this.store.dispatch(UserActions.getById());
       }
     });

@@ -8,7 +8,5 @@ export class CreateEbookDto {
   author: string;
   categories: Category[];
   translator: string;
-  like: number;
-  view: number;
   content: string;
 }

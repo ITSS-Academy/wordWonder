@@ -17,6 +17,14 @@ import { FileUploadEffects } from '../ngrxs/file-upload/file-upload.effects';
 import { userReducer } from '../ngrxs/user/user.reducer';
 import { UserEffects } from '../ngrxs/user/user.effects';
 import { HttpClientAuth } from '../utils/http-client-auth';
+import { ebookReducer } from '../ngrxs/ebook/ebook.reducer';
+import { EbookEffects } from '../ngrxs/ebook/ebook.effects';
+import { searchReducer } from '../ngrxs/search/search.reducer';
+import { SearchEffects } from '../ngrxs/search/search.effects';
+import { categoryReducer } from '../ngrxs/category/category.reducer';
+import { CategoryEffects } from '../ngrxs/category/category.effects';
+import { pdfExtractReducer } from '../ngrxs/pdf-extract/pdf-extract.reducer';
+import { PdfExtractEffects } from '../ngrxs/pdf-extract/pdf-extract.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,8 +37,20 @@ export const appConfig: ApplicationConfig = {
       auth: authReducer,
       file_upload: fileUploadReducer,
       user: userReducer,
+      ebook: ebookReducer,
+      search: searchReducer,
+      category: categoryReducer,
+      pdfExtract: pdfExtractReducer,
     }),
-    provideEffects(AuthEffects, FileUploadEffects, UserEffects),
+    provideEffects(
+      AuthEffects,
+      FileUploadEffects,
+      UserEffects,
+      EbookEffects,
+      SearchEffects,
+      CategoryEffects,
+      PdfExtractEffects,
+    ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),

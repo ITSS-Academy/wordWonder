@@ -21,15 +21,13 @@
     }
 
     @if (error) {
-      <div class="error">{{ error }}</div>
+      <div class="error">Đã có lỗi xảy ra khỉ tải thể loại sách.</div>
     }
 
     @if (!isLoading && !error) {
-      <mat-chip-listbox aria-label="category list">
-        <mat-chip-option *ngFor="let type of genre; trackBy: trackByFn">
-          {{ type.name }}
-        </mat-chip-option>
-      </mat-chip-listbox>
+      <mat-chip-option *ngFor="let type of genre; trackBy: trackByFn">
+        {{ type.name }}
+      </mat-chip-option>
     }
   </div>
 
