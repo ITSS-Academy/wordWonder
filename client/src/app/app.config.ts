@@ -17,6 +17,8 @@ import { FileUploadEffects } from '../ngrxs/file-upload/file-upload.effects';
 import { userReducer } from '../ngrxs/user/user.reducer';
 import { UserEffects } from '../ngrxs/user/user.effects';
 import { HttpClientAuth } from '../utils/http-client-auth';
+import { UserEbooksEffects } from '../ngrxs/user_ebooks/user_ebooks.effects';
+import { userEbooksReducer } from '../ngrxs/user_ebooks/user_ebooks.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,8 +31,14 @@ export const appConfig: ApplicationConfig = {
       auth: authReducer,
       file_upload: fileUploadReducer,
       user: userReducer,
+      user_ebooks: userEbooksReducer,
     }),
-    provideEffects(AuthEffects, FileUploadEffects, UserEffects),
+    provideEffects(
+      AuthEffects,
+      FileUploadEffects,
+      UserEffects,
+      UserEbooksEffects,
+    ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
