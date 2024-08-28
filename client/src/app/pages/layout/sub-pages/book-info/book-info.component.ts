@@ -70,11 +70,14 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {}
   isLoading: boolean = true;
+  skeletonTags: number[] = [];
+
   ngOnInit(): void {
+    this.skeletonTags = Array.from({ length: 10 }, (_, i) => i + 1);
     // Simulate loading data
     setTimeout(() => {
       this.isLoading = false;
-    }, 60000); // Adjust the timeout as needed
+    }, 200000); // Adjust the timeout as needed
   }
 
   ngOnDestroy(): void {}

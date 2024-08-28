@@ -1,10 +1,12 @@
+import { CategoryModel } from './category.model';
+
 export interface EBookModel {
   id: string;
   name: string;
   imageUrl: string;
   description: string;
   author: string;
-  category: string[];
+  categories: CategoryModel[];
   translator: string;
   like: number;
   view: number;

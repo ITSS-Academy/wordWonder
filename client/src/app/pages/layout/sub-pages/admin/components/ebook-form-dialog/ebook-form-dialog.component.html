@@ -96,28 +96,30 @@
       <mat-label>Thể loại</mat-label>
       <mat-select
         placeholder="thể loại..."
-        formControlName="category"
+        formControlName="categories"
         multiple
         required
       >
         <mat-select-trigger>
-          {{ ebookFormGroup.get("category")?.value?.[0] || "" }}
-          @if ((ebookFormGroup.get("category")?.value?.length || 0) > 1) {
+          {{ ebookFormGroup.controls["categories"].value[0]?.name || "" }}
+          @if ((ebookFormGroup.controls["categories"].value.length || 0) > 1) {
             <span class="additional-selection">
-              (+{{ (ebookFormGroup.get("category")?.value?.length || 0) - 1 }}
+              (+{{
+                (ebookFormGroup.controls["categories"].value.length || 0) - 1
+              }}
               {{
-                ebookFormGroup.get("category")?.value?.length === 2
+                ebookFormGroup.controls["categories"].value.length === 2
                   ? "thể loại"
                   : "thể loại"
               }})
             </span>
           }
         </mat-select-trigger>
-        @for (genre of genreList; track genre) {
-          <mat-option [value]="genre">{{ genre }}</mat-option>
+        @for (genre of categories$ | async; track genre) {
+          <mat-option [value]="genre">{{ genre.name }}</mat-option>
         }
       </mat-select>
-      @if (category.hasError("required")) {
+      @if (categories.hasError("required")) {
         <mat-error>Bạn phải chọn ít nhất 1 thể loại</mat-error>
       }
     </mat-form-field>
@@ -131,6 +133,7 @@
         formControlName="imageUrl"
         (blur)="updateImageUrlErrorMessage()"
         required
+        readonly
       />
       @if (ebookFormGroup.get("imageUrl")?.valid) {
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
@@ -146,7 +149,6 @@
         type="file"
         class="mdc-text-field__input"
         id="cover-file-input"
-        required
         (blur)="updateImageUrlErrorMessage()"
         (change)="onImagePicked($event)"
       />
@@ -154,6 +156,7 @@
       <div class="mdc-line-ripple"></div>
     </div>
     <div class="mdc-text-field--error"></div>
+
     <!--   file form control   -->
     <mat-form-field appearance="fill">
       <mat-label>Url Pdf</mat-label>
@@ -163,6 +166,7 @@
         formControlName="content"
         (blur)="updateContentErrorMessage()"
         required
+        readonly
       />
       @if (ebookFormGroup.get("content")?.valid) {
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
@@ -178,7 +182,6 @@
         type="file"
         class="mdc-text-field__input"
         id="pdf-file-input"
-        required
         (blur)="updateContentErrorMessage()"
         (change)="onPdfPicked($event)"
       />

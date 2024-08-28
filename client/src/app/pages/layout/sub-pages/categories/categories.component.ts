@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { catchError, delay } from 'rxjs/operators';
+import { CardService } from '../../../../../services/card.service';
 
 @Component({
   selector: 'app-category',
@@ -27,13 +28,13 @@ export class CategoriesComponent implements OnInit {
   error: string | null = null;
 
   constructor(
-    private ebookService: EbookService,
+    private cardService: CardService,
     private route: ActivatedRoute,
     private categoryService: CategoryService,
   ) {}
 
   ngOnInit(): void {
-    this.ebooks = this.ebookService.getEbooks();
+    this.ebooks = this.cardService.getEbooks();
 
     // Gọi API để lấy danh sách thể loại với delay 2s
     this.categoryService

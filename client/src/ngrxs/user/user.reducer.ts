@@ -91,4 +91,14 @@ export const userReducer = createReducer(
       loadingError: action.error,
     };
   }),
+  on(UserActions.reset, (state, action) => {
+    console.log(action.type);
+    return <UserState>{
+      ...state,
+      isUpdatedSuccess: false,
+      updatingError: '',
+      loadingError: '',
+      isCreatedSuccess: false,
+    };
+  }),
 );
