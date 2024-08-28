@@ -25,6 +25,8 @@ import { categoryReducer } from '../ngrxs/category/category.reducer';
 import { CategoryEffects } from '../ngrxs/category/category.effects';
 import { pdfExtractReducer } from '../ngrxs/pdf-extract/pdf-extract.reducer';
 import { PdfExtractEffects } from '../ngrxs/pdf-extract/pdf-extract.effects';
+import { UserEbooksEffects } from '../ngrxs/user_ebooks/user_ebooks.effects';
+import { userEbooksReducer } from '../ngrxs/user_ebooks/user_ebooks.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -41,6 +43,7 @@ export const appConfig: ApplicationConfig = {
       search: searchReducer,
       category: categoryReducer,
       pdfExtract: pdfExtractReducer,
+      userEbook: userEbooksReducer,
     }),
     provideEffects(
       AuthEffects,
@@ -50,6 +53,7 @@ export const appConfig: ApplicationConfig = {
       SearchEffects,
       CategoryEffects,
       PdfExtractEffects,
+      UserEbooksEffects,
     ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
