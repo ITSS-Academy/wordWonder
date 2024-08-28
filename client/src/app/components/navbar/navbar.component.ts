@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
@@ -22,9 +23,14 @@ import { AuthState } from '../../../ngrxs/auth/auth.state';
 import { debounceTime, Subscription } from 'rxjs';
 import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 import { UserState } from '../../../ngrxs/user/user.state';
+<<<<<<< HEAD
+import { EbookService } from '../../../services/ebook.service';
+import { ProfileModel } from '../../../models/profile.model';
+=======
 import { JWTTokenService } from '../../../services/jwttoken.service';
 import { SearchState } from '../../../ngrxs/search/search.state';
 import * as SearchActions from '../../../ngrxs/search/search.actions';
+>>>>>>> 27c41049e1f6985576b4338f8899eb23836a4b98
 
 @Component({
   selector: 'app-navbar',
@@ -59,7 +65,12 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       search: SearchState;
     }>,
     private router: Router,
+<<<<<<< HEAD
+    private ebookService: EbookService,
+    private cdr: ChangeDetectorRef,
+=======
     private jwtTokenService: JWTTokenService,
+>>>>>>> 27c41049e1f6985576b4338f8899eb23836a4b98
   ) {
     this.searchControl.valueChanges
       .pipe(takeUntilDestroyed())
@@ -112,6 +123,11 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this.store.select('auth', 'isStaticUser').subscribe((value) => {
         this.isStaticUser = value;
       }),
+<<<<<<< HEAD
+      this.profile$.subscribe(() => {
+        this.cdr.detectChanges();
+      }),
+=======
       this.searchControl.valueChanges
         .pipe(debounceTime(1000))
         .subscribe((value) => {
@@ -119,6 +135,7 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
             this.store.dispatch(SearchActions.search({ q: value }));
           }
         }),
+>>>>>>> 27c41049e1f6985576b4338f8899eb23836a4b98
     );
   }
 
