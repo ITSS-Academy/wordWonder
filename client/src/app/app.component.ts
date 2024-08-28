@@ -9,6 +9,7 @@ import * as UserActions from '../ngrxs/user/user.actions';
 import { UserState } from '../ngrxs/user/user.state';
 import { SessionStorageService } from '../services/session-storage.service';
 import { JWTTokenService } from '../services/jwttoken.service';
+import * as CategoryActions from '../ngrxs/category/category.actions';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private jwtTokenService: JWTTokenService,
   ) {
+    this.store.dispatch(CategoryActions.listCategory());
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
         const token = await user.getIdTokenResult();

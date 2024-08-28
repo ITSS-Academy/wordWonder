@@ -15,12 +15,12 @@ export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
   @Get('ebooks')
-  async searchEbooks(@Body() request: any) {
-    return this.searchService.searchEbooks(request.query);
+  async searchEbooks(@Query('q') request: string) {
+    return this.searchService.searchEbooks(request);
   }
 
   @Get('any')
-  async searchTags(@Query('q') q: string) {
+  async searchAny(@Query('q') q: string) {
     let ebooks = await this.searchService.searchAny('wordwonder_ebooks', q);
     return {
       ebooks: ebooks,

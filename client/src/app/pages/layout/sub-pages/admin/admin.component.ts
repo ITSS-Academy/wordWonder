@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,7 +8,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { EbookFormDialogComponent } from './components/ebook-form-dialog/ebook-form-dialog.component';
-import { EbookService } from '../../../../../services/ebook.service';
 import { Store } from '@ngrx/store';
 import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
 import { Subscription } from 'rxjs';
@@ -42,7 +34,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     'description',
     'like',
     'view',
-    'category',
+    'categories',
   ];
   dataSource: MatTableDataSource<EBookModel>;
   selection = new SelectionModel<EBookModel>(true, []);
@@ -84,6 +76,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.store.select('ebook', 'ebooks').subscribe((ebooks) => {
         this.ebooks = ebooks;
         this.initTable();
+        //clear checkbox state
+        this.selection.clear();
       }),
       this.store.select('ebook', 'loadingListError').subscribe((error) => {
         if (error) {

@@ -26,18 +26,9 @@ export class EbooksService {
     private readonly searchService: SearchService,
   ) {}
 
-  async create(CreateEbookDto: CreateEbookDto) {
+  async create(createEbookDto: CreateEbookDto) {
     try {
-      let newEbook = new Ebook();
-      newEbook.name = CreateEbookDto.name;
-      newEbook.imageUrl = CreateEbookDto.imageUrl;
-      newEbook.description = CreateEbookDto.description;
-      newEbook.author = CreateEbookDto.author;
-      newEbook.translator = CreateEbookDto.translator;
-      newEbook.like = 0;
-      newEbook.view = 0;
-      newEbook.content = CreateEbookDto.content;
-      newEbook.categories = CreateEbookDto.categories;
+      let newEbook = this.ebookRepository.create(createEbookDto);
       await this.ebookRepository.save(newEbook);
       await this.searchService.indexEbook(newEbook);
       return;
@@ -85,7 +76,6 @@ export class EbooksService {
       const categories = await this.categoryRepository.findBy({
         id: In(updateEbookDto.categories.map((category) => category.id)),
       });
-
       updateEbook.name = updateEbookDto.name;
       updateEbook.imageUrl = updateEbookDto.imageUrl;
       updateEbook.description = updateEbookDto.description;

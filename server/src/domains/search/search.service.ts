@@ -23,6 +23,7 @@ export class SearchService {
         author: ebook.author,
         description: ebook.description,
         translator: ebook.translator,
+        imageUrl: ebook.imageUrl,
         categories: ebook.categories.map((category) => category.name),
       },
     });
@@ -30,16 +31,21 @@ export class SearchService {
 
   async searchEbooks(query: string) {
     // search for profiles by username or email or uid
-    const response = await this.esClient.search({
-      index: 'wordwonder_ebooks',
-      query: {
-        multi_match: {
-          query: query,
-          fields: ['id', 'name', 'author', 'description'],
+    try {
+      const response = await this.esClient.search({
+        index: 'wordwonder_ebooks',
+        query: {
+          multi_match: {
+            query: query,
+            fields: ['id', 'name', 'author', 'description', 'categories'],
+          },
         },
-      },
-    });
-    return response.hits.hits;
+      });
+      return response.hits.hits;
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
   }
 
   async updateEbook(ebook: Ebook) {

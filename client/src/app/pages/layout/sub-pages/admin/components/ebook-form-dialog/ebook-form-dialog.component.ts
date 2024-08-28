@@ -46,10 +46,10 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
   name = new FormControl('', [Validators.required]);
   author = new FormControl('', [Validators.required]);
   description = new FormControl('', [Validators.required]);
-  category = new FormControl('', [Validators.required]);
   content = new FormControl(null, [Validators.required]);
   imageUrl = new FormControl(null, [Validators.required]);
   translator = new FormControl('', [Validators.required]);
+  categories = new FormControl([], [Validators.required]);
 
   nameErrorMessage = signal('');
   authorErrorMessage = signal('');
@@ -73,7 +73,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       description: new FormControl('', [Validators.required]),
       imageUrl: new FormControl('', [Validators.required]),
       content: new FormControl('', [Validators.required]),
-      category: new FormControl([], [Validators.required]),
+      categories: new FormControl([], [Validators.required]),
       translator: new FormControl('', [Validators.required]),
     });
     if (data != undefined) {
@@ -113,7 +113,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       this.store.select('file_upload', 'downloadCoverURL').subscribe((url) => {
         if (url != null) {
           this.ebookFormGroup.patchValue({ imageUrl: url });
-          this._snackBar.open('File uploaded successfully', 'Close', {
+          this._snackBar.open('Đăng tải ảnh thành công', 'Đóng', {
             duration: 5000,
           });
         }
@@ -121,7 +121,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       this.store.select('file_upload', 'downloadPdfURL').subscribe((url) => {
         if (url != null) {
           this.ebookFormGroup.patchValue({ content: url });
-          this._snackBar.open('Đăng tải ảnh thành công', 'Close', {
+          this._snackBar.open('Đăng tải ảnh thành công', 'Đóng', {
             duration: 5000,
           });
         }
@@ -131,7 +131,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
       }),
       this.store.select('file_upload', 'error').subscribe((error) => {
         if (error) {
-          this._snackBar.open('Đăng tải ảnh thất bại', 'Close', {
+          this._snackBar.open('Đăng tải ảnh thất bại', 'Đóng', {
             duration: 5000,
           });
         }

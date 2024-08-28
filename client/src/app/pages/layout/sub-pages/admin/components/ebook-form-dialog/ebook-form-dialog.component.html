@@ -96,19 +96,19 @@
       <mat-label>Thể loại</mat-label>
       <mat-select
         placeholder="thể loại..."
-        formControlName="category"
+        formControlName="categories"
         multiple
         required
       >
         <mat-select-trigger>
-          {{ ebookFormGroup.controls["category"].value[0] || "" }}
-          @if ((ebookFormGroup.controls["category"].value.length || 0) > 1) {
+          {{ ebookFormGroup.controls["categories"].value[0]?.name || "" }}
+          @if ((ebookFormGroup.controls["categories"].value.length || 0) > 1) {
             <span class="additional-selection">
               (+{{
-                (ebookFormGroup.controls["category"].value.length || 0) - 1
+                (ebookFormGroup.controls["categories"].value.length || 0) - 1
               }}
               {{
-                ebookFormGroup.controls["category"].value.length === 2
+                ebookFormGroup.controls["categories"].value.length === 2
                   ? "thể loại"
                   : "thể loại"
               }})
@@ -119,7 +119,7 @@
           <mat-option [value]="genre">{{ genre.name }}</mat-option>
         }
       </mat-select>
-      @if (category.hasError("required")) {
+      @if (categories.hasError("required")) {
         <mat-error>Bạn phải chọn ít nhất 1 thể loại</mat-error>
       }
     </mat-form-field>

@@ -15,7 +15,7 @@ export class EbookService {
 
   //findOne
   getEbookDetail(id: string) {
-    return this.http.get(`ebooks/${id}`);
+    return this.http.get(`ebooks/one/${id}`);
   }
 
   //add new book
@@ -25,7 +25,7 @@ export class EbookService {
 
   //update book
   updateEbook(ebook: EBookModel) {
-    return this.http.patch(`ebooks/${ebook.id}`, ebook);
+    return this.http.patch(`ebooks/one/${ebook.id}`, ebook);
   }
 
   //trend
