@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
@@ -23,6 +24,7 @@ import { Subscription } from 'rxjs';
 import * as AuthActions from '../../../ngrxs/auth/auth.actions';
 import { UserState } from '../../../ngrxs/user/user.state';
 import { EbookService } from '../../../services/ebook.service';
+import { ProfileModel } from '../../../models/profile.model';
 
 @Component({
   selector: 'app-navbar',
@@ -54,6 +56,7 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
     private store: Store<{ auth: AuthState; user: UserState }>,
     private router: Router,
     private ebookService: EbookService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.searchControl.valueChanges
       .pipe(takeUntilDestroyed())
@@ -105,6 +108,9 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       }),
       this.store.select('auth', 'isStaticUser').subscribe((value) => {
         this.isStaticUser = value;
+      }),
+      this.profile$.subscribe(() => {
+        this.cdr.detectChanges();
       }),
     );
   }

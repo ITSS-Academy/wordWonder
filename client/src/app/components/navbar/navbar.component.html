@@ -56,7 +56,10 @@
   } @else {
     <div id="avatar">
       <img
-        [src]="(profile$ | async)?.photoURL"
+        [src]="
+          (profile$ | async)?.photoURL ||
+          '../../../../public/assets/avatar/default-avatar.png'
+        "
         [alt]="(profile$ | async)?.nickName"
         [matMenuTriggerFor]="avaMenu"
       />

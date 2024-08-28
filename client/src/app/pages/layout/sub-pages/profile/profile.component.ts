@@ -96,9 +96,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }),
       this.store.select('user', 'isUpdatedSuccess').subscribe((val) => {
         if (val) {
-          this._snackBar.open('Cập nhật thông tin thành công', 'Close', {
+          this._snackBar.open('Cập nhật thông tin thành công', 'Đóng', {
             duration: 5000,
           });
+          this.store.dispatch(UserActions.getById());
         }
       }),
       this.store.select('user', 'updatingError').subscribe((error) => {
