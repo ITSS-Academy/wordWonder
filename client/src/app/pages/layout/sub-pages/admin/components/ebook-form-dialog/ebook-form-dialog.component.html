@@ -133,6 +133,7 @@
         formControlName="imageUrl"
         (blur)="updateImageUrlErrorMessage()"
         required
+        readonly
       />
       @if (ebookFormGroup.get("imageUrl")?.valid) {
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
@@ -148,7 +149,6 @@
         type="file"
         class="mdc-text-field__input"
         id="cover-file-input"
-        required
         (blur)="updateImageUrlErrorMessage()"
         (change)="onImagePicked($event)"
       />
@@ -156,6 +156,7 @@
       <div class="mdc-line-ripple"></div>
     </div>
     <div class="mdc-text-field--error"></div>
+
     <!--   file form control   -->
     <mat-form-field appearance="fill">
       <mat-label>Url Pdf</mat-label>
@@ -165,6 +166,7 @@
         formControlName="content"
         (blur)="updateContentErrorMessage()"
         required
+        readonly
       />
       @if (ebookFormGroup.get("content")?.valid) {
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
@@ -180,7 +182,6 @@
         type="file"
         class="mdc-text-field__input"
         id="pdf-file-input"
-        required
         (blur)="updateContentErrorMessage()"
         (change)="onPdfPicked($event)"
       />

@@ -16,7 +16,10 @@ export class SearchController {
 
   @Get('ebooks')
   async searchEbooks(@Query('q') request: string) {
-    return this.searchService.searchEbooks(request);
+    let ebooks = await this.searchService.searchEbooks(request);
+    return {
+      ebooks: ebooks,
+    };
   }
 
   @Get('any')

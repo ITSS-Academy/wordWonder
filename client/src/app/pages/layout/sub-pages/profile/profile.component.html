@@ -69,6 +69,7 @@
             matInput
             placeholder="Avatar người dùng"
             formControlName="photoURL"
+            readonly
           />
           @if (profileForm.get("photoURL")?.hasError("required")) {
             <mat-error> Avatar url không được để trống</mat-error>
