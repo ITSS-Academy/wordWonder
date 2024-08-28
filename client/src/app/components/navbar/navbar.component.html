@@ -43,7 +43,7 @@
       @for (ebook of searchResults$ | async; track ebook) {
         @if (showDropdown) {
           <div class="dropdown-item" (click)="navigateToEbookDetailPage(ebook)">
-            <img [src]="ebook.imageUrl" alt="ebook cover" />
+            <img [src]="ebook.imageUrl" [alt]="ebook.name" />
             <div class="name-author">
               <span class="name"
                 ><b>{{ ebook.name }}</b></span
