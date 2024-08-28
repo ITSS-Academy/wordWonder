@@ -115,7 +115,7 @@ export class EbooksService {
         .leftJoinAndSelect('ebook.categories', 'categories')
         .select(['ebook', 'categories'])
         .orderBy('ebook.view', 'DESC')
-        .limit(limit)
+        .take(limit)
         .getMany();
     } catch (e) {
       throw new HttpException(e, 400);
@@ -129,7 +129,7 @@ export class EbooksService {
         .leftJoinAndSelect('ebook.categories', 'categories')
         .select(['ebook', 'categories'])
         .orderBy('ebook.like', 'DESC')
-        .limit(limit)
+        .take(limit)
         .getMany();
     } catch (e) {
       throw new HttpException(e, 400);
