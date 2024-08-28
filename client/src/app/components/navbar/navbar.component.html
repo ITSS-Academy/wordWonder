@@ -36,19 +36,14 @@
       @if ((searchResults$ | async)?.length == 0 || (error$ | async)) {
         @if (showDropdown) {
           <div class="dropdown-item">
-            <span>Không tìm thấy kết quả</span>
+            <div class="name-author">Không tìm thấy kết quả</div>
           </div>
         }
       }
       @for (ebook of searchResults$ | async; track ebook) {
         @if (showDropdown) {
           <div class="dropdown-item" (click)="navigateToEbookDetailPage(ebook)">
-            <img
-              width="40"
-              height="40"
-              [src]="ebook.imageUrl"
-              alt="ebook cover"
-            />
+            <img [src]="ebook.imageUrl" alt="ebook cover" />
             <div class="name-author">
               <span class="name"
                 ><b>{{ ebook.name }}</b></span
