@@ -52,19 +52,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.store.select('ebook', 'trendingList').subscribe((ebooks) => {
         if (ebooks.length > 0) {
           this.trendingList = [...ebooks];
-          console.log(this.trendingList);
+          // console.log(this.trendingList);
         }
       }),
       this.store.select('ebook', 'ratingList').subscribe((ebooks) => {
         if (ebooks.length > 0) {
           this.ratingList = [...ebooks];
-          console.log(this.ratingList);
+          // console.log(this.ratingList);
         }
       }),
       this.store.select('ebook', 'recommendedList').subscribe((ebooks) => {
         if (ebooks.length > 0) {
           this.recommendedList = [...ebooks];
-          console.log(this.recommendedList);
+          // console.log(this.recommendedList);
         }
       }),
     );
