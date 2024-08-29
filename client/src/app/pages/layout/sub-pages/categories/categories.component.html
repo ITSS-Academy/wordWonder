@@ -25,7 +25,7 @@
     }
 
     @if (!(isLoading$ | async) && !(error$ | async)) {
-      <mat-chip-option *ngFor="let type of genre; trackBy: trackByFn">
+      <mat-chip-option *ngFor="let type of genres; trackBy: trackByFn">
         {{ type.name }}
       </mat-chip-option>
     }
@@ -35,14 +35,21 @@
     @if (
       (isListingTrendingList$ | async) ||
       (isListingRatingList$ | async) ||
-      (isListingRecommendedList$ | async)
+      (isListingRecommendedList$ | async) ||
+      (findListUserHistoryLoading$ | async)
     ) {
       <div class="loading-book">
         <mat-spinner [mode]="'indeterminate'"></mat-spinner>
       </div>
     } @else {
-      @for (ebook of ebooks; track ebook) {
-        <app-ebook-card [ebook]="ebook"></app-ebook-card>
+      @if (ebooks.length == 0) {
+        <div>
+          <p class="no-book">Danh sách rỗng</p>
+        </div>
+      } @else {
+        @for (ebook of ebooks; track ebook) {
+          <app-ebook-card [ebook]="ebook"></app-ebook-card>
+        }
       }
     }
   </div>

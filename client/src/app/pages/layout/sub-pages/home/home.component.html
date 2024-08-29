@@ -20,7 +20,7 @@
         >
           @if (historyList.length == 0) {
             <div class="example-item">
-              <p>Không có dữ liệu</p>
+              <p>Danh sách rỗng</p>
             </div>
           } @else {
             <div *cdkVirtualFor="let ebook of historyList" class="example-item">
@@ -53,7 +53,7 @@
         >
           @if (trendingList.length == 0) {
             <div class="example-item">
-              <p>Không có dữ liệu</p>
+              <p>Danh sách rỗng</p>
             </div>
           } @else {
             <div
@@ -89,7 +89,7 @@
         >
           @if (recommendedList.length == 0) {
             <div class="example-item">
-              <p>Không có dữ liệu</p>
+              <p>Danh sách rỗng</p>
             </div>
           } @else {
             <div
@@ -123,7 +123,7 @@
         >
           @if (ratingList.length == 0) {
             <div class="example-item">
-              <p>Không có dữ liệu</p>
+              <p>Danh sách rỗng</p>
             </div>
           } @else {
             <div *cdkVirtualFor="let ebook of ratingList" class="example-item">
