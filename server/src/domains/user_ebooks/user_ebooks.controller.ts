@@ -30,7 +30,7 @@ export class UserEbooksController {
     );
   }
 
-  @Get()
+  @Get('history')
   listUserHistory(@Request() req: any) {
     return this.userEbooksService.listUserHistory(req.user.id || req.user.uid);
   }
