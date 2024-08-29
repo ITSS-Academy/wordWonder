@@ -211,3 +211,104 @@
     width: 100%;
   }
 }
+
+/* Skeleton container */
+#skeleton-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1em 0;
+}
+
+#skeleton-left-card,
+#skeleton-right-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+}
+
+/* Common skeleton style */
+.skeleton {
+  background: linear-gradient(90deg, rgba(165, 165, 165, 0.2) 25%, rgba(200, 200, 200, 0.6) 50%, rgba(165, 165, 165, 0.2) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton elements for the left side */
+.skeleton-nickname,
+.skeleton-email,
+.skeleton-sdt,
+.skeleton-avatar,
+.skeleton-file {
+  height: 20px;
+  width: 100%;
+}
+
+.skeleton-nickname,
+.skeleton-email,
+.skeleton-sdt {
+  height: 40px;
+}
+
+.skeleton-avatar {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.skeleton-file {
+  height: 30px;
+  width: 100%;
+}
+
+/* Skeleton elements for the right side */
+.skeleton-top-right {
+  height: 120px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.skeleton-bot-right .skeleton-right-nickname,
+.skeleton-bot-right .skeleton-right-email,
+.skeleton-bot-right .skeleton-right-sdt,
+.skeleton-bot-right .skeleton-buttons-edit,
+.skeleton-bot-right .skeleton-buttons-setting {
+  height: 20px;
+  width: 100%;
+}
+
+.skeleton-buttons-edit,
+.skeleton-buttons-setting {
+  height: 30px;
+  width: 50%;
+  margin-top: 10px;
+}
+
+/* Mobile view */
+@media (max-width: 425px) {
+  #skeleton-card-content {
+    flex-direction: column;
+  }
+
+  #skeleton-left-card,
+  #skeleton-right-card {
+    width: 100%;
+  }
+
+  #skeleton-right-card {
+    display: none;
+  }
+}
