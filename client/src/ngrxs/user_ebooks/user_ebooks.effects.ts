@@ -42,7 +42,7 @@ export class UserEbooksEffects {
         this.userEbooksService.findByOne(action.id).pipe(
           map((userEbook) => UserEbooksActions.findByOneSuccess({ userEbook })),
           catchError((error) => {
-            console.log(error);
+            // console.log(error);
             return of(UserEbooksActions.findByOneFailure({ error }));
           }),
         ),

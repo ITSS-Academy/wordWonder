@@ -11,6 +11,7 @@ import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
 import { JWTTokenService } from '../../../../../services/jwttoken.service';
 import { UserEbooksState } from '../../../../../ngrxs/user_ebooks/user_ebooks.state';
+import * as UserEbookActions from '../../../../../ngrxs/user_ebooks/user_ebooks.actions';
 
 @Component({
   selector: 'app-book-info',
@@ -38,13 +39,11 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   isFavorite: boolean = false;
 
   addToFavorites(): void {
-    this.isFavorite = true;
-    this.openSnackBar('Đã thêm vào yêu thích', 'Đóng');
+    this.store.dispatch(EbookActions.like({ id: this.ebookId }));
   }
 
   removeFromFavorites(): void {
-    this.isFavorite = false;
-    this.openSnackBar('Đã bỏ yêu thích', 'Đóng');
+    this.store.dispatch(EbookActions.unlike({ id: this.ebookId }));
   }
 
   isLoadingDetail$ = this.store.select('ebook', 'isLoadingDetail');
@@ -61,9 +60,29 @@ export class BookInfoComponent implements OnInit, OnDestroy {
           if (idToken != '' && params['id']) {
             this.ebookId = params['id'];
             this.store.dispatch(EbookActions.getById({ id: params['id'] }));
+            this.store.dispatch(
+              UserEbookActions.findByOne({ id: params['id'] }),
+            );
           }
         },
       ),
+      this.store.select('ebook', 'isLikingSuccess').subscribe((val) => {
+        if (val) {
+          this.openSnackBar('Đã thêm vào yêu thích', 'Đóng');
+          this.store.dispatch(UserEbookActions.findByOne({ id: this.ebookId }));
+        }
+      }),
+      this.store.select('ebook', 'isUnlikingSuccess').subscribe((val) => {
+        if (val) {
+          this.openSnackBar('Đã bỏ yêu thích', 'Đóng');
+          this.store.dispatch(UserEbookActions.findByOne({ id: this.ebookId }));
+        }
+      }),
+      this.store.select('user_ebook', 'selectedUserEbook').subscribe((val) => {
+        if (val) {
+          this.isFavorite = val.isLiked;
+        }
+      }),
     );
   }
 
@@ -73,7 +92,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
-      duration: 5000,
+      duration: 2000,
     });
   }
 

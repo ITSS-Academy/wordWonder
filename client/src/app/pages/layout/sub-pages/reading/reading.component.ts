@@ -9,10 +9,12 @@ import { UserEbooksState } from '../../../../../ngrxs/user_ebooks/user_ebooks.st
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 import * as UserEbookActions from '../../../../../ngrxs/user_ebooks/user_ebooks.actions';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserEbookModel } from '../../../../../models/user_ebooks.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JWTTokenService } from '../../../../../services/jwttoken.service';
 import * as EBookActions from '../../../../../ngrxs/ebook/ebook.actions';
+import { PdfExtractState } from '../../../../../ngrxs/pdf-extract/pdf-extract.state';
+import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
+import * as PdfExtractActions from '../../../../../ngrxs/pdf-extract/pdf-extract.actions';
 
 @Component({
   selector: 'app-reading',
@@ -29,7 +31,12 @@ export class ReadingComponent implements OnInit, OnDestroy {
   params$ = this.activatedRoute.params;
 
   constructor(
-    private store: Store<{ user_ebook: UserEbooksState; auth: AuthState }>,
+    private store: Store<{
+      user_ebook: UserEbooksState;
+      auth: AuthState;
+      pdf_extract: PdfExtractState;
+      ebook: EbookState;
+    }>,
     private activatedRoute: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private router: Router,
@@ -49,6 +56,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
       combineLatest([this.idToken$, this.params$]).subscribe(
         ([idToken, params]) => {
           if (idToken != '' && params['id']) {
+            this.store.dispatch(EBookActions.getById({ id: params['id'] }));
             this.store.dispatch(EBookActions.view({ id: params['id'] }));
             this.store.dispatch(
               UserEbookActions.findByOne({ id: params['id'] }),
@@ -86,6 +94,15 @@ export class ReadingComponent implements OnInit, OnDestroy {
             {
               duration: 2000,
             },
+          );
+        }
+      }),
+      this.store.select('ebook', 'selectedEbook').subscribe((val) => {
+        if (val) {
+          this.store.dispatch(
+            PdfExtractActions.extract({
+              fileUrl: encodeURIComponent(val.content),
+            }),
           );
         }
       }),

@@ -15,6 +15,7 @@ import { UserEbooksState } from '../../../../../ngrxs/user_ebooks/user_ebooks.st
 import * as UserEbookActions from '../../../../../ngrxs/user_ebooks/user_ebooks.actions';
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 import { CategoryModel } from '../../../../../models/category.model';
+import { MatChipSelectionChange } from '@angular/material/chips';
 
 @Component({
   selector: 'app-category',
@@ -27,6 +28,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
 
   ebooks: EBookModel[] = [];
+  filterEbooks: EBookModel[] = [];
+  selectedChip: CategoryModel[] = [];
 
   headerName: string = '';
 
@@ -147,5 +150,25 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       return;
     }
     this.router.navigate(['/main']).then(() => {});
+  }
+
+  filterList($event: MatChipSelectionChange, index: number) {
+    if ($event.selected) {
+      this.selectedChip.push(this.genres[index]);
+    } else {
+      this.selectedChip = this.selectedChip.filter(
+        (item) => item.id !== this.genres[index].id,
+      );
+    }
+
+    //the filterEbooks will add the ebooks that have one of the selected genres
+    this.filterEbooks = this.ebooks.filter((ebook) => {
+      return ebook.categories.some((category) => {
+        return this.selectedChip.some((selected) => {
+          return category.id === selected.id;
+        });
+      });
+    });
+    console.log(this.filterEbooks);
   }
 }
