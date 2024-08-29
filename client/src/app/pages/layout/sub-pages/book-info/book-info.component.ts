@@ -4,7 +4,7 @@ import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { NgStyle } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
@@ -19,6 +19,7 @@ import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
 })
 export class BookInfoComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
+  ebookId: string = '';
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -30,16 +31,20 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   isLoadingDetail$ = this.store.select('ebook', 'isLoadingDetail');
   selectedEbook$ = this.store.select('ebook', 'selectedEbook');
   skeletonTags: number[] = [];
+  idToken$ = this.store.select('auth', 'idToken');
+  params$ = this.activatedRoute.params;
 
   ngOnInit(): void {
-    const { id } = this.activatedRoute.snapshot.params;
     this.skeletonTags = Array.from({ length: 10 }, (_, i) => i + 1);
     this.subscriptions.push(
-      this.store.select('auth', 'idToken').subscribe((idToken) => {
-        if (idToken != '') {
-          this.store.dispatch(EbookActions.getById({ id: id }));
-        }
-      }),
+      combineLatest([this.idToken$, this.params$]).subscribe(
+        ([idToken, params]) => {
+          if (idToken != '' && params['id']) {
+            this.ebookId = params['id'];
+            this.store.dispatch(EbookActions.getById({ id: params['id'] }));
+          }
+        },
+      ),
     );
   }
 

@@ -26,7 +26,6 @@ export class EbookCardComponent implements OnInit {
     setTimeout(() => {
       this.isLoading.set(false);
     }, 1000);
-    console.log(this.ebook);
   }
 
   navigateToDetail(url: string, id: string) {
