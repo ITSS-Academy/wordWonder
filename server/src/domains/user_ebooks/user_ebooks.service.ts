@@ -32,13 +32,18 @@ export class UserEbooksService {
       return await this.userEbookRepository
         .createQueryBuilder('userEbook')
         .leftJoinAndSelect('userEbook.ebook', 'ebook')
+        .leftJoinAndSelect('ebook.categories', 'categories')
         .select([
           'userEbook.readingStatus',
           'userEbook.purchaseDate',
+          'userEbook.isLiked',
           'ebook.id',
           'ebook.name',
           'ebook.imageUrl',
           'ebook.author',
+          'ebook.publishedDate',
+          'categories.id',
+          'categories.name',
         ])
         .where('userEbook.userId = :userId', { userId })
         .getMany();
@@ -50,17 +55,16 @@ export class UserEbooksService {
   async findOneByEbookIdAndUserId(ebookId: string, userId: string) {
     try {
       let result = await this.userEbookRepository
-        .createQueryBuilder('UserEbook')
-        .leftJoinAndSelect('UserEbook.ebook', 'ebook')
-        .leftJoinAndSelect('UserEbook.user', 'user')
+        .createQueryBuilder('userEbook')
+        .leftJoinAndSelect('userEbook.ebook', 'ebook')
+        .leftJoinAndSelect('userEbook.user', 'user')
         .select([
-          'UserEbook',
+          'userEbook',
           'ebook.id',
           'ebook.name',
           'user.id',
           'user.nickName',
           'user.photoURL',
-          'UserEbook.isLiked',
         ])
         .where('UserEbook.userId = :userId', { userId })
         .andWhere('UserEbook.ebookId = :ebookId', { ebookId })
