@@ -41,7 +41,6 @@ export class UserEbooksService {
           'ebook.name',
           'ebook.imageUrl',
           'ebook.author',
-          'ebook.publishedDate',
           'categories.id',
           'categories.name',
         ])
@@ -66,8 +65,8 @@ export class UserEbooksService {
           'user.nickName',
           'user.photoURL',
         ])
-        .where('UserEbook.userId = :userId', { userId })
-        .andWhere('UserEbook.ebookId = :ebookId', { ebookId })
+        .where('userEbook.userId = :userId', { userId })
+        .andWhere('userEbook.ebookId = :ebookId', { ebookId })
         .getOne();
       if (!result) {
         throw new HttpException('UserEbook not found', HttpStatus.NOT_FOUND);

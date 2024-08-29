@@ -101,7 +101,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
         if (val) {
           this.store.dispatch(
             PdfExtractActions.extract({
-              fileUrl: encodeURIComponent(val.content),
+              fileUrl: val.content,
             }),
           );
         }
