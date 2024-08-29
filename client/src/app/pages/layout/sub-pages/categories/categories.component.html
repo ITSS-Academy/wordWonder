@@ -25,7 +25,10 @@
     }
 
     @if (!(isLoading$ | async) && !(error$ | async)) {
-      <mat-chip-option *ngFor="let type of genres; trackBy: trackByFn">
+      <mat-chip-option
+        *ngFor="let type of genres; trackBy: trackByFn; let i = index"
+        (selectionChange)="filterList($event, i)"
+      >
         {{ type.name }}
       </mat-chip-option>
     }
@@ -42,13 +45,25 @@
         <mat-spinner [mode]="'indeterminate'"></mat-spinner>
       </div>
     } @else {
-      @if (ebooks.length == 0) {
-        <div>
-          <p class="no-book">Danh sách rỗng</p>
-        </div>
+      @if (this.selectedChip.length > 0) {
+        @if (filterEbooks.length == 0) {
+          <div>
+            <p class="no-book">Danh sách rỗng</p>
+          </div>
+        } @else {
+          @for (ebook of filterEbooks; track ebook) {
+            <app-ebook-card [ebook]="ebook"></app-ebook-card>
+          }
+        }
       } @else {
-        @for (ebook of ebooks; track ebook) {
-          <app-ebook-card [ebook]="ebook"></app-ebook-card>
+        @if (ebooks.length == 0) {
+          <div>
+            <p class="no-book">Danh sách rỗng</p>
+          </div>
+        } @else {
+          @for (ebook of ebooks; track ebook) {
+            <app-ebook-card [ebook]="ebook"></app-ebook-card>
+          }
         }
       }
     }

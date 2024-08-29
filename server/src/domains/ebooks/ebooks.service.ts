@@ -196,7 +196,8 @@ export class EbooksService {
         const newUserEbook = new UserEbook();
         newUserEbook.ebook = ebookId as any;
         newUserEbook.user = userId as any;
-        userEbook.isLiked = true;
+        newUserEbook.isLiked = true;
+        newUserEbook.purchaseDate = Date.now().toString();
         await this.userEbookRepository.save(newUserEbook);
       }
       ebook.like += 1;
