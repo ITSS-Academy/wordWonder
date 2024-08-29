@@ -13,6 +13,7 @@ import { UserEbookModel } from '../../../../../models/user_ebooks.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JWTTokenService } from '../../../../../services/jwttoken.service';
 import * as EBookActions from '../../../../../ngrxs/ebook/ebook.actions';
+import { PdfExtractState } from '../../../../../ngrxs/pdf-extract/pdf-extract.state';
 
 @Component({
   selector: 'app-reading',
@@ -29,7 +30,11 @@ export class ReadingComponent implements OnInit, OnDestroy {
   params$ = this.activatedRoute.params;
 
   constructor(
-    private store: Store<{ user_ebook: UserEbooksState; auth: AuthState }>,
+    private store: Store<{
+      user_ebook: UserEbooksState;
+      auth: AuthState;
+      pdf_extract: PdfExtractState;
+    }>,
     private activatedRoute: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private router: Router,
