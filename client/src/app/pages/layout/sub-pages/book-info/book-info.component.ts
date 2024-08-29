@@ -10,6 +10,7 @@ import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
 import { JWTTokenService } from '../../../../../services/jwttoken.service';
+import { UserEbooksState } from '../../../../../ngrxs/user_ebooks/user_ebooks.state';
 
 @Component({
   selector: 'app-book-info',
@@ -25,7 +26,11 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   constructor(
     private _snackBar: MatSnackBar,
     private router: Router,
-    private store: Store<{ ebook: EbookState; auth: AuthState }>,
+    private store: Store<{
+      ebook: EbookState;
+      auth: AuthState;
+      user_ebook: UserEbooksState;
+    }>,
     private activatedRoute: ActivatedRoute,
     private jwtTokenService: JWTTokenService,
   ) {}
@@ -77,7 +82,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     if (this.jwtTokenService.isTokenExpired()) {
       return;
     }
-    this.router.navigate(['/main/reading']).then();
+    this.router.navigate(['/main/reading', this.ebookId]).then();
   }
 
   goBackToHome(): void {

@@ -17,6 +17,6 @@ export class UserEbooksService {
   }
 
   findByOne(ebookId: string) {
-    return this.http.get(`user-ebooks/one/${ebookId}`);
+    return this.http.get(`user-ebooks/one?ebookId=${ebookId}`);
   }
 }

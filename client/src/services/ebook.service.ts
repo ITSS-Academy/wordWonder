@@ -40,7 +40,7 @@ export class EbookService {
 
   //view
   increaseView(id: string) {
-    return this.http.get('ebooks/view/' + id);
+    return this.http.patch('ebooks/view/' + id, {});
   }
 
   //increase view
@@ -50,7 +50,7 @@ export class EbookService {
 
   //decrease view
   disLike(id: string) {
-    return this.http.put(`ebooks/dislike/${id}`, {});
+    return this.http.patch(`ebooks/dislike/${id}`, {});
   }
 
   //find by recommend

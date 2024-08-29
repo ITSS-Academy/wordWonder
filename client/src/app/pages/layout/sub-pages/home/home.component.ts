@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   trendingList: EBookModel[] = [];
   ratingList: EBookModel[] = [];
   recommendedList: EBookModel[] = [];
-  historyList: UserEbookModel[] = [];
+  historyList: EBookModel[] = [];
   subscription: Subscription[] = [];
 
   isLoadingRating$ = this.store.select('ebook', 'isListingRatingList');
@@ -86,7 +86,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         .select('user_ebook', 'userReadingHistory')
         .subscribe((ebooks) => {
           if (ebooks.length > 0) {
-            this.historyList = [...ebooks];
+            this.historyList = ebooks.map((item) => {
+              return item.ebook;
+            });
           }
         }),
     );
