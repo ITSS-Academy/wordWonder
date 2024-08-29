@@ -77,7 +77,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     // Simulate loading data
     setTimeout(() => {
       this.isLoading = false;
-    }, 200000); // Adjust the timeout as needed
+    }, 2000); // Adjust the timeout as needed
   }
 
   ngOnDestroy(): void {}
