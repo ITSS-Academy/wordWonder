@@ -35,6 +35,11 @@
         text-decoration: underline;
       }
     }
+
+    .example-margin {
+      display: flex;
+      margin: 0 auto;
+    }
   }
 
   hr {
@@ -90,14 +95,19 @@
 }
 
 .skeleton::before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 0;
   left: -150px;
   height: 100%;
   width: 150px;
-  background: linear-gradient(to right, transparent 0%, #f0f0f0 50%, transparent 100%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #f0f0f0 50%,
+    transparent 100%
+  );
   animation: loading 1.5s infinite;
 }
 
@@ -112,4 +122,3 @@
     left: 100%;
   }
 }
-

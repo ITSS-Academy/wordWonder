@@ -3,7 +3,7 @@
     <button
       mat-icon-button
       aria-label="Example icon button with a arrow_back icon"
-      [routerLink]="'/main'"
+      (click)="navigateBack()"
     >
       <mat-icon>arrow_back</mat-icon>
     </button>
@@ -13,27 +13,44 @@
   <div class="genre">
     <p>Thể loại:</p>
 
-    @if (isLoading) {
+    @if (isLoading$ | async) {
       <div class="loading-genre">
         <mat-spinner [diameter]="24"></mat-spinner>
         <!--diameter = 24: set kích thước = 24px-->
       </div>
     }
 
-    @if (error) {
+    @if (error$ | async) {
       <div class="error">Đã có lỗi xảy ra khỉ tải thể loại sách.</div>
     }
 
-    @if (!isLoading && !error) {
-      <mat-chip-option *ngFor="let type of genre; trackBy: trackByFn">
+    @if (!(isLoading$ | async) && !(error$ | async)) {
+      <mat-chip-option *ngFor="let type of genres; trackBy: trackByFn">
         {{ type.name }}
       </mat-chip-option>
     }
   </div>
 
   <div class="book">
-    @for (ebook of ebooks; track ebook) {
-      <app-ebook-card [ebook]="ebook"></app-ebook-card>
+    @if (
+      (isListingTrendingList$ | async) ||
+      (isListingRatingList$ | async) ||
+      (isListingRecommendedList$ | async) ||
+      (findListUserHistoryLoading$ | async)
+    ) {
+      <div class="loading-book">
+        <mat-spinner [mode]="'indeterminate'"></mat-spinner>
+      </div>
+    } @else {
+      @if (ebooks.length == 0) {
+        <div>
+          <p class="no-book">Danh sách rỗng</p>
+        </div>
+      } @else {
+        @for (ebook of ebooks; track ebook) {
+          <app-ebook-card [ebook]="ebook"></app-ebook-card>
+        }
+      }
     }
   </div>
 </div>

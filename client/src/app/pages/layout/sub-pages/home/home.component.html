@@ -6,17 +6,30 @@
         >Xem thêm</a
       >
     </div>
-    <div class="cdk-virtual-scroll-data-source-example">
-      <cdk-virtual-scroll-viewport
-        orientation="horizontal"
-        itemSize="50"
-        class="example-viewport"
-      >
-        <div *cdkVirtualFor="let ebook of ebooks" class="example-item">
-          <app-ebook-card [ebook]="ebook"></app-ebook-card>
-        </div>
-      </cdk-virtual-scroll-viewport>
-    </div>
+    @if (findListUserHistoryLoading$ | async) {
+      <mat-progress-spinner
+        class="example-margin"
+        mode="indeterminate"
+      ></mat-progress-spinner>
+    } @else {
+      <div class="cdk-virtual-scroll-data-source-example">
+        <cdk-virtual-scroll-viewport
+          orientation="horizontal"
+          itemSize="50"
+          class="example-viewport"
+        >
+          @if (historyList.length == 0) {
+            <div class="example-item">
+              <p>Danh sách rỗng</p>
+            </div>
+          } @else {
+            <div *cdkVirtualFor="let ebook of historyList" class="example-item">
+              <app-ebook-card [ebook]="ebook"></app-ebook-card>
+            </div>
+          }
+        </cdk-virtual-scroll-viewport>
+      </div>
+    }
   </div>
   <hr />
   <div class="content">
@@ -26,17 +39,33 @@
         >Xem thêm</a
       >
     </div>
-    <div class="cdk-virtual-scroll-data-source-example">
-      <cdk-virtual-scroll-viewport
-        orientation="horizontal"
-        itemSize="50"
-        class="example-viewport"
-      >
-        <div *cdkVirtualFor="let ebook of ebooks" class="example-item">
-          <app-ebook-card [ebook]="ebook"></app-ebook-card>
-        </div>
-      </cdk-virtual-scroll-viewport>
-    </div>
+    @if (isLoadingTrending$ | async) {
+      <mat-progress-spinner
+        class="example-margin"
+        mode="indeterminate"
+      ></mat-progress-spinner>
+    } @else {
+      <div class="cdk-virtual-scroll-data-source-example">
+        <cdk-virtual-scroll-viewport
+          orientation="horizontal"
+          itemSize="50"
+          class="example-viewport"
+        >
+          @if (trendingList.length == 0) {
+            <div class="example-item">
+              <p>Danh sách rỗng</p>
+            </div>
+          } @else {
+            <div
+              *cdkVirtualFor="let ebook of trendingList"
+              class="example-item"
+            >
+              <app-ebook-card [ebook]="ebook"></app-ebook-card>
+            </div>
+          }
+        </cdk-virtual-scroll-viewport>
+      </div>
+    }
   </div>
   <hr />
   <div class="content">
@@ -47,15 +76,31 @@
       >
     </div>
     <div class="cdk-virtual-scroll-data-source-example">
-      <cdk-virtual-scroll-viewport
-        orientation="horizontal"
-        itemSize="50"
-        class="example-viewport"
-      >
-        <div *cdkVirtualFor="let ebook of ebooks" class="example-item">
-          <app-ebook-card [ebook]="ebook"></app-ebook-card>
-        </div>
-      </cdk-virtual-scroll-viewport>
+      @if (isLoadingRecommended$ | async) {
+        <mat-progress-spinner
+          class="example-margin"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+      } @else {
+        <cdk-virtual-scroll-viewport
+          orientation="horizontal"
+          itemSize="50"
+          class="example-viewport"
+        >
+          @if (recommendedList.length == 0) {
+            <div class="example-item">
+              <p>Danh sách rỗng</p>
+            </div>
+          } @else {
+            <div
+              *cdkVirtualFor="let ebook of recommendedList"
+              class="example-item"
+            >
+              <app-ebook-card [ebook]="ebook"></app-ebook-card>
+            </div>
+          }
+        </cdk-virtual-scroll-viewport>
+      }
     </div>
   </div>
   <hr />
@@ -65,15 +110,28 @@
       <a class="see-more" [routerLink]="['/main/categories/rank']">Xem thêm</a>
     </div>
     <div class="cdk-virtual-scroll-data-source-example">
-      <cdk-virtual-scroll-viewport
-        orientation="horizontal"
-        itemSize="50"
-        class="example-viewport"
-      >
-        <div *cdkVirtualFor="let ebook of ebooks" class="example-item">
-          <app-ebook-card [ebook]="ebook"></app-ebook-card>
-        </div>
-      </cdk-virtual-scroll-viewport>
+      @if (isLoadingRating$ | async) {
+        <mat-progress-spinner
+          class="example-margin"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+      } @else {
+        <cdk-virtual-scroll-viewport
+          orientation="horizontal"
+          itemSize="50"
+          class="example-viewport"
+        >
+          @if (ratingList.length == 0) {
+            <div class="example-item">
+              <p>Danh sách rỗng</p>
+            </div>
+          } @else {
+            <div *cdkVirtualFor="let ebook of ratingList" class="example-item">
+              <app-ebook-card [ebook]="ebook"></app-ebook-card>
+            </div>
+          }
+        </cdk-virtual-scroll-viewport>
+      }
     </div>
   </div>
 </div>

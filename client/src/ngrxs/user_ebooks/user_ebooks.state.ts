@@ -2,14 +2,14 @@ import { UserEbookModel } from '../../models/user_ebooks.model';
 
 export interface UserEbooksState {
   createSuccess: boolean;
-  createFailure: boolean;
+  createError: any;
   createLoading: boolean;
 
-  findListUserHistorySuccess: boolean;
-  findListUserHistoryFailure: boolean;
+  userReadingHistory: UserEbookModel[];
+  findListUserHistoryError: any;
   findListUserHistoryLoading: boolean;
 
-  findByOneSuccess: boolean;
-  findByOneFailure: boolean;
-  findByOneLoading: boolean;
+  selectedUserEbook: UserEbookModel | null;
+  findOneError: any;
+  isFindingOne: boolean;
 }

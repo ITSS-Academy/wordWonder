@@ -1,10 +1,11 @@
 import { ProfileModel } from './profile.model';
+import { EBookModel } from './ebook.model';
 
 export interface UserEbookModel extends ProfileModel {
-  userId: string;
-  ebookId: string;
+  user: ProfileModel;
+  ebook: EBookModel;
   readingStatus: string;
-  purchaseDate: Date;
-  lastReadDate: Date;
+  purchaseDate: string;
+  lastReadDate: string;
   isLiked: boolean;
 }
