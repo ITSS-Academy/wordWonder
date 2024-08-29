@@ -157,6 +157,16 @@
   margin-top: 10px;
 }
 
+button.un-favorite{
+  background-color: #ff897d ;
+}
+
+button[hidden] {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
 #novel-body-container {
   margin: 0 auto;
   padding: 15px;

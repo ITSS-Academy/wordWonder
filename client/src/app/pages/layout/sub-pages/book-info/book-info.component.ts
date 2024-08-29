@@ -30,6 +30,18 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     private jwtTokenService: JWTTokenService,
   ) {}
 
+  isFavorite: boolean = false;
+
+  addToFavorites(): void {
+    this.isFavorite = true;
+    this.openSnackBar('Đã thêm vào yêu thích', 'Đóng');
+  }
+
+  removeFromFavorites(): void {
+    this.isFavorite = false;
+    this.openSnackBar('Đã bỏ yêu thích', 'Đóng');
+  }
+
   isLoadingDetail$ = this.store.select('ebook', 'isLoadingDetail');
   selectedEbook$ = this.store.select('ebook', 'selectedEbook');
   skeletonTags: number[] = [];
