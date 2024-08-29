@@ -23,8 +23,11 @@ export class HttpClientAuth {
   private transformRequest(url: string, options: any) {
     let newUrl = '';
 
-    newUrl = `${environment.apiUrl}/${url}`;
-
+    if (url.includes('https://pdf-extracter.ext.akademy.dev/extract')) {
+      newUrl = url;
+    } else {
+      newUrl = `${environment.apiUrl}/${url}`;
+    }
     return {
       url: newUrl,
       options: {
