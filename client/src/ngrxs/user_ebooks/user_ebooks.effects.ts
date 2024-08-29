@@ -41,9 +41,10 @@ export class UserEbooksEffects {
       mergeMap((action) =>
         this.userEbooksService.findByOne(action.id).pipe(
           map((userEbook) => UserEbooksActions.findByOneSuccess({ userEbook })),
-          catchError((error) =>
-            of(UserEbooksActions.findByOneFailure({ error })),
-          ),
+          catchError((error) => {
+            console.log(error);
+            return of(UserEbooksActions.findByOneFailure({ error }));
+          }),
         ),
       ),
     ),

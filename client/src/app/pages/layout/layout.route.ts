@@ -33,7 +33,7 @@ export const LAYOUT_ROUTES: Routes = [
         canActivate: [RoleGuards.canActivateAdmin],
       },
       {
-        path: 'reading',
+        path: 'reading/:id',
         loadChildren: () =>
           import('./sub-pages/reading/reading.route').then(
             (m) => m.READING_ROUTES,
