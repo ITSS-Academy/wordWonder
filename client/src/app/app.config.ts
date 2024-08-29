@@ -43,7 +43,7 @@ export const appConfig: ApplicationConfig = {
       search: searchReducer,
       category: categoryReducer,
       pdfExtract: pdfExtractReducer,
-      userEbook: userEbooksReducer,
+      user_ebook: userEbooksReducer,
     }),
     provideEffects(
       AuthEffects,

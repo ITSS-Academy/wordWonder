@@ -3,7 +3,13 @@ import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { NgStyle } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
+import { AuthState } from '../../../../../ngrxs/auth/auth.state';
+import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
+import { JWTTokenService } from '../../../../../services/jwttoken.service';
 
 @Component({
   selector: 'app-book-info',
@@ -13,74 +19,40 @@ import { Router } from '@angular/router';
   styleUrl: './book-info.component.scss',
 })
 export class BookInfoComponent implements OnInit, OnDestroy {
-  //genres but vietnamese
-  genres = [
-    'Khoa học',
-    'Kinh tế',
-    'Tâm lý',
-    'Kỹ năng sống',
-    'Thiếu nhi',
-    'Truyện tranh',
-    'Văn học',
-    'Tôn giáo',
-    'Tự truyện',
-    'Tâm linh',
-    'Thể thao',
-    'Sức khỏe',
-    'Sách giáo khoa',
-    'Sách học ngoại ngữ',
-    'Sách tham khảo',
-    'Sách chuyên ngành',
-    'Sách kỹ năng',
-    'Sách khoa học',
-    'Sách kinh doanh',
-    'Sách lịch sử',
-    'Sách phong thủy',
-    'Sách tâm lý',
-    'Sách thiếu nhi',
-    'Sách trinh thám',
-    'Sách văn học',
-    'Sách văn hóa',
-    'Sách văn học nước ngoài',
-    'Sách văn học Việt Nam',
-    'Sách văn học dân gian',
-    'Sách văn học kinh điển',
-    'Sách văn học hiện đại',
-    'Sách văn học trinh thám',
-    'Sách văn học tình cảm',
-    'Sách văn học huyền bí',
-    'Sách văn học hồi ký',
-    'Sách văn học kỳ ảo',
-    'Sách văn học kinh điển',
-    'Sách văn học lịch sử',
-    'Sách văn học lãng mạn',
-    'Sách văn học ngôn tình',
-    'Sách văn học phiêu lưu',
-    'Sách văn học tâm lý',
-    'Sách văn học tình yêu',
-    'Sách văn học trinh thám',
-    'Sách văn học tương lai',
-    'Sách văn học viễn tưởng',
-    'Sách văn học xã hội',
-    'Sách văn học xuyên không',
-  ];
+  subscriptions: Subscription[] = [];
+  ebookId: string = '';
 
   constructor(
     private _snackBar: MatSnackBar,
     private router: Router,
+    private store: Store<{ ebook: EbookState; auth: AuthState }>,
+    private activatedRoute: ActivatedRoute,
+    private jwtTokenService: JWTTokenService,
   ) {}
-  isLoading: boolean = true;
+
+  isLoadingDetail$ = this.store.select('ebook', 'isLoadingDetail');
+  selectedEbook$ = this.store.select('ebook', 'selectedEbook');
   skeletonTags: number[] = [];
+  idToken$ = this.store.select('auth', 'idToken');
+  params$ = this.activatedRoute.params;
 
   ngOnInit(): void {
     this.skeletonTags = Array.from({ length: 10 }, (_, i) => i + 1);
-    // Simulate loading data
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 200000); // Adjust the timeout as needed
+    this.subscriptions.push(
+      combineLatest([this.idToken$, this.params$]).subscribe(
+        ([idToken, params]) => {
+          if (idToken != '' && params['id']) {
+            this.ebookId = params['id'];
+            this.store.dispatch(EbookActions.getById({ id: params['id'] }));
+          }
+        },
+      ),
+    );
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
@@ -89,10 +61,18 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   }
 
   read() {
+    this.jwtTokenService.checkTokenExpired();
+    if (this.jwtTokenService.isTokenExpired()) {
+      return;
+    }
     this.router.navigate(['/main/reading']).then();
   }
 
   goBackToHome(): void {
+    this.jwtTokenService.checkTokenExpired();
+    if (this.jwtTokenService.isTokenExpired()) {
+      return;
+    }
     this.router.navigate(['/main']).then();
   }
 }

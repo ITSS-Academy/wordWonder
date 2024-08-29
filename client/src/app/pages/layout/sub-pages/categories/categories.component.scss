@@ -68,6 +68,11 @@
       align-self: center;
       justify-self: center;
     }
+
+    .loading-book {
+      display: flex;
+      margin: auto;
+    }
   }
 
   .book::-webkit-scrollbar {

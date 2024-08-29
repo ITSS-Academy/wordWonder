@@ -4,84 +4,90 @@ import { UserEbooksState } from './user_ebooks.state';
 
 const initialState: UserEbooksState = {
   createSuccess: false,
-  createFailure: false,
+  createError: false,
   createLoading: false,
-
-  findListUserHistorySuccess: false,
-  findListUserHistoryFailure: false,
+  userReadingHistory: [],
+  findListUserHistoryError: undefined,
   findListUserHistoryLoading: false,
-
-  findByOneSuccess: false,
-  findByOneFailure: false,
-  findByOneLoading: false,
+  selectedUserEbook: null,
+  findOneError: undefined,
+  isFindingOne: false,
 };
 export const userEbooksReducer = createReducer(
   initialState,
   on(UserEbooksActions.create, (state, action) => {
     console.log(action.type);
-    return <UserEbooksState>{ ...state, loading: true };
+    return <UserEbooksState>{
+      ...state,
+      createSuccess: false,
+      createLoading: true,
+      createError: undefined,
+    };
   }),
   on(UserEbooksActions.createSuccess, (state, action) => {
     console.log(action.type);
     return <UserEbooksState>{
       ...state,
-      loading: false,
-      userEbook: action.userEbook,
+      createSuccess: true,
+      createLoading: false,
     };
   }),
   on(UserEbooksActions.createFailure, (state, action) => {
     console.log(action.type);
     return <UserEbooksState>{
       ...state,
-      loading: false,
-      error: action.error,
+      createLoading: false,
+      createError: action.error,
     };
   }),
   on(UserEbooksActions.findListUserHistory, (state) => {
     console.log(UserEbooksActions.findListUserHistory.type);
     return <UserEbooksState>{
       ...state,
-      userEbookHistoryLoading: true,
+      findListUserHistoryLoading: true,
+      findListUserHistoryError: undefined,
+      userReadingHistory: [],
     };
   }),
   on(UserEbooksActions.findListUserHistorySuccess, (state, action) => {
     console.log(UserEbooksActions.findListUserHistorySuccess.type);
     return <UserEbooksState>{
       ...state,
-      userEbookHistoryLoading: false,
-      userEbookHistory: action.userEbooks,
-      userEbookHistorySuccess: true,
+      findListUserHistoryLoading: false,
+      userReadingHistory: action.userEbooks,
     };
   }),
   on(UserEbooksActions.findListUserHistoryFailure, (state, action) => {
     console.log(UserEbooksActions.findListUserHistoryFailure.type);
     return <UserEbooksState>{
       ...state,
-      userEbookHistoryLoading: false,
-      userEbookHistoryError: action.error,
+      findListUserHistoryLoading: false,
+      findListUserHistoryError: action.error,
     };
   }),
   on(UserEbooksActions.findByOne, (state) => {
     console.log(UserEbooksActions.findByOne.type);
     return <UserEbooksState>{
       ...state,
-      loading: true,
+      selectedUserEbook: null,
+      isFindingOne: true,
+      findOneError: undefined,
     };
   }),
   on(UserEbooksActions.findByOneSuccess, (state, action) => {
     console.log(UserEbooksActions.findByOneSuccess.type);
     return <UserEbooksState>{
       ...state,
-      loading: false,
-      userEbook: action.userEbook,
+      selectedUserEbook: action.userEbook,
+      isFindingOne: false,
     };
   }),
   on(UserEbooksActions.findByOneFailure, (state, action) => {
     console.log(UserEbooksActions.findByOneFailure.type);
     return <UserEbooksState>{
       ...state,
-      loading: false,
-      error: action.error,
+      isFindingOne: false,
+      findOneError: action.error,
     };
   }),
 );
