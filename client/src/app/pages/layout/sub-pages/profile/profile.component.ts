@@ -69,12 +69,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.store.dispatch(UploadActions.reset());
   }
 
-  isLoading : boolean = true;
+
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
     this.subscriptions.push(
       this.store.select('file_upload', 'downloadAvatarURL').subscribe((url) => {
         if (url != null) {

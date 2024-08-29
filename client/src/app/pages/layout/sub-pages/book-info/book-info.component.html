@@ -121,12 +121,22 @@
       </div>
     </div>
     <button
-      mat-stroked-button
-      class="btn-mobile"
-      (click)="openSnackBar('Đã thêm vào yêu thích', 'Đóng')"
+      mat-flat-button
+      class="btn-mobile favorite"
+      (click)="addToFavorites()"
+      [hidden]="isFavorite"
     >
       <mat-icon>favorite</mat-icon>
       Yêu thích
+    </button>
+    <button
+      mat-flat-button
+      class="btn-mobile un-favorite"
+      (click)="removeFromFavorites()"
+      [hidden]="!isFavorite"
+    >
+      <mat-icon>favorite_border</mat-icon>
+      Bỏ yêu thích
     </button>
     <button mat-flat-button class="btn-mobile" (click)="read()">
       <mat-icon>book_2</mat-icon>

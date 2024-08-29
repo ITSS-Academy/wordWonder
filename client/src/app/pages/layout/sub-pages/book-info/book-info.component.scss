@@ -310,6 +310,17 @@ type-mobile {
     margin: 10px;
     display: flex;
   }
+
+  .btn-mobile.un-favorite:hover {
+    background-color: #ff897d ;
+  }
+
+  .btn-mobile[hidden] {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
   .type-mobile {
     display: block;
     width: 100%;
