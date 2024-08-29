@@ -18,148 +18,149 @@
       </button>
       <h4>Thông tin cá nhân</h4>
     </div>
-    <div id="card-content">
-      <form [formGroup]="profileForm" id="left-card">
-        <mat-form-field appearance="outline">
-          <mat-label>Nickname</mat-label>
-          <input
-            matInput
-            placeholder="Tên người dùng"
-            formControlName="nickName"
-          />
-          @if (profileForm.get("nickName")?.hasError("required")) {
-            <mat-error> Tên người dùng không được để trống</mat-error>
-          }
-        </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            placeholder="Email người dùng"
-            formControlName="email"
-          />
-          @if (profileForm.get("email")?.hasError("required")) {
-            <mat-error> Email người dùng không được để trống</mat-error>
-          }
-          @if (profileForm.get("email")?.hasError("email")) {
-            <mat-error> Email người dùng không hợp lệ</mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Số điện thoại</mat-label>
-          <input
-            matInput
-            placeholder="Số điện thoại người dùng"
-            formControlName="phoneNumber"
-            type="tel"
-          />
-          @if (profileForm.get("phoneNumber")?.hasError("required")) {
-            <mat-error> Sđt người dùng không được để trống</mat-error>
-          }
-          @if (profileForm.get("phoneNumber")?.hasError("pattern")) {
-            <mat-error> Sđt người dùng không hợp lệ</mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Avatar Url</mat-label>
-          <input
-            matInput
-            placeholder="Avatar người dùng"
-            formControlName="photoURL"
-            readonly
-          />
-          @if (profileForm.get("photoURL")?.hasError("required")) {
-            <mat-error> Avatar url không được để trống</mat-error>
-          }
-        </mat-form-field>
-
-        <div class="custom-file-input">
-          <input
-            type="file"
-            accept="image/*"
-            id="fileInput"
-            (change)="onFileSelected($event)"
-          />
-          <label for="fileInput" class="file-input-label">
-            Đăng tải ảnh từ máy
-            <img
-              src="../public/assets/upploadImg.png"
-              alt="Logo"
-              class="file-input-logo"
+    @if (isLoading) {
+      <div id="skeleton-card-content">
+        <div id="skeleton-left-card">
+          <div class="skeleton-nickname"></div>
+          <div class="skeleton-email"></div>
+          <div class="skeleton-sdt"></div>
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-file"></div>
+        </div>
+        <div id="skeleton-right-card">
+          <div class="skeleton-top-right"></div>
+          <div class="skeleton-bot-right">
+            <div class="skeleton-right-nickname"></div>
+            <div class="skeleton-right-email"></div>
+            <div class="skeleton-right-sdt"></div>
+            <div class="skeleton-buttons-edit"></div>
+            <div class="skeleton-buttons-setting"></div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div id="card-content">
+        <form [formGroup]="profileForm" id="left-card">
+          <mat-form-field appearance="outline">
+            <mat-label>Nickname</mat-label>
+            <input
+              matInput
+              placeholder="Tên người dùng"
+              formControlName="nickName"
             />
-          </label>
-        </div>
+            @if (profileForm.get("nickName")?.hasError("required")) {
+              <mat-error> Tên người dùng không được để trống</mat-error>
+            }
+          </mat-form-field>
 
-        <div class="example-button-row">
-          <button
-            mat-flat-button
-            class="btn-setting"
-            [disabled]="profileForm.invalid"
-            (click)="openConfirmUpdateDialog()"
-          >
-            <mat-icon>edit</mat-icon>
-            Cập nhật hồ sơ
-          </button>
-          @if (isStaticUser) {
-            <button
-              mat-stroked-button
-              class="btn-admin"
-              [routerLink]="['/main/admin']"
-            >
-              <mat-icon>admin_panel_settings</mat-icon>
-              Admin
-            </button>
-          }
-        </div>
-      </form>
-      <div id="right-card">
-        <div class="top-right">
-          <img
-            [src]="
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email người dùng"
+              formControlName="email"
+            />
+            @if (profileForm.get("email")?.hasError("required")) {
+              <mat-error> Email người dùng không được để trống</mat-error>
+            }
+            @if (profileForm.get("email")?.hasError("email")) {
+              <mat-error> Email người dùng không hợp lệ</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Số điện thoại</mat-label>
+            <input
+              matInput
+              placeholder="Số điện thoại người dùng"
+              formControlName="phoneNumber"
+              type="tel"
+            />
+            @if (profileForm.get("phoneNumber")?.hasError("required")) {
+              <mat-error> Sđt người dùng không được để trống</mat-error>
+            }
+            @if (profileForm.get("phoneNumber")?.hasError("pattern")) {
+              <mat-error> Sđt người dùng không hợp lệ</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Avatar Url</mat-label>
+            <input
+              matInput
+              placeholder="Avatar người dùng"
+              formControlName="photoURL"
+              readonly
+            />
+            @if (profileForm.get("photoURL")?.hasError("required")) {
+              <mat-error> Avatar url không được để trống</mat-error>
+            }
+          </mat-form-field>
+
+          <div class="custom-file-input">
+            <input
+              type="file"
+              accept="image/*"
+              id="fileInput"
+              (change)="onFileSelected($event)"
+            />
+            <label for="fileInput" class="file-input-label">
+              Đăng tải ảnh từ máy
+              <img
+                src="../public/assets/upploadImg.png"
+                alt="Logo"
+                class="file-input-logo"
+              />
+            </label>
+          </div>
+        </form>
+        <div id="right-card">
+          <div class="top-right">
+            <img
+              [src]="
               profileForm.get('photoURL')?.value != '' &&
               profileForm.get('photoURL')?.value != null
                 ? profileForm.get('photoURL')?.value
                 : '../public/assets/default-avatar.png'
             "
-            alt="Profile Image"
-            class="profile-image"
-          />
-        </div>
-        <div class="bot-right">
-          <p>
-            Tên: <b> {{ profileForm.get("nickName")?.value }}</b>
-          </p>
-          <p>
-            Email: <b>{{ profileForm.get("email")?.value }}</b>
-          </p>
-          <p>Số điện thoại: +{{ profileForm.get("phoneNumber")?.value }}</p>
+              alt="Profile Image"
+              class="profile-image"
+            />
+          </div>
+          <div class="bot-right">
+            <p>
+              Tên: <b> {{ profileForm.get("nickName")?.value }}</b>
+            </p>
+            <p>
+              Email: <b>{{ profileForm.get("email")?.value }}</b>
+            </p>
+            <p>Số điện thoại: +{{ profileForm.get("phoneNumber")?.value }}</p>
 
-          <div class="example-button-row">
-            <button
-              mat-flat-button
-              class="btn-setting"
-              [disabled]="profileForm.invalid"
-              (click)="openConfirmUpdateDialog()"
-            >
-              <mat-icon>edit</mat-icon>
-              Cập nhật hồ sơ
-            </button>
-            @if (isStaticUser) {
+            <div class="example-button-row">
               <button
-                mat-stroked-button
-                class="btn-admin"
-                (click)="navigate('/main/admin')"
+                mat-flat-button
+                class="btn-setting"
+                [disabled]="profileForm.invalid"
+                (click)="openConfirmUpdateDialog()"
               >
-                <mat-icon>admin_panel_settings</mat-icon>
-                Admin
+                <mat-icon>edit</mat-icon>
+                Cập nhật hồ sơ
               </button>
-            }
+              @if (isStaticUser) {
+                <button
+                  mat-stroked-button
+                  class="btn-admin"
+                  (click)="navigate('/main/admin')"
+                >
+                  <mat-icon>admin_panel_settings</mat-icon>
+                  Admin
+                </button>
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    }
   </mat-card>
 </div>
