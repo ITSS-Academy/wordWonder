@@ -212,103 +212,133 @@
   }
 }
 
-/* Skeleton container */
+/* Skeleton Container */
+#skeleton-card-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-color-lighter);
+}
+
 #skeleton-card-content {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 1em 0;
+  padding: 10px;
 }
 
 #skeleton-left-card,
 #skeleton-right-card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 50%;
 }
 
-/* Common skeleton style */
-.skeleton {
-  background: linear-gradient(90deg, rgba(165, 165, 165, 0.2) 25%, rgba(200, 200, 200, 0.6) 50%, rgba(165, 165, 165, 0.2) 75%);
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
-  border-radius: 4px;
+#skeleton-left-card {
+  flex: 1;
 }
 
-@keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+#skeleton-right-card {
+  flex: 1;
+  text-align: right; /* Aligns the text to the right */
 }
 
-/* Skeleton elements for the left side */
+/* Skeleton Blocks */
 .skeleton-nickname,
 .skeleton-email,
 .skeleton-sdt,
 .skeleton-avatar,
-.skeleton-file {
-  height: 20px;
-  width: 100%;
+.skeleton-file,
+.skeleton-right-nickname,
+.skeleton-right-email,
+.skeleton-right-sdt,
+.skeleton-buttons-edit,
+.skeleton-buttons-setting {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
 
-.skeleton-nickname,
-.skeleton-email,
+/* Skeleton Sizes */
+.skeleton-nickname {
+  width: 60%;
+  height: 24px;
+}
+
+.skeleton-email {
+  width: 80%;
+  height: 20px;
+}
+
 .skeleton-sdt {
-  height: 40px;
+  width: 70%;
+  height: 20px;
 }
 
 .skeleton-avatar {
-  height: 100px;
   width: 100px;
+  height: 100px;
   border-radius: 50%;
 }
 
 .skeleton-file {
-  height: 30px;
-  width: 100%;
+  width: 50%;
+  height: 35px;
 }
 
-/* Skeleton elements for the right side */
-.skeleton-top-right {
-  height: 120px;
-  width: 100%;
-  border-radius: 8px;
-}
-
-.skeleton-bot-right .skeleton-right-nickname,
-.skeleton-bot-right .skeleton-right-email,
-.skeleton-bot-right .skeleton-right-sdt,
-.skeleton-bot-right .skeleton-buttons-edit,
-.skeleton-bot-right .skeleton-buttons-setting {
-  height: 20px;
-  width: 100%;
+.skeleton-right-nickname,
+.skeleton-right-email,
+.skeleton-right-sdt {
+  width: 50%;
+  height: 18px;
 }
 
 .skeleton-buttons-edit,
 .skeleton-buttons-setting {
-  height: 30px;
-  width: 50%;
-  margin-top: 10px;
+  width: 80px;
+  height: 35px;
 }
 
-/* Mobile view */
-@media (max-width: 425px) {
-  #skeleton-card-content {
-    flex-direction: column;
-  }
+/* Loading Animation */
+.skeleton-card-content::before,
+.skeleton-nickname::before,
+.skeleton-email::before,
+.skeleton-sdt::before,
+.skeleton-avatar::before,
+.skeleton-file::before,
+.skeleton-right-nickname::before,
+.skeleton-right-email::before,
+.skeleton-right-sdt::before,
+.skeleton-buttons-edit::before,
+.skeleton-buttons-setting::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -150px;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(
+      to right,
+      transparent 0%,
+      #f0f0f0 50%,
+      transparent 100%
+  );
+  animation: loading 1.5s infinite;
+}
 
-  #skeleton-left-card,
-  #skeleton-right-card {
-    width: 100%;
+/* Keyframes for the loading animation */
+@keyframes loading {
+  0% {
+    left: -150px;
   }
-
-  #skeleton-right-card {
-    display: none;
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
   }
 }
