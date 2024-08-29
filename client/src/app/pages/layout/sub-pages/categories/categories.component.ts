@@ -1,16 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { EbookService } from '../../../../../services/ebook.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EBookModel } from '../../../../../models/ebook.model';
-import { CategoryService } from '../../../../../services/category.service';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { EbookCardComponent } from '../../../../components/ebook-card/ebook-card.component';
-import { MatChipsModule } from '@angular/material/chips';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
-import { catchError, delay } from 'rxjs/operators';
-import { CardService } from '../../../../../services/card.service';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { CategoryState } from '../../../../../ngrxs/category/category.state';
+import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
+import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
+import { JWTTokenService } from '../../../../../services/jwttoken.service';
 
 @Component({
   selector: 'app-category',
@@ -18,62 +18,93 @@ import { CardService } from '../../../../../services/card.service';
   imports: [MaterialModule, SharedModule, EbookCardComponent, CommonModule],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
+  subscription: Subscription[] = [];
+
   ebooks: EBookModel[] = [];
+
   headerName: string = '';
+
   genre: any;
-  isLoading: boolean = true;
-  error: string | null = null;
+
+  isLoading$ = this.store.select('category', 'isLoading');
+  error$ = this.store.select('category', 'error');
+
+  isListingTrendingList$ = this.store.select('ebook', 'isListingTrendingList');
+  isListingRecommendedList$ = this.store.select(
+    'ebook',
+    'isListingRecommendedList',
+  );
+  isListingRatingList$ = this.store.select('ebook', 'isListingRatingList');
 
   constructor(
-    private cardService: CardService,
+    private router: Router,
     private route: ActivatedRoute,
-    private categoryService: CategoryService,
+    private store: Store<{ category: CategoryState; ebook: EbookState }>,
+    private jwtTokenService: JWTTokenService,
   ) {}
 
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
+  }
+
   ngOnInit(): void {
-    this.ebooks = this.cardService.getEbooks();
-
-    // Gọi API để lấy danh sách thể loại với delay 2s
-    this.categoryService
-      .getCategories()
-      .pipe(
-        delay(2000),
-        catchError((error) => {
-          this.error = 'Không tải được danh sách thể loại';
-          this.isLoading = false;
-          return of([]); // Trả về mảng rỗng trong trường hợp lỗi
-        }),
-      )
-      .subscribe((categories) => {
-        this.genre = categories;
-        this.isLoading = false;
-      });
-
-    this.route.paramMap.subscribe((params) => {
-      const type = params.get('type');
-      if (type) {
-        switch (type) {
-          case 'history':
-            this.headerName = 'Lịch sử';
-            break;
-          case 'trends':
-            this.headerName = 'Thịnh hành';
-            break;
-          case 'recommend':
-            this.headerName = 'Đề xuất';
-            break;
-          case 'rank':
-            this.headerName = 'Bảng xếp hạng';
-            break;
+    this.subscription.push(
+      this.store.select('category', 'categories').subscribe((categories) => {
+        if (categories) {
+          this.genre = categories;
         }
-      }
-    });
+      }),
+      this.store.select('ebook', 'trendingList').subscribe((ebooks) => {
+        if (ebooks.length > 0) {
+          this.ebooks = [...ebooks];
+        }
+      }),
+      this.store.select('ebook', 'recommendedList').subscribe((ebooks) => {
+        if (ebooks.length > 0) {
+          this.ebooks = [...ebooks];
+        }
+      }),
+      this.store.select('ebook', 'ratingList').subscribe((ebooks) => {
+        if (ebooks.length > 0) {
+          this.ebooks = [...ebooks];
+        }
+      }),
+      this.route.paramMap.subscribe((params) => {
+        const type = params.get('type');
+        if (type) {
+          switch (type) {
+            case 'history':
+              this.headerName = 'Lịch sử';
+              break;
+            case 'trends':
+              this.headerName = 'Thịnh hành';
+              this.store.dispatch(EbookActions.listTrending({ limit: 100 }));
+              break;
+            case 'recommend':
+              this.headerName = 'Đề xuất';
+              this.store.dispatch(EbookActions.listRecommended({ limit: 100 }));
+              break;
+            case 'rank':
+              this.headerName = 'Bảng xếp hạng';
+              this.store.dispatch(EbookActions.listRating({ limit: 100 }));
+              break;
+          }
+        }
+      }),
+    );
   }
 
   trackByFn(index: number, item: any): any {
     return item.id || index;
+  }
+
+  navigateBack(): void {
+    this.jwtTokenService.checkTokenExpired();
+    if (this.jwtTokenService.isTokenExpired()) {
+      return;
+    }
+    this.router.navigate(['/main']).then(() => {});
   }
 }

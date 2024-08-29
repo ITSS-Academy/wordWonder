@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
+import { JWTTokenService } from '../../../../../services/jwttoken.service';
 
 @Component({
   selector: 'app-book-info',
@@ -26,6 +27,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     private router: Router,
     private store: Store<{ ebook: EbookState; auth: AuthState }>,
     private activatedRoute: ActivatedRoute,
+    private jwtTokenService: JWTTokenService,
   ) {}
 
   isLoadingDetail$ = this.store.select('ebook', 'isLoadingDetail');
@@ -59,10 +61,18 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   }
 
   read() {
+    this.jwtTokenService.checkTokenExpired();
+    if (this.jwtTokenService.isTokenExpired()) {
+      return;
+    }
     this.router.navigate(['/main/reading']).then();
   }
 
   goBackToHome(): void {
+    this.jwtTokenService.checkTokenExpired();
+    if (this.jwtTokenService.isTokenExpired()) {
+      return;
+    }
     this.router.navigate(['/main']).then();
   }
 }
