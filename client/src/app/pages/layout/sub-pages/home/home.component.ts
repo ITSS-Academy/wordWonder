@@ -13,6 +13,9 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../../../../../ngrxs/auth/auth.state';
 import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
 import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
+import { UserEbooksState } from '../../../../../ngrxs/user_ebooks/user_ebooks.state';
+import * as UserEbookActions from '../../../../../ngrxs/user_ebooks/user_ebooks.actions';
+import { UserEbookModel } from '../../../../../models/user_ebooks.model';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   trendingList: EBookModel[] = [];
   ratingList: EBookModel[] = [];
   recommendedList: EBookModel[] = [];
+  historyList: UserEbookModel[] = [];
   subscription: Subscription[] = [];
 
   isLoadingRating$ = this.store.select('ebook', 'isListingRatingList');
@@ -33,8 +37,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     'ebook',
     'isListingRecommendedList',
   );
+  findListUserHistoryLoading$ = this.store.select(
+    'user_ebook',
+    'findListUserHistoryLoading',
+  );
 
-  constructor(private store: Store<{ auth: AuthState; ebook: EbookState }>) {}
+  constructor(
+    private store: Store<{
+      auth: AuthState;
+      ebook: EbookState;
+      user_ebook: UserEbooksState;
+    }>,
+  ) {}
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
@@ -47,6 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.store.dispatch(EbookActions.listRating({ limit: 12 }));
           this.store.dispatch(EbookActions.listTrending({ limit: 12 }));
           this.store.dispatch(EbookActions.listRecommended({ limit: 12 }));
+          this.store.dispatch(UserEbookActions.findListUserHistory());
         }
       }),
       this.store.select('ebook', 'trendingList').subscribe((ebooks) => {
@@ -67,6 +82,13 @@ export class HomeComponent implements OnInit, OnDestroy {
           // console.log(this.recommendedList);
         }
       }),
+      this.store
+        .select('user_ebook', 'userReadingHistory')
+        .subscribe((ebooks) => {
+          if (ebooks.length > 0) {
+            this.historyList = [...ebooks];
+          }
+        }),
     );
   }
 }

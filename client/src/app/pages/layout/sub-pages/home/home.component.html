@@ -6,17 +6,30 @@
         >Xem thêm</a
       >
     </div>
-    <div class="cdk-virtual-scroll-data-source-example">
-      <cdk-virtual-scroll-viewport
-        orientation="horizontal"
-        itemSize="50"
-        class="example-viewport"
-      >
-        <!--        <div *cdkVirtualFor="let ebook of ebooks" class="example-item">-->
-        <!--          <app-ebook-card [ebook]="ebook"></app-ebook-card>-->
-        <!--        </div>-->
-      </cdk-virtual-scroll-viewport>
-    </div>
+    @if (findListUserHistoryLoading$ | async) {
+      <mat-progress-spinner
+        class="example-margin"
+        mode="indeterminate"
+      ></mat-progress-spinner>
+    } @else {
+      <div class="cdk-virtual-scroll-data-source-example">
+        <cdk-virtual-scroll-viewport
+          orientation="horizontal"
+          itemSize="50"
+          class="example-viewport"
+        >
+          @if (historyList.length == 0) {
+            <div class="example-item">
+              <p>Không có dữ liệu</p>
+            </div>
+          } @else {
+            <div *cdkVirtualFor="let ebook of historyList" class="example-item">
+              <app-ebook-card [ebook]="ebook"></app-ebook-card>
+            </div>
+          }
+        </cdk-virtual-scroll-viewport>
+      </div>
+    }
   </div>
   <hr />
   <div class="content">
