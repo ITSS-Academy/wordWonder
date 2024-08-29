@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserEbookModel } from '../../../../../models/user_ebooks.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { JWTTokenService } from '../../../../../services/jwttoken.service';
+import * as EBookActions from '../../../../../ngrxs/ebook/ebook.actions';
 
 @Component({
   selector: 'app-reading',
@@ -48,6 +49,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
       combineLatest([this.idToken$, this.params$]).subscribe(
         ([idToken, params]) => {
           if (idToken != '' && params['id']) {
+            this.store.dispatch(EBookActions.view({ id: params['id'] }));
             this.store.dispatch(
               UserEbookActions.findByOne({ id: params['id'] }),
             );
@@ -56,7 +58,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
       ),
       this.store.select('user_ebook', 'findOneError').subscribe((val) => {
         if (val) {
-          if (val.error.message == 'User Ebook not found') {
+          if (val.error.message == 'UserEbook not found') {
             this.store.dispatch(
               UserEbookActions.create({
                 userEbook: {
@@ -65,6 +67,26 @@ export class ReadingComponent implements OnInit, OnDestroy {
               }),
             );
           }
+        }
+      }),
+      this.store.select('user_ebook', 'createSuccess').subscribe((val) => {
+        if (val) {
+          this.store.dispatch(
+            UserEbookActions.findByOne({
+              id: this.activatedRoute.snapshot.params['id'],
+            }),
+          );
+        }
+      }),
+      this.store.select('user_ebook', 'createError').subscribe((val) => {
+        if (val) {
+          this._snackBar.open(
+            'Đã có lỗi xảy ra trong quá trình đồng bộ dữ liệu người dùng. Vui lòng tải lại trang !!!',
+            'Đóng',
+            {
+              duration: 2000,
+            },
+          );
         }
       }),
     );

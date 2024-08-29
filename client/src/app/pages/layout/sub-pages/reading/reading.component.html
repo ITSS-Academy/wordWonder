@@ -42,7 +42,7 @@
     <div class="example-flex-container">
       <div class="example-button-container">
         <button
-          [routerLink]="'../book-info'"
+          (click)="navigate('/main/book-info')"
           id="back-button"
           mat-mini-fab
           aria-label="back icon"
