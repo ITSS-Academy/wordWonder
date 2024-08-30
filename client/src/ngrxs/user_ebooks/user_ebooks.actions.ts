@@ -38,3 +38,13 @@ export const findByOneFailure = createAction(
   '[UserEbooks] Find By One Failure',
   props<{ error: any }>(),
 );
+
+export const read = createAction(
+  '[UserEbooks] Read',
+  props<{ ebookId: string; userEbook: UserEbookModel }>(),
+);
+export const readSuccess = createAction('[UserEbooks] Read Success');
+export const readFailure = createAction(
+  '[UserEbooks] Read Failure',
+  props<{ error: any }>(),
+);

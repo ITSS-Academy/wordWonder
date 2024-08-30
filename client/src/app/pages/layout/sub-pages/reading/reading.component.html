@@ -54,10 +54,12 @@
   </div>
   <div class="reading-box">
     <div class="content">
-      @if (text$ | async) {
-        <pre>{{ text$ | async }}</pre>
-      } @else {
+      @if (isLoadingDetail$ | async) {
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      } @else {
+        @for (chunk of sections$ | async; track chunk) {
+          <pre>{{ chunk.data }}</pre>
+        }
       }
     </div>
   </div>

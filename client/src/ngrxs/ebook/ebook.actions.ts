@@ -97,7 +97,7 @@ export const getById = createAction(
 );
 export const getByIdSuccess = createAction(
   '[Ebook] Get By Id Success',
-  props<{ ebook: EBookModel; section: SectionModel[] }>(),
+  props<{ ebook: EBookModel; sections: SectionModel[] }>(),
 );
 export const getByIdFailure = createAction(
   '[Ebook] Get By Id Failure',

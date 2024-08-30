@@ -5,5 +5,4 @@ export class CreateUserEbookDto {
   user: User;
   ebook: Ebook;
   readingStatus: string;
-  lastSection: number;
 }

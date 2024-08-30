@@ -187,9 +187,10 @@ export class EbookEffects {
       mergeMap((action) =>
         this.ebookService.getEbookDetail(action.id, action.lastSection).pipe(
           map((response) => {
+            console.log(response);
             return EBookActions.getByIdSuccess({
               ebook: response.ebook,
-              section: response.section,
+              sections: response.sections,
             });
           }),
           catchError((e) => {

@@ -50,6 +50,18 @@ export class UserEbooksEffects {
     ),
   );
 
+  read$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserEbooksActions.read),
+      mergeMap((action) =>
+        this.userEbooksService.read(action.ebookId, action.userEbook).pipe(
+          map(() => UserEbooksActions.readSuccess()),
+          catchError((error) => of(UserEbooksActions.readFailure({ error }))),
+        ),
+      ),
+    ),
+  );
+
   constructor(
     private actions$: Actions,
     private userEbooksService: UserEbooksService,

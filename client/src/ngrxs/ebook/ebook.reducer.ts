@@ -7,6 +7,7 @@ const initialState: EbookState = {
   isLoadingList: false,
   loadingListError: undefined,
   selectedEbook: null,
+  sections: [],
   isLoadingDetail: false,
   loadingDetailError: undefined,
   isAdding: false,
@@ -277,6 +278,10 @@ export const ebookReducer = createReducer(
       ...state,
       isLoadingDetail: false,
       selectedEbook: action.ebook,
+      sections:
+        action.sections.length == 0
+          ? state.sections
+          : [...state.sections, ...action.sections],
     };
   }),
   on(EbookActions.getByIdFailure, (state, action) => {
@@ -307,6 +312,9 @@ export const ebookReducer = createReducer(
       isUnlikingSuccess: false,
       isViewingSuccess: false,
       isUpdatingSuccess: false,
+
+      selectedEbook: null,
+      sections: [],
     };
   }),
 );

@@ -1,11 +1,13 @@
-import {EBookModel} from "../../models/ebook.model";
+import { EBookModel } from '../../models/ebook.model';
+import { SectionModel } from '../../models/section.model';
 
-export interface EbookState{
-  ebooks:EBookModel[]
+export interface EbookState {
+  ebooks: EBookModel[];
   isLoadingList: boolean;
   loadingListError: any;
 
   selectedEbook: EBookModel | null;
+  sections: SectionModel[];
   isLoadingDetail: boolean;
   loadingDetailError: any;
 
@@ -40,6 +42,4 @@ export interface EbookState{
   isViewing: boolean;
   isViewingSuccess: boolean;
   viewingError: any;
-
-
 }

@@ -14,7 +14,6 @@ import { JWTTokenService } from '../../../../../services/jwttoken.service';
 import * as EBookActions from '../../../../../ngrxs/ebook/ebook.actions';
 import { PdfExtractState } from '../../../../../ngrxs/pdf-extract/pdf-extract.state';
 import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
-import * as PdfExtractActions from '../../../../../ngrxs/pdf-extract/pdf-extract.actions';
 
 @Component({
   selector: 'app-reading',
@@ -26,10 +25,12 @@ import * as PdfExtractActions from '../../../../../ngrxs/pdf-extract/pdf-extract
 export class ReadingComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   readonly dialog = inject(MatDialog);
+  ebookId = '';
 
   idToken$ = this.store.select('auth', 'idToken');
   params$ = this.activatedRoute.params;
-  text$ = this.store.select('pdf_extract', 'text');
+  sections$ = this.store.select('ebook', 'sections');
+  isLoadingDetail$ = this.store.select('ebook', 'isLoadingDetail');
 
   constructor(
     private store: Store<{
@@ -57,9 +58,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
       combineLatest([this.idToken$, this.params$]).subscribe(
         ([idToken, params]) => {
           if (idToken != '' && params['id']) {
-            this.store.dispatch(
-              EBookActions.getById({ id: params['id'], lastSection: -1 }),
-            );
+            this.ebookId = params['id'];
             this.store.dispatch(EBookActions.view({ id: params['id'] }));
             this.store.dispatch(
               UserEbookActions.findByOne({ id: params['id'] }),
@@ -100,11 +99,12 @@ export class ReadingComponent implements OnInit, OnDestroy {
           );
         }
       }),
-      this.store.select('ebook', 'selectedEbook').subscribe((val) => {
+      this.store.select('user_ebook', 'selectedUserEbook').subscribe((val) => {
         if (val) {
           this.store.dispatch(
-            PdfExtractActions.extract({
-              fileUrl: val.content,
+            EBookActions.getById({
+              id: this.ebookId,
+              lastSection: val.lastSection == 0 ? -1 : val.lastSection,
             }),
           );
         }

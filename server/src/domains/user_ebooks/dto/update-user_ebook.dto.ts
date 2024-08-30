@@ -3,4 +3,5 @@ import { CreateUserEbookDto } from './create-user_ebook.dto';
 
 export class UpdateUserEbookDto extends PartialType(CreateUserEbookDto) {
   isLiked: boolean;
+  lastSection: number;
 }
