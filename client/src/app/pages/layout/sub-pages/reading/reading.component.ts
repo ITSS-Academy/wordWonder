@@ -1,4 +1,10 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +20,8 @@ import { JWTTokenService } from '../../../../../services/jwttoken.service';
 import * as EBookActions from '../../../../../ngrxs/ebook/ebook.actions';
 import { PdfExtractState } from '../../../../../ngrxs/pdf-extract/pdf-extract.state';
 import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
+import { SectionModel } from '../../../../../models/section.model';
+import { UserEbookModel } from '../../../../../models/user_ebooks.model';
 
 @Component({
   selector: 'app-reading',
@@ -26,10 +34,11 @@ export class ReadingComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   readonly dialog = inject(MatDialog);
   ebookId = '';
+  sections: SectionModel[] = [];
 
   idToken$ = this.store.select('auth', 'idToken');
   params$ = this.activatedRoute.params;
-  sections$ = this.store.select('ebook', 'sections');
+
   isLoadingDetail$ = this.store.select('ebook', 'isLoadingDetail');
 
   constructor(
@@ -109,12 +118,49 @@ export class ReadingComponent implements OnInit, OnDestroy {
           );
         }
       }),
+      this.store.select('ebook', 'sections').subscribe((val) => {
+        this.sections = val;
+      }),
     );
+    window.addEventListener('scroll', this.onScroll.bind(this), true);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
     this.store.dispatch(EBookActions.clear());
+    window.removeEventListener('scroll', this.onScroll.bind(this), true);
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any): void {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    console.log(scrollPosition, documentHeight);
+
+    // // Add a small buffer to the comparison
+    // if (scrollPosition >= documentHeight - 10) {
+    //   this.loadMoreContent();
+    // }
+  }
+
+  loadMoreContent(): void {
+    this.store.dispatch(
+      UserEbookActions.read({
+        ebookId: this.ebookId,
+        userEbook: {
+          lastSection: this.sections[this.sections.length - 1].id,
+        },
+      }),
+    );
+    this.store.dispatch(
+      EBookActions.getById(
+        EBookActions.getById({
+          id: this.ebookId,
+          lastSection: this.sections[this.sections.length - 1].id,
+        }),
+      ),
+    );
   }
 
   navigate(s: string) {

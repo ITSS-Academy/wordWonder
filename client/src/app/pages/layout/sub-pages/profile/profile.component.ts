@@ -69,8 +69,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.store.dispatch(UploadActions.reset());
   }
 
-
-
   ngOnInit(): void {
     this.subscriptions.push(
       this.store.select('file_upload', 'downloadAvatarURL').subscribe((url) => {
@@ -98,6 +96,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.store.select('user', 'user').subscribe((user) => {
         if (user) {
           this.profileForm.patchValue({ ...user });
+          console.log(this.profileForm.value);
         }
       }),
       this.store.select('user', 'isUpdatedSuccess').subscribe((val) => {
@@ -129,12 +128,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   onFileSelected(event: Event): void {
-    if (this.jwtTokenService.jwtToken != '') {
-      this.jwtTokenService.checkTokenExpired();
-      if (this.jwtTokenService.isTokenExpired()) {
-        return;
-      }
-    }
     const inputEvent = event as InputEvent;
     const file = (inputEvent.target as HTMLInputElement).files?.[0];
     this.store.dispatch(

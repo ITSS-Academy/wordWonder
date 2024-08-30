@@ -41,7 +41,7 @@ export const findByOneFailure = createAction(
 
 export const read = createAction(
   '[UserEbooks] Read',
-  props<{ ebookId: string; userEbook: UserEbookModel }>(),
+  props<{ ebookId: string; userEbook: any }>(),
 );
 export const readSuccess = createAction('[UserEbooks] Read Success');
 export const readFailure = createAction(

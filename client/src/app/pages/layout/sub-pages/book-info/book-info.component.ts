@@ -90,6 +90,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.store.dispatch(EbookActions.clear());
   }
 
   openSnackBar(message: string, action: string) {

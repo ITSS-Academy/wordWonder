@@ -54,14 +54,13 @@
   </div>
   <div class="reading-box">
     <div class="content">
+      <pre style="white-space: pre-line; word-wrap: break-word">
+  @for (chunk of sections; track chunk) {
+    {{ chunk.data | removeQuotes }}
+  }
+</pre>
       @if (isLoadingDetail$ | async) {
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      } @else {
-        <span>
-          @for (chunk of sections$ | async; track chunk) {
-            {{ chunk.data }}
-          }
-        </span>
       }
     </div>
   </div>
