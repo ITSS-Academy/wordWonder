@@ -181,18 +181,35 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Hủy</button>
-  <button
-    mat-flat-button
-    [mat-dialog-close]="sendForm(false)"
-    [disabled]="ebookFormGroup.invalid"
-  >
-    Cập nhật
-  </button>
-  <button
-    mat-stroked-button
-    [mat-dialog-close]="sendForm(true)"
-    [disabled]="ebookFormGroup.invalid"
-  >
-    Cập nhật bỏ qua nội dung
-  </button>
+  @if (isEditMode) {
+    <button
+      mat-flat-button
+      [mat-dialog-close]="sendForm(true)"
+      [disabled]="ebookFormGroup.invalid"
+    >
+      Cập nhật
+    </button>
+    <button
+      mat-stroked-button
+      [mat-dialog-close]="sendForm(false)"
+      [disabled]="
+        ebookFormGroup.controls['name'].invalid ||
+        ebookFormGroup.controls['author'].invalid ||
+        ebookFormGroup.controls['translator'].invalid ||
+        ebookFormGroup.controls['description'].invalid ||
+        ebookFormGroup.controls['categories'].invalid ||
+        ebookFormGroup.controls['imageUrl'].invalid
+      "
+    >
+      Cập nhật bỏ qua nội dung
+    </button>
+  } @else {
+    <button
+      mat-flat-button
+      [mat-dialog-close]="sendForm(false)"
+      [disabled]="ebookFormGroup.invalid"
+    >
+      Tạo
+    </button>
+  }
 </mat-dialog-actions>

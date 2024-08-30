@@ -126,31 +126,32 @@ export class EbooksService {
       updateEbook.translator = updateEbookDto.translator;
       updateEbook.categories = categories;
 
+      console.log('-------------------------------', isUpdateContent);
       if (isUpdateContent) {
-        // delete all sections
-        await this.ebookRepository
-          .createQueryBuilder('ebook')
-          .relation(Ebook, 'content')
-          .of(updateEbook)
-          .delete()
-          .execute();
-        // create new sections
+        if (updateEbookDto.content != '') {
+          // delete all sections
+          await this.sectionRepository
+            .createQueryBuilder('section')
+            .delete()
+            .where('ebookId = :id', { id })
+            .execute();
 
-        let chunkSize = 2048;
-        let currentPos = 0;
-        while (
-          currentPos <=
-          Math.min(updateEbookDto.content.length, currentPos + chunkSize)
-        ) {
-          let section = new Section();
-          let endPos = Math.min(
-            updateEbookDto.content.length,
-            currentPos + chunkSize,
-          );
-          section.data = updateEbookDto.content.slice(currentPos, endPos);
-          section.ebook = updateEbook;
-          await this.sectionRepository.save(section);
-          currentPos += chunkSize;
+          let chunkSize = 2048;
+          let currentPos = 0;
+          while (
+            currentPos <=
+            Math.min(updateEbookDto.content.length, currentPos + chunkSize)
+          ) {
+            let section = new Section();
+            let endPos = Math.min(
+              updateEbookDto.content.length,
+              currentPos + chunkSize,
+            );
+            section.data = updateEbookDto.content.slice(currentPos, endPos);
+            section.ebook = updateEbook;
+            await this.sectionRepository.save(section);
+            currentPos += chunkSize;
+          }
         }
       }
 
