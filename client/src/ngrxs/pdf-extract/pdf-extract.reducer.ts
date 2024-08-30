@@ -14,6 +14,7 @@ export const pdfExtractReducer = createReducer(
     console.log(action.type);
     return <PdfExtractState>{
       ...state,
+      text: '',
       isExtracting: true,
       error: null,
     };

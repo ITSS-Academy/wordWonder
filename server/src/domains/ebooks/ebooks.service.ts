@@ -13,6 +13,7 @@ import { Category } from '../categories/entities/category.entity';
 import { UserEbook } from '../user_ebooks/entities/user_ebook.entity';
 import { User } from '../users/entities/user.entity';
 import { SearchService } from '../search/search.service';
+import { Section } from '../sections/entities/section.entity';
 
 @Injectable()
 export class EbooksService {
@@ -23,13 +24,40 @@ export class EbooksService {
     private readonly categoryRepository: Repository<Category>,
     @InjectRepository(UserEbook)
     private readonly userEbookRepository: Repository<UserEbook>,
+    @InjectRepository(Section)
+    private readonly sectionRepository: Repository<Section>,
     private readonly searchService: SearchService,
   ) {}
 
   async create(createEbookDto: CreateEbookDto) {
     try {
-      let newEbook = this.ebookRepository.create(createEbookDto);
+      let newEbook = new Ebook();
+      newEbook.id = createEbookDto.id;
+      newEbook.name = createEbookDto.name;
+      newEbook.imageUrl = createEbookDto.imageUrl;
+      newEbook.description = createEbookDto.description;
+      newEbook.author = createEbookDto.author;
+      newEbook.translator = createEbookDto.translator;
+      newEbook.categories = await this.categoryRepository.findBy({
+        id: In(createEbookDto.categories.map((category) => category.id)),
+      });
       await this.ebookRepository.save(newEbook);
+      let chunkSize = 2048;
+      let currentPos = 0;
+      while (
+        currentPos <=
+        Math.min(createEbookDto.content.length, currentPos + chunkSize)
+      ) {
+        let section = new Section();
+        let endPos = Math.min(
+          createEbookDto.content.length,
+          currentPos + chunkSize,
+        );
+        section.data = createEbookDto.content.slice(currentPos, endPos);
+        section.ebook = newEbook;
+        await this.sectionRepository.save(section);
+        currentPos += chunkSize;
+      }
       await this.searchService.indexEbook(newEbook);
       return;
     } catch (e) {
@@ -49,17 +77,28 @@ export class EbooksService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, lastSection: number) {
     try {
       let result = await this.ebookRepository
         .createQueryBuilder('ebook')
         .leftJoinAndSelect('ebook.categories', 'category')
         .where('ebook.id = :id', { id })
         .getOne();
+
       if (!result) {
         throw new HttpException('Ebook not found', HttpStatus.NOT_FOUND);
       }
-      return result;
+      let sections = await this.sectionRepository
+        .createQueryBuilder('section')
+        .where('section.ebookId = :id', { id })
+        .andWhere('section.id > :lastSection', { lastSection })
+        .limit(10)
+        .getMany();
+
+      return {
+        ebook: result,
+        sections: sections,
+      };
     } catch (e) {
       throw new HttpException(e, 400);
     }
@@ -81,8 +120,34 @@ export class EbooksService {
       updateEbook.description = updateEbookDto.description;
       updateEbook.author = updateEbookDto.author;
       updateEbook.translator = updateEbookDto.translator;
-      updateEbook.content = updateEbookDto.content;
       updateEbook.categories = categories;
+
+      // delete all sections
+      await this.ebookRepository
+        .createQueryBuilder('ebook')
+        .relation(Ebook, 'content')
+        .of(updateEbook)
+        .delete()
+        .execute();
+      // create new sections
+
+      let chunkSize = 2048;
+      let currentPos = 0;
+      while (
+        currentPos <=
+        Math.min(updateEbookDto.content.length, currentPos + chunkSize)
+      ) {
+        let section = new Section();
+        let endPos = Math.min(
+          updateEbookDto.content.length,
+          currentPos + chunkSize,
+        );
+        section.data = updateEbookDto.content.slice(currentPos, endPos);
+        section.ebook = updateEbook;
+        await this.sectionRepository.save(section);
+        currentPos += chunkSize;
+      }
+
       await this.ebookRepository.save(updateEbook);
     } catch (e) {
       throw new HttpException(e, 400);

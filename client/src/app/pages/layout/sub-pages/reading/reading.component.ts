@@ -29,6 +29,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
 
   idToken$ = this.store.select('auth', 'idToken');
   params$ = this.activatedRoute.params;
+  text$ = this.store.select('pdf_extract', 'text');
 
   constructor(
     private store: Store<{

@@ -159,15 +159,15 @@
 
     <!--   file form control   -->
     <mat-form-field appearance="fill">
-      <mat-label>Url Pdf</mat-label>
-      <input
+      <mat-label>Nội dung văn bản</mat-label>
+      <textarea
         matInput
-        placeholder="url nội dung..."
+        placeholder="mô tả..."
         formControlName="content"
         (blur)="updateContentErrorMessage()"
         required
-        readonly
-      />
+        cdkTextareaAutosize
+      ></textarea>
       @if (ebookFormGroup.get("content")?.valid) {
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
       } @else {
@@ -177,18 +177,6 @@
         <mat-error>{{ contentErrorMessage() }}</mat-error>
       }
     </mat-form-field>
-    <div class="mdc-text-field mdc-text-field--filled mdc-text-field--file">
-      <input
-        type="file"
-        class="mdc-text-field__input"
-        id="pdf-file-input"
-        (blur)="updateContentErrorMessage()"
-        (change)="onPdfPicked($event)"
-      />
-      <label class="mdc-floating-label" for="pdf-file-input">Pdf file</label>
-      <div class="mdc-line-ripple"></div>
-    </div>
-    <div class="mdc-text-field--error"></div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

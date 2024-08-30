@@ -1,4 +1,5 @@
 import { Category } from '../../categories/entities/category.entity';
+import { Section } from '../../sections/entities/section.entity';
 
 export class CreateEbookDto {
   id: string;

@@ -13,6 +13,7 @@ import { AuthModule } from './domains/auths/auth.module';
 import { CategoriesModule } from './domains/categories/categories.module';
 import { SearchModule } from './domains/search/search.module';
 import { UserEbooksModule } from './domains/user_ebooks/user_ebooks.module';
+import { SectionsModule } from './domains/sections/sections.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { UserEbooksModule } from './domains/user_ebooks/user_ebooks.module';
     CategoriesModule,
     SearchModule,
     UserEbooksModule,
+    SectionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

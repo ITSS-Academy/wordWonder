@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClientAuth } from '../utils/http-client-auth';
 import { environment } from '../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PdfExtractService {
-  constructor(private http: HttpClientAuth) {}
+  constructor(private http: HttpClient) {}
 
   extract(fileUrl: string) {
-    return this.http.get(`${environment.extractUrl}?fileUrl=${fileUrl}`);
+    return this.http.post(
+      `${environment.extractUrl}`,
+      {
+        url: fileUrl,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
   }
 }

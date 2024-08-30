@@ -18,7 +18,9 @@ export class PdfExtractEffects {
       switchMap((action) =>
         this.pdfExtractService.extract(action.fileUrl).pipe(
           map((response) => {
-            return PdfExtractActions.extractSuccess({ text: response.text });
+            return PdfExtractActions.extractSuccess({
+              text: (response as any).text,
+            });
           }),
           catchError((error) => {
             return of(PdfExtractActions.extractError({ error }));

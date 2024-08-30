@@ -3,10 +3,11 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
+import { Section } from '../../sections/entities/section.entity';
 
 @Entity()
 export class Ebook {
@@ -34,8 +35,8 @@ export class Ebook {
   @Column({ default: 0 })
   view: number;
 
-  @Column()
-  content: string;
+  @OneToMany(() => Section, (section) => section.ebook)
+  content: Section[];
 
   @ManyToMany(() => Category, { cascade: true })
   @JoinTable()

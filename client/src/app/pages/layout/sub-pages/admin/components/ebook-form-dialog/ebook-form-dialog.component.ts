@@ -118,14 +118,14 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
           });
         }
       }),
-      this.store.select('file_upload', 'downloadPdfURL').subscribe((url) => {
-        if (url != null) {
-          this.ebookFormGroup.patchValue({ content: url });
-          this._snackBar.open('Đăng tải ảnh thành công', 'Đóng', {
-            duration: 5000,
-          });
-        }
-      }),
+      // this.store.select('file_upload', 'downloadPdfURL').subscribe((url) => {
+      //   if (url != null) {
+      //     this.ebookFormGroup.patchValue({ content: url });
+      //     this._snackBar.open('Đăng tải ảnh thành công', 'Đóng', {
+      //       duration: 5000,
+      //     });
+      //   }
+      // }),
       this.store.select('file_upload', 'isLoading').subscribe((isLoading) => {
         this.isLoading = isLoading;
       }),

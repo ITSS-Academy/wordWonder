@@ -7,6 +7,7 @@ import { Ebook } from './entities/ebook.entity';
 import { CategoriesModule } from '../categories/categories.module';
 import { UserEbooksModule } from '../user_ebooks/user_ebooks.module';
 import { SearchModule } from '../search/search.module';
+import { SectionsModule } from '../sections/sections.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { SearchModule } from '../search/search.module';
     CategoriesModule,
     UserEbooksModule,
     SearchModule,
+    SectionsModule,
   ],
   controllers: [EbooksController],
   providers: [EbooksService],
