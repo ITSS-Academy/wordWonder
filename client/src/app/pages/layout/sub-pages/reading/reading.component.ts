@@ -114,6 +114,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.store.dispatch(EBookActions.clear());
   }
 
   navigate(s: string) {

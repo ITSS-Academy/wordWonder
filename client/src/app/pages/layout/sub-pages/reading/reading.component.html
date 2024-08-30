@@ -57,9 +57,11 @@
       @if (isLoadingDetail$ | async) {
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       } @else {
-        @for (chunk of sections$ | async; track chunk) {
-          <pre>{{ chunk.data }}</pre>
-        }
+        <span>
+          @for (chunk of sections$ | async; track chunk) {
+            {{ chunk.data }}
+          }
+        </span>
       }
     </div>
   </div>
