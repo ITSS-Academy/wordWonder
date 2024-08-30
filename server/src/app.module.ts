@@ -36,7 +36,7 @@ import { SectionsModule } from './domains/sections/sections.module';
     JwtModule.register({
       global: true,
       secret: configuration().jwt_secret,
-      signOptions: { expiresIn: '3600s' },
+      signOptions: { expiresIn: '72000s' },
     }),
     UsersModule,
     EbooksModule,
