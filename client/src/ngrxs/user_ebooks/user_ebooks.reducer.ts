@@ -12,11 +12,14 @@ const initialState: UserEbooksState = {
   selectedUserEbook: null,
   findOneError: undefined,
   isFindingOne: false,
+  isReading: false,
+  readSuccess: false,
+  readError: undefined,
 };
 export const userEbooksReducer = createReducer(
   initialState,
   on(UserEbooksActions.create, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserEbooksState>{
       ...state,
       createSuccess: false,
@@ -25,7 +28,7 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.createSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserEbooksState>{
       ...state,
       createSuccess: true,
@@ -33,7 +36,7 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.createFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserEbooksState>{
       ...state,
       createLoading: false,
@@ -41,7 +44,7 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.findListUserHistory, (state) => {
-    console.log(UserEbooksActions.findListUserHistory.type);
+    //console.log(UserEbooksActions.findListUserHistory.type);
     return <UserEbooksState>{
       ...state,
       findListUserHistoryLoading: true,
@@ -50,7 +53,7 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.findListUserHistorySuccess, (state, action) => {
-    console.log(UserEbooksActions.findListUserHistorySuccess.type);
+    //console.log(UserEbooksActions.findListUserHistorySuccess.type);
     return <UserEbooksState>{
       ...state,
       findListUserHistoryLoading: false,
@@ -58,7 +61,7 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.findListUserHistoryFailure, (state, action) => {
-    console.log(UserEbooksActions.findListUserHistoryFailure.type);
+    //console.log(UserEbooksActions.findListUserHistoryFailure.type);
     return <UserEbooksState>{
       ...state,
       findListUserHistoryLoading: false,
@@ -66,7 +69,7 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.findByOne, (state) => {
-    console.log(UserEbooksActions.findByOne.type);
+    //console.log(UserEbooksActions.findByOne.type);
     return <UserEbooksState>{
       ...state,
       selectedUserEbook: null,
@@ -75,7 +78,7 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.findByOneSuccess, (state, action) => {
-    console.log(UserEbooksActions.findByOneSuccess.type);
+    //console.log(UserEbooksActions.findByOneSuccess.type);
     return <UserEbooksState>{
       ...state,
       selectedUserEbook: action.userEbook,
@@ -83,11 +86,36 @@ export const userEbooksReducer = createReducer(
     };
   }),
   on(UserEbooksActions.findByOneFailure, (state, action) => {
-    console.log(UserEbooksActions.findByOneFailure.type);
+    //console.log(UserEbooksActions.findByOneFailure.type);
     return <UserEbooksState>{
       ...state,
       isFindingOne: false,
       findOneError: action.error,
+    };
+  }),
+  on(UserEbooksActions.read, (state) => {
+    //console.log(UserEbooksActions.read.type);
+    return <UserEbooksState>{
+      ...state,
+      isReading: true,
+      readSuccess: false,
+      readError: undefined,
+    };
+  }),
+  on(UserEbooksActions.readSuccess, (state) => {
+    //console.log(UserEbooksActions.readSuccess.type);
+    return <UserEbooksState>{
+      ...state,
+      isReading: false,
+      readSuccess: true,
+    };
+  }),
+  on(UserEbooksActions.readFailure, (state, action) => {
+    //console.log(UserEbooksActions.readFailure.type);
+    return <UserEbooksState>{
+      ...state,
+      isReading: false,
+      readError: action.error,
     };
   }),
 );

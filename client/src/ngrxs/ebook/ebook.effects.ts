@@ -186,25 +186,27 @@ export class EbookEffects {
     this.actions$.pipe(
       ofType(EBookActions.getById),
       mergeMap((action) =>
-        this.ebookService.getEbookDetail(action.id, action.lastSection).pipe(
-          map((response) => {
-            console.log(response);
-            //sort the sections
-            let sections = response.sections;
-            sections.sort((a: SectionModel, b: SectionModel) => {
-              return a.id - b.id;
-            });
-            return EBookActions.getByIdSuccess({
-              ebook: response.ebook,
-              sections: sections,
-            });
-          }),
-          catchError((e) => {
-            return of(
-              EBookActions.getByIdFailure({ error: 'Error getting ebook' }),
-            );
-          }),
-        ),
+        this.ebookService
+          .getEbookDetail(action.id, action.lastSection, action.isNext)
+          .pipe(
+            map((response) => {
+              // console.log(response);
+              //sort the sections
+              let sections = response.sections;
+              sections.sort((a: SectionModel, b: SectionModel) => {
+                return a.id - b.id;
+              });
+              return EBookActions.getByIdSuccess({
+                ebook: response.ebook,
+                sections: sections,
+              });
+            }),
+            catchError((e) => {
+              return of(
+                EBookActions.getByIdFailure({ error: 'Error getting ebook' }),
+              );
+            }),
+          ),
       ),
     ),
   );

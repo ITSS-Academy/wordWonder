@@ -93,7 +93,7 @@ export const updateFailure = createAction(
 
 export const getById = createAction(
   '[Ebook] Get By Id',
-  props<{ id: string; lastSection: number }>(),
+  props<{ id: string; lastSection: number; isNext: boolean }>(),
 );
 export const getByIdSuccess = createAction(
   '[Ebook] Get By Id Success',

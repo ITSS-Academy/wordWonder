@@ -1,6 +1,7 @@
 import { EbookState } from './ebook.state';
 import { createReducer, on } from '@ngrx/store';
 import * as EbookActions from './ebook.actions';
+import { SectionModel } from '../../models/section.model';
 
 const initialState: EbookState = {
   ebooks: [],
@@ -39,7 +40,7 @@ const initialState: EbookState = {
 export const ebookReducer = createReducer(
   initialState,
   on(EbookActions.listAll, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLoadingList: true,
@@ -48,7 +49,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listAllSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLoadingList: false,
@@ -56,7 +57,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listAllFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLoadingList: false,
@@ -64,7 +65,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listTrending, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingTrendingList: true,
@@ -73,7 +74,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listTrendingSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingTrendingList: false,
@@ -81,7 +82,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listTrendingFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingTrendingList: false,
@@ -89,7 +90,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listRecommended, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingRecommendedList: true,
@@ -98,7 +99,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listRecommendedSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingRecommendedList: false,
@@ -106,7 +107,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listRecommendedFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingRecommendedList: false,
@@ -114,7 +115,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listRating, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingRatingList: true,
@@ -123,7 +124,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listRatingSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingRatingList: false,
@@ -131,7 +132,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.listRatingFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isListingRatingList: false,
@@ -139,7 +140,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.like, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLiking: true,
@@ -148,7 +149,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.likeSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLiking: false,
@@ -156,7 +157,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.likeFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLiking: false,
@@ -164,7 +165,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.unlike, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isUnliking: true,
@@ -173,7 +174,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.unlikeSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isUnliking: false,
@@ -181,7 +182,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.unlikeFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isUnliking: false,
@@ -189,7 +190,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.view, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isViewing: true,
@@ -198,7 +199,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.viewSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isViewing: false,
@@ -206,7 +207,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.viewFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isViewing: false,
@@ -214,7 +215,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.add, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isAdding: true,
@@ -223,7 +224,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.addSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isAdding: false,
@@ -231,7 +232,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.addFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isAdding: false,
@@ -239,7 +240,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.update, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isUpdating: true,
@@ -248,7 +249,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.updateSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isUpdating: false,
@@ -256,7 +257,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.updateFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isUpdating: false,
@@ -264,7 +265,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.getById, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLoadingDetail: true,
@@ -273,19 +274,23 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.getByIdSuccess, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
+
+    //sort the sections
+    let sections = [...state.sections, ...action.sections];
+    sections.sort((a: SectionModel, b: SectionModel) => {
+      return a.id - b.id;
+    });
+
     return <EbookState>{
       ...state,
       isLoadingDetail: false,
       selectedEbook: action.ebook,
-      sections:
-        action.sections.length == 0
-          ? state.sections
-          : [...state.sections, ...action.sections],
+      sections: sections,
     };
   }),
   on(EbookActions.getByIdFailure, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       isLoadingDetail: false,
@@ -293,7 +298,7 @@ export const ebookReducer = createReducer(
     };
   }),
   on(EbookActions.clear, (state, action) => {
-    console.log(action.type);
+    ////console.log(action.type);
     return <EbookState>{
       ...state,
       updatingError: undefined,

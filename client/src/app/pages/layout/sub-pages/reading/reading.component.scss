@@ -80,7 +80,7 @@
 .content {
   text-align: justify;
   height: 100%; /* Đặt chiều cao của nội dung bằng với khung chứa nó */
-  overflow-y: scroll; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao */
+  overflow: scroll;
   padding-right: 20px; /* Thêm khoảng cách để tránh thanh cuộn chồng lên chữ */
   font-size: 18px;
   line-height: 1.5;

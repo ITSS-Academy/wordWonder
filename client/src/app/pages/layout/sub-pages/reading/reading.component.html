@@ -53,16 +53,25 @@
     </div>
   </div>
   <div class="reading-box">
-    <div class="content">
+    <div
+      class="content"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollUpDistance]="1.5"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScrollDown()"
+      (scrolledUp)="onScrollUp()"
+      [scrollWindow]="false"
+    >
       <pre style="white-space: pre-line; word-wrap: break-word">
   @for (chunk of sections; track chunk) {
-    {{ chunk.data | removeQuotes }}
+    {{ chunk.data | removeQuotes | removeExtraSpaces }}
   }
-</pre>
-      @if (isLoadingDetail$ | async) {
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      }
+    </pre>
     </div>
+    @if (isLoadingDetail$ | async) {
+      <mat-progress-spinner [diameter]="20"></mat-progress-spinner>
+    }
   </div>
   <div class="example-button-row">
     <div class="example-flex-container">

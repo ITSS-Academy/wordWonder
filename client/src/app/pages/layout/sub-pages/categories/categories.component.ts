@@ -169,6 +169,6 @@ export class CategoriesComponent implements OnInit, OnDestroy {
         });
       });
     });
-    console.log(this.filterEbooks);
+    //console.log(this.filterEbooks);
   }
 }

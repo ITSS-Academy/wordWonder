@@ -144,14 +144,14 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   toggle(row: EBookModel) {
     if (this.selection.isSelected(row)) {
-      // console.log(row);
+      // //console.log(row);
       this.selection.deselect(row);
     } else {
       this.selection.clear(); // Clear all selections
       this.selection.toggle(row); // Select the clicked row
     }
     //log the checked row
-    // console.log(this.selection.selected);
+    // //console.log(this.selection.selected);
   }
 
   openCreateEbookDialog() {
@@ -170,7 +170,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           view: 0,
           dateCreated: Date.now().toString(),
         };
-        console.log(newEbook);
+        //console.log(newEbook);
         this.store.dispatch(EbookActions.add({ ebook: newEbook }));
       }
     });
@@ -193,7 +193,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           like: this.selection.selected[0].like,
           view: this.selection.selected[0].view,
         };
-        console.log(updatedEbook);
+        //console.log(updatedEbook);
         this.store.dispatch(
           EbookActions.update({
             ebook: updatedEbook,

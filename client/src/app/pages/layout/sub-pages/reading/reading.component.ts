@@ -1,10 +1,4 @@
-import {
-  Component,
-  HostListener,
-  inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,12 +15,12 @@ import * as EBookActions from '../../../../../ngrxs/ebook/ebook.actions';
 import { PdfExtractState } from '../../../../../ngrxs/pdf-extract/pdf-extract.state';
 import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
 import { SectionModel } from '../../../../../models/section.model';
-import { UserEbookModel } from '../../../../../models/user_ebooks.model';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-reading',
   standalone: true,
-  imports: [SharedModule, MaterialModule],
+  imports: [SharedModule, MaterialModule, InfiniteScrollDirective],
   templateUrl: './reading.component.html',
   styleUrl: './reading.component.scss',
 })
@@ -57,9 +51,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
   openDialog() {
     const dialogRef = this.dialog.open(SettingsDialogComponent);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe(() => {});
   }
 
   ngOnInit(): void {
@@ -114,6 +106,7 @@ export class ReadingComponent implements OnInit, OnDestroy {
             EBookActions.getById({
               id: this.ebookId,
               lastSection: val.lastSection == 0 ? -1 : val.lastSection,
+              isNext: true,
             }),
           );
         }
@@ -122,29 +115,26 @@ export class ReadingComponent implements OnInit, OnDestroy {
         this.sections = val;
       }),
     );
-    window.addEventListener('scroll', this.onScroll.bind(this), true);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
     this.store.dispatch(EBookActions.clear());
-    window.removeEventListener('scroll', this.onScroll.bind(this), true);
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: any): void {
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const documentHeight = document.documentElement.scrollHeight;
-
-    console.log(scrollPosition, documentHeight);
-
-    // // Add a small buffer to the comparison
-    // if (scrollPosition >= documentHeight - 10) {
-    //   this.loadMoreContent();
-    // }
+  navigate(s: string) {
+    if (this.jwtTokenService.jwtToken != '') {
+      this.jwtTokenService.checkTokenExpired();
+      if (this.jwtTokenService.isTokenExpired()) {
+        return;
+      }
+    }
+    this.router.navigate([s, this.activatedRoute.snapshot.params['id']]).then();
   }
 
-  loadMoreContent(): void {
+  onScrollDown() {
+    //console.log('scrolled down!!');
+
     this.store.dispatch(
       UserEbookActions.read({
         ebookId: this.ebookId,
@@ -158,18 +148,31 @@ export class ReadingComponent implements OnInit, OnDestroy {
         EBookActions.getById({
           id: this.ebookId,
           lastSection: this.sections[this.sections.length - 1].id,
+          isNext: true,
         }),
       ),
     );
   }
 
-  navigate(s: string) {
-    if (this.jwtTokenService.jwtToken != '') {
-      this.jwtTokenService.checkTokenExpired();
-      if (this.jwtTokenService.isTokenExpired()) {
-        return;
-      }
-    }
-    this.router.navigate([s, this.activatedRoute.snapshot.params['id']]).then();
+  onScrollUp() {
+    //console.log('scrolled up!!');
+    // this.store.dispatch(
+    //   UserEbookActions.read({
+    //     ebookId: this.ebookId,
+    //     userEbook: {
+    //       lastSection: this.sections[0].id,
+    //     },
+    //   }),
+    // );
+    // //console.log(this.sections[0].id);
+    // this.store.dispatch(
+    //   EBookActions.getById(
+    //     EBookActions.getById({
+    //       id: this.ebookId,
+    //       lastSection: this.sections[0].id,
+    //       isNext: false,
+    //     }),
+    //   ),
+    // );
   }
 }

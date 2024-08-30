@@ -3,6 +3,7 @@ import { AsyncPipe, CommonModule, DatePipe, JsonPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RemoveQuotesPipe } from '../../utils/remove-quotes.pipe';
+import { RemoveExtraSpacesPipe } from '../../utils/remove-extra-spaces.pipe';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { RemoveQuotesPipe } from '../../utils/remove-quotes.pipe';
     DatePipe,
     JsonPipe,
     RemoveQuotesPipe,
+    RemoveExtraSpacesPipe,
   ],
   exports: [
     RouterModule,
@@ -24,6 +26,7 @@ import { RemoveQuotesPipe } from '../../utils/remove-quotes.pipe';
     DatePipe,
     JsonPipe,
     RemoveQuotesPipe,
+    RemoveExtraSpacesPipe,
   ],
 })
 export class SharedModule {}

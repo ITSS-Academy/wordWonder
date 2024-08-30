@@ -1,4 +1,4 @@
-import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
+import { CanMatchFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { map, switchMap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ export const canMatchMain: CanMatchFn = () => {
   return authService.isSignedIn().pipe(
     switchMap((isSignedIn) => {
       if (isSignedIn) {
-        console.log('[Main] user is signed in');
+        // console.log('[Main] user is signed in');
         return of(true);
       } else {
         return authService.isStaticUser().pipe(
@@ -19,9 +19,9 @@ export const canMatchMain: CanMatchFn = () => {
             if (isStaticUser) {
               return true;
             } else {
-              router
-                .navigate(['/login'])
-                .then(() => console.log('[Main] user is not signed in'));
+              router.navigate(['/login']).then(() => {
+                // console.log('[Main] user is not signed in')
+              });
               return false;
             }
           }),
@@ -38,20 +38,20 @@ export const canMatchLogin: CanMatchFn = () => {
   return authService.isSignedIn().pipe(
     switchMap((isSignedIn) => {
       if (isSignedIn) {
-        router
-          .navigate(['/main'])
-          .then(() => console.log('[Login] user is signed in'));
+        router.navigate(['/main']).then(() => {
+          // console.log('[Login] user is signed in')
+        });
         return of(false);
       } else {
         return authService.isStaticUser().pipe(
           map((isStaticUser) => {
             if (isStaticUser) {
-              router
-                .navigate(['/main'])
-                .then(() => console.log('[Login] static user is signed in'));
+              router.navigate(['/main']).then(() => {
+                // console.log('[Login] static user is signed in')
+              });
               return false;
             } else {
-              console.log('[Login] user is not signed in');
+              // console.log('[Login] user is not signed in');
               return true;
             }
           }),
@@ -68,22 +68,22 @@ export const canMatchLoading: CanMatchFn = () => {
   return authService.isSignedIn().pipe(
     switchMap((isSignedIn) => {
       if (isSignedIn) {
-        router
-          .navigate(['/main'])
-          .then(() => console.log('[Loading] user is signed in'));
+        router.navigate(['/main']).then(() => {
+          // console.log('[Loading] user is signed in')
+        });
         return of(false);
       } else {
         return authService.isStaticUser().pipe(
           map((isStaticUser) => {
             if (isStaticUser) {
-              router
-                .navigate(['/main'])
-                .then(() => console.log('[Loading] static user is signed in'));
+              router.navigate(['/main']).then(() => {
+                // console.log('[Loading] static user is signed in')
+              });
               return false;
             } else {
-              router
-                .navigate(['/login'])
-                .then(() => console.log('[Loading] user is not signed in'));
+              router.navigate(['/login']).then(() => {
+                // console.log('[Loading] user is not signed in')
+              });
               return true;
             }
           }),

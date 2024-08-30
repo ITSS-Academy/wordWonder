@@ -34,7 +34,6 @@ import { CategoryState } from '../../../../../../../ngrxs/category/category.stat
 })
 export class EbookFormDialogComponent implements OnInit, OnDestroy {
   tempId = Date.now().toString();
-  genreList = GENRES;
   isLoading = false;
   subscriptions: Subscription[] = [];
   isEditMode = false;
@@ -78,7 +77,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     });
     if (data != undefined) {
       this.isEditMode = true;
-      console.log(data);
+      //console.log(data);
       this.ebookFormGroup.patchValue({ ...data });
       this.tempId = data.id;
     }
@@ -213,7 +212,7 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
 
   sendForm(isUpdateContent: boolean) {
     if (this.isEditMode) {
-      // console.log(eBookForm);
+      // //console.log(eBookForm);
       return {
         ...this.data,
         ...this.ebookFormGroup.value,

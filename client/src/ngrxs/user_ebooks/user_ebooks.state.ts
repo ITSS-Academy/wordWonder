@@ -12,4 +12,8 @@ export interface UserEbooksState {
   selectedUserEbook: UserEbookModel | null;
   findOneError: any;
   isFindingOne: boolean;
+
+  isReading: boolean;
+  readSuccess: boolean;
+  readError: any;
 }

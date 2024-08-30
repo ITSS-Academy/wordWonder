@@ -13,7 +13,7 @@ export const initialState: FileUploadState = {
 export const fileUploadReducer = createReducer(
   initialState,
   on(UploadActions.uploadEbookCoverFile, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       downloadCoverURL: null,
@@ -22,7 +22,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadEbookCoverFileSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       downloadCoverURL: action.downloadURL,
@@ -31,7 +31,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadEbookCoverFileFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       isLoading: false,
@@ -39,7 +39,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadEbookPdfFile, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       downloadPdfURL: null,
@@ -48,7 +48,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadEbookPdfFileSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       downloadPdfURL: action.downloadURL,
@@ -57,7 +57,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadEbookPdfFileFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       error: action.error,
@@ -65,7 +65,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadAvatarFile, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       downloadAvatarURL: null,
@@ -74,7 +74,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadAvatarFileSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       downloadAvatarURL: action.downloadURL,
@@ -83,7 +83,7 @@ export const fileUploadReducer = createReducer(
     };
   }),
   on(UploadActions.uploadAvatarFileFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <FileUploadState>{
       ...state,
       isLoading: false,

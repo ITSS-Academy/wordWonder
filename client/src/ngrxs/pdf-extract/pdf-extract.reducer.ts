@@ -11,7 +11,7 @@ const initialState: PdfExtractState = {
 export const pdfExtractReducer = createReducer(
   initialState,
   on(PdfExtractActions.extract, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <PdfExtractState>{
       ...state,
       text: '',
@@ -20,7 +20,7 @@ export const pdfExtractReducer = createReducer(
     };
   }),
   on(PdfExtractActions.extractSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <PdfExtractState>{
       ...state,
       text: action.text,
@@ -29,7 +29,7 @@ export const pdfExtractReducer = createReducer(
     };
   }),
   on(PdfExtractActions.extractError, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <PdfExtractState>{
       ...state,
       isExtracting: false,

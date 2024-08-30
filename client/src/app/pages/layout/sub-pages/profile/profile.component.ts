@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // this.profileForm.valueChanges
     //   .pipe(takeUntilDestroyed())
     //   .subscribe((value) => {
-    //     console.log('Profile form value changed:', value);
+    //     //console.log('Profile form value changed:', value);
     //   });
   }
 
@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.store.select('user', 'user').subscribe((user) => {
         if (user) {
           this.profileForm.patchValue({ ...user });
-          console.log(this.profileForm.value);
+          //console.log(this.profileForm.value);
         }
       }),
       this.store.select('user', 'isUpdatedSuccess').subscribe((val) => {
@@ -154,12 +154,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       restoreFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       if (result == true) {
         this.store.dispatch(
           UserActions.update({ user: this.profileForm.value }),
         );
-        // console.log('User confirmed logout');
+        // //console.log('User confirmed logout');
       }
     });
   }

@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { EbookCardComponent } from '../../../../components/ebook-card/ebook-card.component';
@@ -15,7 +10,6 @@ import { EbookState } from '../../../../../ngrxs/ebook/ebook.state';
 import * as EbookActions from '../../../../../ngrxs/ebook/ebook.actions';
 import { UserEbooksState } from '../../../../../ngrxs/user_ebooks/user_ebooks.state';
 import * as UserEbookActions from '../../../../../ngrxs/user_ebooks/user_ebooks.actions';
-import { UserEbookModel } from '../../../../../models/user_ebooks.model';
 
 @Component({
   selector: 'app-home',
@@ -67,19 +61,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.store.select('ebook', 'trendingList').subscribe((ebooks) => {
         if (ebooks.length > 0) {
           this.trendingList = [...ebooks];
-          // console.log(this.trendingList);
+          // //console.log(this.trendingList);
         }
       }),
       this.store.select('ebook', 'ratingList').subscribe((ebooks) => {
         if (ebooks.length > 0) {
           this.ratingList = [...ebooks];
-          // console.log(this.ratingList);
+          // //console.log(this.ratingList);
         }
       }),
       this.store.select('ebook', 'recommendedList').subscribe((ebooks) => {
         if (ebooks.length > 0) {
           this.recommendedList = [...ebooks];
-          // console.log(this.recommendedList);
+          // //console.log(this.recommendedList);
         }
       }),
       this.store

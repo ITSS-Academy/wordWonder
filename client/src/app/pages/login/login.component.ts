@@ -47,13 +47,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.store.select('auth', 'idToken').subscribe((val) => {
         if (val != '') {
           this.router.navigate(['/main']).then(() => {
-            console.log('tic');
+            //console.log('tic');
           });
         }
       }),
       this.store.select('auth', 'error').subscribe((error) => {
         if (error) {
-          // console.log('Error:', error);
+          //console.log('Error:', error);
           this._matSnackBar.open(error, 'Đóng', {
             duration: 5000,
           });

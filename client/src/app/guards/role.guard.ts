@@ -1,4 +1,4 @@
-import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../ngrxs/auth/auth.state';
@@ -14,7 +14,7 @@ export const canActivateAdmin: CanActivateFn = (route, state) => {
         return true;
       } else {
         router.navigate(['/main/home']).then(() => {
-          console.log('User is not admin');
+          // console.log('User is not admin');
         });
         return false;
       }

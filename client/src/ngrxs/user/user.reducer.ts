@@ -17,7 +17,7 @@ const initialState: UserState = {
 export const userReducer = createReducer(
   initialState,
   on(UserActions.create, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isCreating: true,
@@ -26,7 +26,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.createSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isCreating: false,
@@ -34,7 +34,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.createFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isCreating: false,
@@ -42,7 +42,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.update, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isUpdating: true,
@@ -51,7 +51,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.updateSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isUpdating: false,
@@ -59,7 +59,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.updateFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isUpdating: false,
@@ -67,7 +67,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.getById, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isLoading: true,
@@ -76,7 +76,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.getByIdSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isLoading: false,
@@ -84,7 +84,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.getByIdFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isLoading: false,
@@ -92,7 +92,7 @@ export const userReducer = createReducer(
     };
   }),
   on(UserActions.reset, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <UserState>{
       ...state,
       isUpdatedSuccess: false,

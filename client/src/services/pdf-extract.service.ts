@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClientAuth } from '../utils/http-client-auth';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 

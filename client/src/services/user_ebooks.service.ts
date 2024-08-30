@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClientAuth } from '../utils/http-client-auth';
 import { ProfileModel } from '../models/profile.model';
-import { UserEbookModel } from '../models/user_ebooks.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +20,7 @@ export class UserEbooksService {
     return this.http.get(`user-ebooks/one?ebookId=${ebookId}`);
   }
 
-  read(ebookId: string, userEbook: UserEbookModel) {
+  read(ebookId: string, userEbook: any) {
     return this.http.patch(`user-ebooks/read?ebookId=${ebookId}`, userEbook);
   }
 }

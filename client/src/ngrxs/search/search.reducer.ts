@@ -11,7 +11,7 @@ const initialState: SearchState = {
 export const searchReducer = createReducer(
   initialState,
   on(SearchActions.search, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <SearchState>{
       ...state,
       loading: true,
@@ -19,7 +19,7 @@ export const searchReducer = createReducer(
     };
   }),
   on(SearchActions.searchSuccess, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <SearchState>{
       ...state,
       searchResults: action.searchResults,
@@ -28,7 +28,7 @@ export const searchReducer = createReducer(
     };
   }),
   on(SearchActions.searchFailure, (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     return <SearchState>{
       ...state,
       loading: false,

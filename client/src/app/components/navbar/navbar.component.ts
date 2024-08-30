@@ -102,10 +102,10 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.store.select('auth', 'idToken').subscribe((val) => {
-        console.log('idToken: ', val);
+        //console.log('idToken: ', val);
         if (val == '') {
           this.router.navigate(['/login']).then(() => {
-            console.log('toc');
+            //console.log('toc');
           });
         }
       }),
@@ -161,7 +161,7 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       restoreFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       if (result == true) {
         this.logout();
       }

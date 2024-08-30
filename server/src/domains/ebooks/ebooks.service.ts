@@ -77,7 +77,7 @@ export class EbooksService {
     }
   }
 
-  async findOne(id: string, lastSection: number) {
+  async findOne(id: string, lastSection: number, isNext: boolean) {
     try {
       let result = await this.ebookRepository
         .createQueryBuilder('ebook')
@@ -88,12 +88,26 @@ export class EbooksService {
       if (!result) {
         throw new HttpException('Ebook not found', HttpStatus.NOT_FOUND);
       }
-      let sections = await this.sectionRepository
-        .createQueryBuilder('section')
-        .where('section.ebookId = :id', { id })
-        .andWhere('section.id > :lastSection', { lastSection })
-        .limit(10)
-        .getMany();
+
+      let sections = [];
+      //get the next to sections of the book
+      if (isNext) {
+        sections = await this.sectionRepository
+          .createQueryBuilder('section')
+          .where('section.ebookId = :id', { id })
+          .andWhere('section.id > :lastSection', { lastSection })
+          .orderBy('section.id', 'ASC')
+          .take(10)
+          .getMany();
+      } else {
+        sections = await this.sectionRepository
+          .createQueryBuilder('section')
+          .where('section.ebookId = :id', { id })
+          .andWhere('section.id < :lastSection', { lastSection })
+          .orderBy('section.id', 'DESC')
+          .take(10)
+          .getMany();
+      }
 
       return {
         ebook: result,

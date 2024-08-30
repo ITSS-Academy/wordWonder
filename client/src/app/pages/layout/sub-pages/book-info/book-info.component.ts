@@ -60,7 +60,11 @@ export class BookInfoComponent implements OnInit, OnDestroy {
           if (idToken != '' && params['id']) {
             this.ebookId = params['id'];
             this.store.dispatch(
-              EbookActions.getById({ id: params['id'], lastSection: 0 }),
+              EbookActions.getById({
+                id: params['id'],
+                lastSection: 0,
+                isNext: true,
+              }),
             );
             this.store.dispatch(
               UserEbookActions.findByOne({ id: params['id'] }),

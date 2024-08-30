@@ -147,7 +147,7 @@ export class UserEbooksService {
       await this.validate(userEbook);
 
       // Step 4: Save the updated UserEbook
-      return await this.update(ebookId, userId, userEbook);
+      return await this.update(userId, ebookId, userEbook);
     } catch (e) {
       throw new HttpException(e, HttpStatus.BAD_REQUEST);
     }

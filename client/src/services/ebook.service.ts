@@ -14,11 +14,13 @@ export class EbookService {
   }
 
   //findOne
-  getEbookDetail(id: string, lastSection: number) {
+  getEbookDetail(id: string, lastSection: number, isNext: boolean) {
     if (lastSection == 0) {
       return this.http.get(`ebooks/one/${id}`);
     } else {
-      return this.http.get(`ebooks/one/${id}?lastSection=${lastSection}`);
+      return this.http.get(
+        `ebooks/one/${id}?lastSection=${lastSection}&isNext=${isNext}`,
+      );
     }
   }
 
