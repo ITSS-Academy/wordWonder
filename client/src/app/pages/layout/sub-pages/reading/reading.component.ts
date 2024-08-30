@@ -113,6 +113,18 @@ export class ReadingComponent implements OnInit, OnDestroy {
       }),
       this.store.select('ebook', 'sections').subscribe((val) => {
         this.sections = val;
+        if (this.isScrollUp) {
+          if (this.sections.length > 0) {
+            this.store.dispatch(
+              UserEbookActions.read({
+                ebookId: this.ebookId,
+                userEbook: {
+                  lastSection: this.sections[0].id,
+                },
+              }),
+            );
+          }
+        }
       }),
     );
   }
@@ -133,7 +145,8 @@ export class ReadingComponent implements OnInit, OnDestroy {
   }
 
   onScrollDown() {
-    //console.log('scrolled down!!');
+    // console.log('scrolled down!!');
+    this.isScrollUp = false;
 
     this.store.dispatch(
       UserEbookActions.read({
@@ -154,25 +167,19 @@ export class ReadingComponent implements OnInit, OnDestroy {
     );
   }
 
+  isScrollUp = false;
+
   onScrollUp() {
-    //console.log('scrolled up!!');
-    // this.store.dispatch(
-    //   UserEbookActions.read({
-    //     ebookId: this.ebookId,
-    //     userEbook: {
-    //       lastSection: this.sections[0].id,
-    //     },
-    //   }),
-    // );
-    // //console.log(this.sections[0].id);
-    // this.store.dispatch(
-    //   EBookActions.getById(
-    //     EBookActions.getById({
-    //       id: this.ebookId,
-    //       lastSection: this.sections[0].id,
-    //       isNext: false,
-    //     }),
-    //   ),
-    // );
+    // console.log('scrolled up!!');
+    this.isScrollUp = true;
+    this.store.dispatch(
+      EBookActions.getById(
+        EBookActions.getById({
+          id: this.ebookId,
+          lastSection: this.sections[0].id,
+          isNext: false,
+        }),
+      ),
+    );
   }
 }

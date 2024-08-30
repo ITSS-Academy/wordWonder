@@ -77,7 +77,7 @@ export class EbooksService {
     }
   }
 
-  async findOne(id: string, lastSection: number, isNext: boolean) {
+  async findOne(id: string, lastSection: number, isNext: string) {
     try {
       let result = await this.ebookRepository
         .createQueryBuilder('ebook')
@@ -90,8 +90,9 @@ export class EbooksService {
       }
 
       let sections = [];
+      console.log('isNext', isNext);
       //get the next to sections of the book
-      if (isNext) {
+      if (isNext == 'true') {
         sections = await this.sectionRepository
           .createQueryBuilder('section')
           .where('section.ebookId = :id', { id })
@@ -100,6 +101,7 @@ export class EbooksService {
           .take(10)
           .getMany();
       } else {
+        console.log('lastSection', lastSection);
         sections = await this.sectionRepository
           .createQueryBuilder('section')
           .where('section.ebookId = :id', { id })

@@ -39,7 +39,7 @@ export class EbooksController {
   async findOne(
     @Param('id') id: string,
     @Query('lastSection') lastSection: number,
-    @Query('isNext') isNext: boolean,
+    @Query('isNext') isNext: string,
   ) {
     return await this.ebooksService.findOne(id, lastSection, isNext);
   }

@@ -5,6 +5,7 @@
         mat-mini-fab
         aria-label="back icon"
         (click)="navigate('/main/book-info')"
+        matTooltip="Tải trước"
       >
         <mat-icon>arrow_back</mat-icon>
       </button>
@@ -12,8 +13,12 @@
   </div>
   <div class="flex-container">
     <div class="btn-menu">
-      <button mat-mini-fab aria-label="menu icon" [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
+      <button
+        mat-mini-fab
+        aria-label="arrow_upward icon"
+        (click)="onScrollUp()"
+      >
+        <mat-icon>arrow_upward</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button
@@ -57,10 +62,8 @@
       class="content"
       infiniteScroll
       [infiniteScrollDistance]="2"
-      [infiniteScrollUpDistance]="1.5"
       [infiniteScrollThrottle]="50"
       (scrolled)="onScrollDown()"
-      (scrolledUp)="onScrollUp()"
       [scrollWindow]="false"
     >
       <pre style="white-space: pre-line; word-wrap: break-word">
@@ -79,10 +82,10 @@
         <button
           id="menu-button"
           mat-mini-fab
-          aria-label="menu icon"
-          [matMenuTriggerFor]="menu"
+          aria-label="arrow_upward icon"
+          (click)="onScrollUp()"
         >
-          <mat-icon>menu</mat-icon>
+          <mat-icon>arrow_upward</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
           <button
