@@ -5,6 +5,7 @@
 #logo-with-text,
 #logo {
   cursor: pointer;
+  height: 100%;
 }
 
 #logo-with-text {
@@ -19,7 +20,6 @@
 
 #search-input {
   height: 50px;
-  width: 300px;
   margin-right: 15px;
 }
 
@@ -184,5 +184,17 @@
   }
   #logo {
     display: block;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  #search-input {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #search-input {
+    width: 150px;
   }
 }

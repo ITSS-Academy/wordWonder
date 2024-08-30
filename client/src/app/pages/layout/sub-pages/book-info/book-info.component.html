@@ -86,18 +86,28 @@
             </mat-chip-set>
           </div>
           <div class="button-row">
-            <button  mat-flat-button (click)="read()">Đọc</button>
-            <!--          <button mat-flat-button (click)="read()">Đọc tiếp</button>-->
-          </div>
-          <div class="button-row">
-            <button class="favorite" mat-flat-button (click)="addToFavorites()" [hidden]="isFavorite">
+            <button
+              class="favorite"
+              mat-flat-button
+              (click)="addToFavorites()"
+              [hidden]="isFavorite"
+            >
               <mat-icon>favorite</mat-icon>
               Yêu thích
             </button>
-            <button class="un-favorite" mat-flat-button (click)="removeFromFavorites()" [hidden]="!isFavorite">
+            <button
+              class="un-favorite"
+              mat-flat-button
+              (click)="removeFromFavorites()"
+              [hidden]="!isFavorite"
+            >
               <mat-icon>favorite_border</mat-icon>
               Bỏ yêu thích
             </button>
+          </div>
+          <div class="button-row">
+            <button mat-flat-button (click)="read()">Đọc</button>
+            <!--          <button mat-flat-button (click)="read()">Đọc tiếp</button>-->
           </div>
         </div>
       </div>

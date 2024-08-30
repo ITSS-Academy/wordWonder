@@ -146,6 +146,103 @@
   }
 }
 
+@media (max-width: 1024px) {
+  #login-container {
+    #login-box {
+      width: 50%;
+      min-width: 440px;
+      height: auto;
+      flex-direction: column;
+      padding: 10px;
+
+      #right {
+        width: 100%;
+        height: auto;
+      }
+
+      #left {
+        display: none;
+      }
+
+      #right {
+        .text-grp,
+          //.btn-grp,
+        #logo {
+          width: calc(100% - 20px);
+          padding: 10px;
+        }
+
+        #form {
+          flex-direction: column;
+
+          mat-form-field {
+            width: 100%;
+          }
+        }
+
+        .btn-grp {
+          flex-direction: column;
+          align-items: center;
+
+          button {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  #login-container {
+    #login-box {
+      flex-direction: column;
+      min-width: 300px;
+      padding: 10px;
+      height: auto;
+      width: calc(100% - 20px);
+
+
+      #right {
+        width: 100%;
+        height: auto;
+      }
+
+      #left {
+        display: none;
+      }
+
+      #right {
+        .text-grp,
+          //.btn-grp,
+        #logo {
+          width: calc(100% - 20px);
+          padding: 10px;
+        }
+
+        #form {
+          flex-direction: column;
+
+          mat-form-field {
+            width: 100%;
+          }
+        }
+
+        .btn-grp {
+          flex-direction: column;
+          align-items: center;
+
+          button {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
 //@media (max-width: 1325px) and (min-width: 320px) {
 //  #login-container {
 //    #login-box {
