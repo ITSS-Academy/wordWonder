@@ -3,7 +3,6 @@ import { SharedModule } from '../../../../../shared/modules/shared.module';
 import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import * as UploadActions from '../../../../../ngrxs/file-upload/file-upload.actions';
 import * as UserActions from '../../../../../ngrxs/user/user.actions'; // Add user actions
 import { Store } from '@ngrx/store';
@@ -104,6 +103,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this._snackBar.open('Cập nhật thông tin thành công', 'Close', {
             duration: 5000,
           });
+          this.store.dispatch(UserActions.getById());
         }
       }),
       this.store.select('user', 'updatingError').subscribe((error) => {

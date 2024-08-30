@@ -5,6 +5,7 @@ import { of, mergeMap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import * as EBookActions from './ebook.actions';
 import { EbookService } from '../../services/ebook.service';
+import { SectionModel } from '../../models/section.model';
 
 @Injectable()
 export class EbookEffects {
@@ -188,9 +189,14 @@ export class EbookEffects {
         this.ebookService.getEbookDetail(action.id, action.lastSection).pipe(
           map((response) => {
             console.log(response);
+            //sort the sections
+            let sections = response.sections;
+            sections.sort((a: SectionModel, b: SectionModel) => {
+              return a.id - b.id;
+            });
             return EBookActions.getByIdSuccess({
               ebook: response.ebook,
-              sections: response.sections,
+              sections: sections,
             });
           }),
           catchError((e) => {
