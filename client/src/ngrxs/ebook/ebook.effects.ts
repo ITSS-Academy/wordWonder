@@ -185,9 +185,12 @@ export class EbookEffects {
     this.actions$.pipe(
       ofType(EBookActions.getById),
       mergeMap((action) =>
-        this.ebookService.getEbookDetail(action.id).pipe(
-          map((ebook) => {
-            return EBookActions.getByIdSuccess({ ebook });
+        this.ebookService.getEbookDetail(action.id, action.lastSection).pipe(
+          map((response) => {
+            return EBookActions.getByIdSuccess({
+              ebook: response.ebook,
+              section: response.section,
+            });
           }),
           catchError((e) => {
             return of(

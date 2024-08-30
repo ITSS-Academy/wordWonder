@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { EBookModel } from '../../models/ebook.model';
+import { SectionModel } from '../../models/section.model';
 
 export const listAll = createAction('[Ebook] List All');
 export const listAllSuccess = createAction(
@@ -92,11 +93,11 @@ export const updateFailure = createAction(
 
 export const getById = createAction(
   '[Ebook] Get By Id',
-  props<{ id: string }>(),
+  props<{ id: string; lastSection: number }>(),
 );
 export const getByIdSuccess = createAction(
   '[Ebook] Get By Id Success',
-  props<{ ebook: EBookModel }>(),
+  props<{ ebook: EBookModel; section: SectionModel[] }>(),
 );
 export const getByIdFailure = createAction(
   '[Ebook] Get By Id Failure',

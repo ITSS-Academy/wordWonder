@@ -57,7 +57,9 @@ export class ReadingComponent implements OnInit, OnDestroy {
       combineLatest([this.idToken$, this.params$]).subscribe(
         ([idToken, params]) => {
           if (idToken != '' && params['id']) {
-            this.store.dispatch(EBookActions.getById({ id: params['id'] }));
+            this.store.dispatch(
+              EBookActions.getById({ id: params['id'], lastSection: -1 }),
+            );
             this.store.dispatch(EBookActions.view({ id: params['id'] }));
             this.store.dispatch(
               UserEbookActions.findByOne({ id: params['id'] }),

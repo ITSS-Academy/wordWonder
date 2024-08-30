@@ -14,8 +14,12 @@ export class EbookService {
   }
 
   //findOne
-  getEbookDetail(id: string) {
-    return this.http.get(`ebooks/one/${id}`);
+  getEbookDetail(id: string, lastSection: number) {
+    if (lastSection == 0) {
+      return this.http.get(`ebooks/one/${id}`);
+    } else {
+      return this.http.get(`ebooks/one/${id}?lastSection=${lastSection}`);
+    }
   }
 
   //add new book
