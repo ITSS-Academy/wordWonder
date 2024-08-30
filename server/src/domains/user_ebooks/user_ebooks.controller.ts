@@ -43,18 +43,18 @@ export class UserEbooksController {
     );
   }
 
-  // @Patch('')
-  // update(
-  //   @Request() req: any,
-  //   @Query('ebookId') ebookId: string,
-  //   @Body() updateUserEbookDto: UpdateUserEbookDto,
-  // ) {
-  //   return this.userEbooksService.update(
-  //     req.user.id || req.user.uid,
-  //     ebookId,
-  //     updateUserEbookDto,
-  //   );
-  // }
+  @Patch('read')
+  async read(
+    @Request() req: any,
+    @Query('ebookId') ebookId: string,
+    @Body() updateUserEbookDto: UpdateUserEbookDto,
+  ) {
+    return await this.userEbooksService.read(
+      ebookId,
+      req.user.id || req.user.uid,
+      updateUserEbookDto,
+    );
+  }
 
   @Public()
   @Delete('')

@@ -8,4 +8,5 @@ export interface UserEbookModel extends ProfileModel {
   purchaseDate: string;
   lastReadDate: string;
   isLiked: boolean;
+  lastSection: number;
 }

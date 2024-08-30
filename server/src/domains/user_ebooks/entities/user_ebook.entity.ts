@@ -51,4 +51,8 @@ export class UserEbook {
 
   @Column({ default: false })
   isLiked: boolean;
+
+  @Column({ default: 0 })
+  @Min(0)
+  lastSection: number;
 }
