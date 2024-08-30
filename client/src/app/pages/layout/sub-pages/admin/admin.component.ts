@@ -197,6 +197,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.store.dispatch(
           EbookActions.update({
             ebook: updatedEbook,
+            isUpdateContent: result.isUpdateContent,
           }),
         );
       }

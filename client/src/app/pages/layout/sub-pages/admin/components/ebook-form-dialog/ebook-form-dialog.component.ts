@@ -211,12 +211,13 @@ export class EbookFormDialogComponent implements OnInit, OnDestroy {
     );
   }
 
-  sendForm() {
+  sendForm(isUpdateContent: boolean) {
     if (this.isEditMode) {
       // console.log(eBookForm);
       return {
         ...this.data,
         ...this.ebookFormGroup.value,
+        isUpdateContent: isUpdateContent,
       };
     } else {
       return {

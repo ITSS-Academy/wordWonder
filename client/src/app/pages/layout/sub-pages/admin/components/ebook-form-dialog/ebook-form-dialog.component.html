@@ -183,9 +183,16 @@
   <button mat-button mat-dialog-close>Hủy</button>
   <button
     mat-flat-button
-    [mat-dialog-close]="sendForm()"
+    [mat-dialog-close]="sendForm(false)"
     [disabled]="ebookFormGroup.invalid"
   >
-    Xác nhận
+    Cập nhật
+  </button>
+  <button
+    mat-stroked-button
+    [mat-dialog-close]="sendForm(true)"
+    [disabled]="ebookFormGroup.invalid"
+  >
+    Cập nhật bỏ qua nội dung
   </button>
 </mat-dialog-actions>

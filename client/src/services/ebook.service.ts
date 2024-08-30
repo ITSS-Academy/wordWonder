@@ -24,8 +24,11 @@ export class EbookService {
   }
 
   //update book
-  updateEbook(ebook: EBookModel) {
-    return this.http.patch(`ebooks/one/${ebook.id}`, ebook);
+  updateEbook(ebook: EBookModel, isUpdateContent: boolean) {
+    return this.http.patch(
+      `ebooks/one/${ebook.id}?isUpdateContent=${isUpdateContent}`,
+      ebook,
+    );
   }
 
   //trend
