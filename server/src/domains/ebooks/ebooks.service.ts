@@ -104,7 +104,11 @@ export class EbooksService {
     }
   }
 
-  async update(id: string, updateEbookDto: UpdateEbookDto) {
+  async update(
+    id: string,
+    updateEbookDto: UpdateEbookDto,
+    isUpdateContent: boolean,
+  ) {
     let updateEbook = new Ebook();
     try {
       updateEbook = await this.ebookRepository.findOneBy({ id: id });
@@ -122,30 +126,32 @@ export class EbooksService {
       updateEbook.translator = updateEbookDto.translator;
       updateEbook.categories = categories;
 
-      // delete all sections
-      await this.ebookRepository
-        .createQueryBuilder('ebook')
-        .relation(Ebook, 'content')
-        .of(updateEbook)
-        .delete()
-        .execute();
-      // create new sections
+      if (isUpdateContent) {
+        // delete all sections
+        await this.ebookRepository
+          .createQueryBuilder('ebook')
+          .relation(Ebook, 'content')
+          .of(updateEbook)
+          .delete()
+          .execute();
+        // create new sections
 
-      let chunkSize = 2048;
-      let currentPos = 0;
-      while (
-        currentPos <=
-        Math.min(updateEbookDto.content.length, currentPos + chunkSize)
-      ) {
-        let section = new Section();
-        let endPos = Math.min(
-          updateEbookDto.content.length,
-          currentPos + chunkSize,
-        );
-        section.data = updateEbookDto.content.slice(currentPos, endPos);
-        section.ebook = updateEbook;
-        await this.sectionRepository.save(section);
-        currentPos += chunkSize;
+        let chunkSize = 2048;
+        let currentPos = 0;
+        while (
+          currentPos <=
+          Math.min(updateEbookDto.content.length, currentPos + chunkSize)
+        ) {
+          let section = new Section();
+          let endPos = Math.min(
+            updateEbookDto.content.length,
+            currentPos + chunkSize,
+          );
+          section.data = updateEbookDto.content.slice(currentPos, endPos);
+          section.ebook = updateEbook;
+          await this.sectionRepository.save(section);
+          currentPos += chunkSize;
+        }
       }
 
       await this.ebookRepository.save(updateEbook);

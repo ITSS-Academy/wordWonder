@@ -48,11 +48,12 @@ export class EbooksController {
     @Param('id') id: string,
     @Body() updateEbookDto: UpdateEbookDto,
     @Request() req: any,
+    @Query('isUpdateContent') isUpdateContent: boolean,
   ) {
     if (!req.user.role) {
       throw new HttpException('Permission denied', 403);
     }
-    return await this.ebooksService.update(id, updateEbookDto);
+    return await this.ebooksService.update(id, updateEbookDto, isUpdateContent);
   }
 
   @Delete(':id')
